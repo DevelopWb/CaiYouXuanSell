@@ -19,10 +19,8 @@ import com.juntai.wisdom.project.mall.base.BaseAppActivity;
 import com.juntai.wisdom.project.mall.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.mall.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.mall.home.HomeFragment;
-import com.juntai.wisdom.project.mall.live.LiveFragment;
 import com.juntai.wisdom.project.mall.mine.MyCenterFragment;
 import com.juntai.wisdom.project.mall.news.NewsListFragment;
-import com.juntai.wisdom.project.mall.shoppingCart.ShoppingCartFragment;
 import com.juntai.wisdom.project.mall.utils.UserInfoManagerMall;
 import com.juntai.wisdom.project.mall.webSocket.MyWsManager;
 import com.mob.MobSDK;
@@ -34,8 +32,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页", "直播", "消息", "购物车", "个人中心"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.live_index, R.drawable.notice_index, R.drawable.cart_index, R.drawable.mine_index};
+    private String[] title = new String[]{"首页", "消息", "个人中心"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index,  R.drawable.notice_index,  R.drawable.mine_index};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
 
@@ -63,10 +61,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
         mFragments.append(0, new HomeFragment());//
-        mFragments.append(1, new LiveFragment());//
-        mFragments.append(2, new NewsListFragment());//
-        mFragments.append(3, new ShoppingCartFragment());//
-        mFragments.append(4, new MyCenterFragment());//
+        mFragments.append(1, new NewsListFragment());//
+        mFragments.append(2, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);
         initTab();
     }
@@ -87,7 +83,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         for (int i = 0; i < title.length; i++) {
             TabLayout.Tab tab = mainTablayout.newTab();
             if (tab != null) {
-                if (i == 2) {
+                if (i == 1) {
                     tab.setCustomView(adapter.getTabView(i, true));
                 } else {
                     tab.setCustomView(adapter.getTabView(i, false));
@@ -109,11 +105,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (0==tab.getPosition()) {
-                    // : 2022/5/23 刷新首页列表
-                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_HOMEPAGE_COMMODITY_LIST, ""));
-
-                }
 
             }
         });

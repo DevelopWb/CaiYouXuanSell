@@ -74,16 +74,6 @@
             android:name=".order.allOrder.AllOrderActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".order.orderPay.PaySuccessActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".order.orderPay.OrderPayActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:theme="@android:style/Theme.Translucent" />
-        <activity
             android:name=".order.confirmOrder.ConfirmOrderActivity"
             android:launchMode="singleTask" />
         <activity
