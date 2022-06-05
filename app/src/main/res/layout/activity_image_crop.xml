@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.juntai.wisdom.project.mall.utils.cropbitmap.LikeQQCropView
+    <com.juntai.project.sell.mall.utils.cropbitmap.LikeQQCropView
         android:id="@+id/likeView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

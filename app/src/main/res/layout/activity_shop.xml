@@ -176,7 +176,7 @@
 
         <fragment
             android:id="@+id/shop_commodity_ft"
-            class="com.juntai.wisdom.project.mall.home.shop.ShopCommodityFragment"
+            class="com.juntai.project.sell.mall.home.shop.ShopCommodityFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

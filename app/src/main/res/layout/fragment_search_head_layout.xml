@@ -89,7 +89,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
-        <com.juntai.wisdom.project.mall.base.customview.flowlayout.TagFlowLayout
+        <com.juntai.project.sell.mall.base.customview.flowlayout.TagFlowLayout
             android:id="@+id/history_item_tfl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
             app:limit_line_count="3"
             app:max_select="1">
 
-        </com.juntai.wisdom.project.mall.base.customview.flowlayout.TagFlowLayout>
+        </com.juntai.project.sell.mall.base.customview.flowlayout.TagFlowLayout>
 
         <ImageView
             android:id="@+id/show_more_arrow_iv"

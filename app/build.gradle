@@ -11,7 +11,7 @@ def configs = rootProject.ext.android
 android {
     compileSdkVersion configs.compileSdkVersion
     defaultConfig {
-        applicationId "com.juntai.wisdom.project.mall"
+        applicationId "com.juntai.project.sell.mall"
         minSdkVersion configs.minSdkVersion
         targetSdkVersion configs.targetSdkVersion
         versionCode configs.versionCode
@@ -24,7 +24,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "菜优选-" + variant.versionCode + "-" + variant.versionName + ".apk"
+            outputFileName = "菜优选卖家版-" + variant.versionCode + "-" + variant.versionName + ".apk"
         }
     }
     signingConfigs {
@@ -91,7 +91,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':module_Chat')
-//    implementation project(':chatModule')
+//    implementation sell(':chatModule')
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
     implementation project(':jjdxm-ijkplayer')

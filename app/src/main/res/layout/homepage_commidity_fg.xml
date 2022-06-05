@@ -7,7 +7,7 @@
 
     <include layout="@layout/tab_with_edit_layout" />
 
-    <com.juntai.wisdom.project.mall.base.customview.CustomViewPager
+    <com.juntai.project.sell.mall.base.customview.CustomViewPager
         android:id="@+id/shop_viewpager"
         android:layout_width="match_parent"
         android:layout_marginLeft="5dp"

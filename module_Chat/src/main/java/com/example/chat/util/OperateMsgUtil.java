@@ -40,7 +40,7 @@ public class OperateMsgUtil {
         Intent intent = null;
 // Scheme协议（例如：pushscheme://com.huawei.codelabpush/deeplink?）需要您自定义
         intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("pushscheme://com.juntai.wisdom.mall.chatactivity/push?"));
+        intent.setData(Uri.parse("pushscheme://com.juntai.project.mall.chatactivity/push?"));
 
 
 // 往intent中添加参数，用户可以根据自己的需求添加参数
@@ -62,7 +62,7 @@ public class OperateMsgUtil {
         Intent intent = new Intent();
 // Scheme协议（例如：pushscheme://com.huawei.codelabpush/deeplink?）需要您自定义
         ComponentName componentName = null;
-        componentName = new ComponentName(BaseAppUtils.getFileprovider(), "com.juntai.wisdom.project.mall.news.ChatActivity");
+        componentName = new ComponentName(BaseAppUtils.getFileprovider(), "com.juntai.project.sell.mall.news.ChatActivity");
         intent.setComponent(componentName);//调用Intent的setComponent()方法实现传递
 
 // 往intent中添加参数，用户可以根据自己的需求添加参数

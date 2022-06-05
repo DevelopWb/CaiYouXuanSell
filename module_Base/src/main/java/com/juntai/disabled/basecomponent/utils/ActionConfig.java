@@ -13,7 +13,7 @@ public class ActionConfig {
     public final static String ACTION_LOCATION_LOOK = BaseApplication.app.getPackageName() + ".im.location.look";
     /**地图选择*/
     public final static String ACTION_LOCATION_SELTION = BaseApplication.app.getPackageName() + ".im.location.seltion";
-    //    com.juntai.wisdom.bdmap.act
+    //    com.juntai.project.bdmap.act
 
     /*=====================================广播==================================*/
     /**需要重新登录*/

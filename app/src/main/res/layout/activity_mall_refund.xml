@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/select_pic_fg"
-        class="com.juntai.wisdom.project.mall.base.selectPics.SelectPhotosFragment"
+        class="com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"

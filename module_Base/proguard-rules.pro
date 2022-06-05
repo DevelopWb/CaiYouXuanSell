@@ -1,11 +1,11 @@
-# Add project specific ProGuard rules here.
+# Add sell specific ProGuard rules here.
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
+# If your sell uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 #bean
--keep public class com.juntai.wisdom.basecomponent.base.BaseResult
+-keep public class project.basecomponent.base.BaseResult
 #---------------------------------2.第三方库---------------------------------
 #okhttp3
 -dontwarn com.squareup.okhttp3.**

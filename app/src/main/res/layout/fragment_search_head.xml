@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/fragment_serach_top"
         android:layout_marginTop="10dp"
-        class="com.juntai.wisdom.project.mall.search.HomeSearchHeadFragment"
+        class="com.juntai.project.sell.mall.search.HomeSearchHeadFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

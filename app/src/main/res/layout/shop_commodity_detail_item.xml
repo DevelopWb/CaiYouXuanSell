@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/base_webview_fg"
-        class="com.juntai.wisdom.project.mall.base.web.BaseWebviewFragment"
+        class="com.juntai.project.sell.mall.base.web.BaseWebviewFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">

@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/home_commodity_child_fragment_fg"
         android:layout_marginTop="5dp"
-        class="com.juntai.wisdom.project.mall.home.commodityfragment.CommodityFragment"
+        class="com.juntai.project.sell.mall.home.commodityfragment.CommodityFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

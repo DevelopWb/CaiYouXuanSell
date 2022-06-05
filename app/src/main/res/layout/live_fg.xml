@@ -14,7 +14,7 @@
 <!--    <fragment-->
 <!--        android:id="@+id/commodity_live_fg"-->
 <!--        android:layout_marginTop="5dp"-->
-<!--        class="com.juntai.wisdom.project.mall.live.CommodityLiveFragment"-->
+<!--        class="sellll.live.CommodityLiveFragment"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent" />-->
 

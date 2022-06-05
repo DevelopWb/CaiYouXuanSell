@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.juntai.wisdom.dgjxb", appContext.getPackageName());
+        assertEquals("com.juntai.project.dgjxb", appContext.getPackageName());
     }
 }
