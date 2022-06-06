@@ -166,7 +166,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
                             .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
                             .add("mobileName", RomUtil.getName())
-                            .add("regId", Hawk.get(HawkProperty.DEV_REGID))
+                            .add("regId", HawkProperty.getRegid())
 
                             .add("password", MD5.md5(String.format("%s#%s", account, password)))
                             .build(), AppHttpPathMall.LOGIN);
@@ -174,7 +174,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     mPresenter.login(new FormBody.Builder().add("phoneNumber", account)
                             .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
                             .add("mobileName", RomUtil.getName())
-                            .add("regId", Hawk.get(HawkProperty.DEV_REGID))
+                            .add("regId", HawkProperty.getRegid())
                             .add("code", password)
                             .build(), AppHttpPathMall.LOGIN);
                 }

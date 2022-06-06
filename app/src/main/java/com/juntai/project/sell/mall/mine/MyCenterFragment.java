@@ -3,31 +3,37 @@ package com.juntai.project.sell.mall.mine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
+import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.project.sell.mall.AppHttpPathMall;
+import com.juntai.project.sell.mall.AppHttpPathMallMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.beans.PicTextBean;
-import com.juntai.project.sell.mall.beans.UserBeanMall;
-import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
-import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
-import com.juntai.project.sell.mall.mine.collect.CollectCommoditiesActivity;
-import com.juntai.project.sell.mall.mine.collect.CollectShopesActivity;
+import com.juntai.project.sell.mall.entrance.LoginActivity;
+import com.juntai.project.sell.mall.mine.modifyPwd.ModifyPwdActivity;
 import com.juntai.project.sell.mall.mine.setting.MyInformationActivity;
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.List;
 
 /**
  * @aouther tobato
@@ -38,29 +44,21 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     MyMenuAdapter myMenuAdapter;
 
+    private TextView mStatusTopTitle;
     private ImageView mHeadImage;
     private TextView mNickname;
+    /**
+     * 18763739973
+     */
+    private TextView mInfoDesTv;
+    private RecyclerView mMenuRecycler;
     /**
      * 退出账号
      */
     private TextView mLoginOut;
-    private View view;
-    private ImageView mSetIv;
-    /**
-     * tobato
-     */
-    private TextView mDesTv;
-    private RecyclerView mCollectRv;
-    /**
-     * 全部
-     */
-    private TextView mAllOrdersTv;
-    private RecyclerView mOrderManagerRv;
-    /**
-     * 退出登录
-     */
-    private TextView mLoginOutTv;
-    private PicTextAdapter orderMenuAdapter;
+    private AlertDialog dialog;
+    private String headUrl = "";
+    private ConstraintLayout mBaseInfoCl;
 
     @Override
     protected int getLayoutRes() {
@@ -69,86 +67,71 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     protected void initView() {
-        mHeadImage = getView(R.id.headImage_iv);
-        mHeadImage.setOnClickListener(this);
-        ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
-        mNickname = getView(R.id.nickname_tv);
-        mNickname.setText(UserInfoManagerMall.getUserNickName());
-        mLoginOut = getView(R.id.login_out_tv);
+        mStatusTopTitle = getView(R.id.status_top_title);
+        mHeadImage = getView(R.id.headImage);
+        mBaseInfoCl = getView(R.id.head_cl);
+        mBaseInfoCl.setOnClickListener(this);
+        mNickname = getView(R.id.nickname);
+        mNickname.setAlpha(0.3f);
+        mInfoDesTv = getView(R.id.info_des_tv);
+
+        mMenuRecycler = getView(R.id.menu_recycler);
+        mLoginOut = getView(R.id.login_out);
         mLoginOut.setOnClickListener(this);
-        mSetIv = (ImageView) getView(R.id.set_iv);
-        mSetIv.setOnClickListener(this);
-        mDesTv = (TextView) getView(R.id.des_tv);
-        mDesTv.setText(String.format("账号:%s", UserInfoManagerMall.getAccount()));
-        mCollectRv = (RecyclerView) getView(R.id.collect_rv);
-        mAllOrdersTv = (TextView) getView(R.id.all_orders_tv);
-        mAllOrdersTv.setOnClickListener(this);
-        mOrderManagerRv = (RecyclerView) getView(R.id.order_manager_rv);
-        mLoginOutTv = (TextView) getView(R.id.login_out_tv);
-        mLoginOutTv.setOnClickListener(this);
-        PicTextAdapter topMenuAdapter = new PicTextAdapter(R.layout.custom_tabitem);
-        orderMenuAdapter = new PicTextAdapter(R.layout.my_center_order_menu);
-        GridLayoutManager topManager = new GridLayoutManager(mContext, 3);
-        mCollectRv.setLayoutManager(topManager);
-        mCollectRv.setAdapter(topMenuAdapter);
-        GridLayoutManager orderManager = new GridLayoutManager(mContext, 4);
-        mOrderManagerRv.setLayoutManager(orderManager);
-        mOrderManagerRv.setAdapter(orderMenuAdapter);
-        topMenuAdapter.setNewData(mPresenter.getMyCenterTopMenus());
-        orderMenuAdapter.setNewData(mPresenter.getMyCenterOrderMenus());
-        topMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        myMenuAdapter = new MyMenuAdapter(mPresenter.getMenuBeans());
+        getBaseActivity().initRecyclerview(mMenuRecycler, myMenuAdapter, LinearLayoutManager.VERTICAL);
+        mStatusTopTitle.setText("个人中心");
+
+        myMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
-                switch (picTextBean.getTextName()) {
-                    case MyCenterContract.TOP_MENU_COLLECT_COMMODITY:
-                        // : 2022/5/6 商品收藏
-                        startActivity(new Intent(mContext, CollectCommoditiesActivity.class));
+                MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
+                switch (multipleItem.getItemType()) {
+                    case MultipleItem.ITEM_MENUS:
+                        MyMenuBean myMenuBean = (MyMenuBean) multipleItem.getObject();
+                        switch (myMenuBean.getTag()) {
+                            case MyCenterContract.MODIFY_PWD:
+                                startActivity(new Intent(mContext, ModifyPwdActivity.class));
+                                break;
 
-                        break;
-                    case MyCenterContract.TOP_MENU_COLLECT_SHOP:
-                        // : 2022/5/6 店铺收藏
-                        startActivity(new Intent(mContext, CollectShopesActivity.class));
+                            case MyCenterContract.SET_ABOUT_TAG:
+                                // 关于我们
+                                startActivity(new Intent(mContext, AboutActivity.class));
+                                break;
+                            case MyCenterContract.SET_CLEAR_TAG:
+                                // 清理缓存
+                                getBaseActivity().setAlertDialogHeightWidth(DialogUtil.getMessageDialog(mContext, "将清理掉应用本地的图片和视频缓存文件",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                RxScheduler.doTask(getBaseAppActivity(), new RxTask<String>() {
+                                                    @Override
+                                                    public String doOnIoThread() {
+                                                        FileCacheUtils.clearAll(mContext.getApplicationContext());
+                                                        return "清理成功";
+                                                    }
 
+                                                    @Override
+                                                    public void doOnUIThread(String s) {
+                                                        ToastUtils.success(mContext.getApplicationContext(), s);
+                                                    }
+                                                });
+                                            }
+                                        }).show(), -1, 0);
+                                break;
+                            case MyCenterContract.SET_UPDATE_TAG:
+                                //检查更新
+                                getBaseAppActivity().update(true);
+                                break;
+                            case MyCenterContract.MENU_NEWS:
+                                //我的消息
+//                                startActivity(new Intent(mContext, MyMessageActivity.class));
+                                break;
+                            default:
+                                break;
+                        }
                         break;
-                    case MyCenterContract.TOP_MENU_ADDR_MANAGER:
-                        // : 2022/5/6 收货地址
-                        getBaseAppActivity().startToAddressListActivity(0);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-        orderMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
-                switch (picTextBean.getTextName()) {
-                    case MyCenterContract.ORDER_TO_PAY:
-                        // : 2022/5/6 待付款
-                        getBaseAppActivity().startToAllOrderActivity(1, 1);
 
-                        break;
-                    case MyCenterContract.ORDER_TO_SEND:
-                        // : 2022/5/6 待发货
-                        getBaseAppActivity().startToAllOrderActivity(1, 2);
-
-                        break;
-                    case MyCenterContract.ORDER_TO_RECEIVE:
-                        // : 2022/5/6 待收货
-                        getBaseAppActivity().startToAllOrderActivity(1, 3);
-
-                        break;
-                    case MyCenterContract.ORDER_TO_EVALUATE:
-                        // : 2022/5/6 待评价
-                        getBaseAppActivity().startToAllOrderActivity(1, 4);
-
-                        break;
-                    case MyCenterContract.ORDER_TO_BACK:
-                        // : 2022/5/6 退货售后
-                        getBaseAppActivity().startToAllOrderActivity(1, 5);
-                        break;
                     default:
                         break;
                 }
@@ -169,19 +152,15 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoManagerMall.isLogin()) {
-            mLoginOut.setVisibility(View.VISIBLE);
-            mPresenter.getOrderStatusAmount(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.ORDER_STATUS_AMOUNT);
-            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(),AppHttpPathMall.GET_USER_INFO);
-        } else {
-            mLoginOut.setVisibility(View.GONE);
-        }
+        mPresenter.getMyMsgUnread(getBaseBuilder().build(), AppHttpPathMall.MY_NEWS_UNREAD);
     }
 
-
     @Override
-    protected void lazyloadGone() {
-
+    protected void lazyLoad() {
+        if (UserInfoManager.isLogin()) {
+            //  获取用户基本信息的接口
+            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.USER_INFO);
+        }
     }
 
     @Override
@@ -192,79 +171,103 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onClick(View v) {
-        if (!UserInfoManagerMall.isLogin()) {
-//            MyChatApp.goLogin();
+        if (!UserInfoManager.isLogin()) {
             return;
         }
         switch (v.getId()) {
-            case R.id.login_out_tv:
+            case R.id.login_out:
                 //退出登录
-                DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
+                dialog = getBaseActivity().setAlertDialogHeightWidth(DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        // : 2022/5/16 调用退出登录的接口
+                        //  调用退出登录接口
                         mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
 
                     }
-                }).show();
+                }).show(), -1, 0);
                 break;
-            case R.id.set_iv:
-                startActivity(new Intent(mContext, MyInformationActivity.class));
+
+            case R.id.head_cl:
+                //基本信息
+
+                if (UserInfoManager.getAccountStatus() == 1) {
+                    ToastUtils.toast(mContext, "待审核,请耐心等待");
+                } else if (UserInfoManager.getAccountStatus() == 2) {
+                    //审核成功
+                    //  跳转到用户详情页面
+                    startActivityForResult(new Intent(mContext, MyInformationActivity.class), BaseActivity.BASE_REQUEST_RESULT);
+                } else {
+                    //跳转到补充资料的界面
+                    startActivityForResult(new Intent(mContext, AddInformationActivity.class), BaseActivity.BASE_REQUEST_RESULT);
+                }
 
                 break;
-            case R.id.all_orders_tv:
-                // : 2022/5/12 所有订单
-                getBaseAppActivity().startToAllOrderActivity(1, 0);
+
+            default:
                 break;
         }
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == BaseActivity.BASE_REQUEST_RESULT) {
+            lazyLoad();
+        }
+
+    }
+
+    @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case AppHttpPathMall.ORDER_STATUS_AMOUNT:
-                OrderStatusAmountBean statusAmountBean = (OrderStatusAmountBean) o;
-                if (statusAmountBean != null) {
-                    OrderStatusAmountBean.DataBean dataBean = statusAmountBean.getData();
-                    if (dataBean != null) {
-                        List<PicTextBean> picTextBeans = orderMenuAdapter.getData();
-                        for (PicTextBean picTextBean : picTextBeans) {
-                            switch (picTextBean.getTextName()) {
-                                case MyCenterContract.ORDER_TO_PAY:
-                                    picTextBean.setUnReadAmount(dataBean.getWaitOrder());
-                                    break;
-                                case MyCenterContract.ORDER_TO_SEND:
-                                    picTextBean.setUnReadAmount(dataBean.getShipmentsOrder());
-                                    break;
-                                case MyCenterContract.ORDER_TO_RECEIVE:
-                                    picTextBean.setUnReadAmount(dataBean.getReceivingOrder());
-                                    break;
-                                case MyCenterContract.ORDER_TO_EVALUATE:
-                                    picTextBean.setUnReadAmount(dataBean.getEvaluateOrder());
-                                    break;
-                                case MyCenterContract.ORDER_TO_BACK:
-                                    picTextBean.setUnReadAmount(dataBean.getAfterOrder());
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        orderMenuAdapter.notifyDataSetChanged();
-                    }
-                }
-                break;
             case AppHttpPathMall.LOGOUT:
-                getBaseAppActivity().reLogin(UserInfoManagerMall.getPhoneNumber());
+                dialog.dismiss();
+                ToastUtils.success(mContext, "退出成功");
+                Hawk.delete(HawkProperty.LOGIN_KEY);
+                Hawk.delete(HawkProperty.TOKEN_KEY);
+                startActivity(new Intent(mContext, LoginActivity.class));
 
                 break;
-            case AppHttpPathMall.GET_USER_INFO:
-                UserBeanMall loginBean = (UserBeanMall) o;
-                if (loginBean != null) {
-                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
-                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
-                    mNickname.setText(UserInfoManagerMall.getUserNickName());
+            case AppHttpPathMall.MY_NEWS_UNREAD:
+                BaseResult result = (BaseResult) o;
+                if (result != null) {
+                    if (!TextUtils.isEmpty(result.message)) {
+                        MultipleItem  multipleItem = myMenuAdapter.getData().get(1);
+                        MyMenuBean  myMenuBean = (MyMenuBean) multipleItem.getObject();
+                        myMenuBean.setNumber(Integer.parseInt(result.message));
+                        myMenuAdapter.notifyItemChanged(1);
+                    }
                 }
+
+                break;
+            case AppHttpPathMall.USER_INFO:
+                UserBean userBean = (UserBean) o;
+                UserBean.DataBean dataBean = userBean.getData();
+                if (dataBean != null) {
+                    mNickname.setText(dataBean.getNickname());
+                    mNickname.setAlpha(0.8f);
+                    switch (dataBean.getState()) {
+                        case 1:
+                            mInfoDesTv.setTextColor(ContextCompat.getColor(mContext, R.color.textColorPrimary));
+                            mInfoDesTv.setText("待审核");
+                            break;
+                        case 2:
+                            mInfoDesTv.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+                            mInfoDesTv.setText(UserInfoManager.getUserDetailInfoWithoutName());
+                            break;
+                        default:
+                            mInfoDesTv.setTextColor(ContextCompat.getColor(mContext, R.color.textColorPrimary));
+                            mInfoDesTv.setText("待补充信息");
+                            break;
+                    }
+                    if (!headUrl.equals(userBean.getData().getHeadPortrait())) {
+                        headUrl = userBean.getData().getHeadPortrait();
+                        ImageLoadUtil.loadCirImgNoCrash(mContext.getApplicationContext(),
+                                UrlFormatUtil.getImageOriginalUrl(headUrl), mHeadImage,
+                                R.mipmap.default_user_head_icon, R.mipmap.default_user_head_icon);
+                    }
+                    Hawk.put(HawkProperty.LOGIN_KEY, userBean);
+                }
+
                 break;
             default:
                 break;
@@ -273,7 +276,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onError(String tag, Object o) {
-        ToastUtils.toast(mContext, String.valueOf(o));
+        ToastUtils.error(mContext, String.valueOf(o));
     }
 
 
@@ -281,10 +284,4 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     public void onDestroyView() {
         super.onDestroyView();
     }
-
-    @Override
-    protected boolean canCancelLoadingDialog() {
-        return false;
-    }
-
 }

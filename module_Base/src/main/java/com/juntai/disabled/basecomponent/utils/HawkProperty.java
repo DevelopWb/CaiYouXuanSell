@@ -30,7 +30,12 @@ public class HawkProperty {
      * 所有联系人
      */
     public static String All_CONTACT = "All_CONTACT";
-
+    public static String getRegid() {
+        if (Hawk.contains(HawkProperty.DEV_REGID)) {
+            return Hawk.get(HawkProperty.DEV_REGID);
+        }
+        return "";
+    }
 
     /**
      * 获取商铺的key

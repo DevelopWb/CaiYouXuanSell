@@ -28,7 +28,7 @@ public class AppHttpPathMall {
     /**
      * 登录
      */
-    public static final String LOGIN = BASE + "/member/buyersLogin";
+    public static final String LOGIN = BASE + "/member/sellerLogin";
     /**
      * 登录
      */

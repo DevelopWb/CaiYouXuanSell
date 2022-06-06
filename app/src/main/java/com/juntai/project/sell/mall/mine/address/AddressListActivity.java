@@ -16,7 +16,6 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
-import com.juntai.project.sell.mall.order.confirmOrder.ConfirmOrderActivity;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -80,11 +79,11 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (1==type) {
-                    AddressListBean.DataBean dataBean = (AddressListBean.DataBean) adapter.getItem(position);
-                    setResult(BASE_RSULT, new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE,dataBean));
-                    finish();
-                }
+//                if (1==type) {
+//                    AddressListBean.DataBean dataBean = (AddressListBean.DataBean) adapter.getItem(position);
+//                    setResult(BASE_RSULT, new Intent(mContext, ConfirmOrderActivity.class).putExtra(BASE_PARCELABLE,dataBean));
+//                    finish();
+//                }
 
             }
         });

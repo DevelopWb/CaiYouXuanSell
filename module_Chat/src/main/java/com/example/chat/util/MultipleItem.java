@@ -16,6 +16,8 @@ public class MultipleItem implements MultiItemEntity {
 
 
     public static final int ITEM_DIVIDER = 1;//  divider
+    public static final int ITEM_MENUS = 31;//  菜单
+
     public static final int ITEM_TITLE = 1001;//  divider
     public static final int ITEM_MYCENTER_MENUS = 2;//  菜单
     public static final int ITEM_PIC_TEXT_MENUS = 3;//
