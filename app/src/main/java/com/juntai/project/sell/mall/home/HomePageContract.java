@@ -60,6 +60,27 @@ public interface HomePageContract {
 
 
 
+    String  SHOP_FLOW_ORDER  = "今日订单量";
+    String  SHOP_FLOW_BUSINESS  = "今日营业额";
+    String  SHOP_FLOW_VISIT  = "今日访问量";
+
+    String  SHOP_MANAGER_COMMODITY  = "商品管理";
+    String  SHOP_MANAGER_ORDER  = "订单管理";
+    String  SHOP_MANAGER_LIVE  = "直播";
+    String  SHOP_MANAGER_ASSENT  = "收入资产";
+    String  SHOP_MANAGER_FURNISH  = "店铺装修";
+    String  SHOP_MANAGER_SHOP  = "店铺管理";
+    String  SHOP_MANAGER_GUIDE  = "新手教程";
+
+
+
+    String  COMMODITY_MANAGER_CATEGORY  = "商品类目管理";
+    String  COMMODITY_MANAGER_TOTAL  = "商品管理";
+
+
+
+
+
 
     interface IHomePageView extends IView {
 

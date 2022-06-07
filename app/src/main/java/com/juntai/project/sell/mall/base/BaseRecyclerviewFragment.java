@@ -71,7 +71,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
     }
 
     @Override
-    public void initData() {
+    protected void initData() {
 
     }
 

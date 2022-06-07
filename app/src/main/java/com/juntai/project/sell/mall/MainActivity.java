@@ -18,7 +18,7 @@ import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.base.customview.CustomViewPager;
 import com.juntai.project.sell.mall.base.customview.MainPagerAdapter;
-import com.juntai.project.sell.mall.home.HomeFragment;
+import com.juntai.project.sell.mall.home.HomeShopFragment;
 import com.juntai.project.sell.mall.mine.MyCenterFragment;
 import com.juntai.project.sell.mall.news.NewsListFragment;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -60,7 +60,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
         mainTablayout = findViewById(R.id.main_tablayout);
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
-        mFragments.append(0, new HomeFragment());//
+        mFragments.append(0, new HomeShopFragment());//
         mFragments.append(1, new NewsListFragment());//
         mFragments.append(2, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);

@@ -15,9 +15,18 @@ public class PicTextBean {
     public final static String  PAY_TYPE_PUB_ACCOUNT = "公户";
 
     private  int picRes;
+    private  int picbg;
     private String  textName;
+    private String  textNameEn;
     private  int unReadAmount;
     private boolean  isSelect;
+
+    public PicTextBean(int picRes, int picbg, String textName, String textNameEn) {
+        this.picRes = picRes;
+        this.picbg = picbg;
+        this.textName = textName;
+        this.textNameEn = textNameEn;
+    }
 
     public int getUnReadAmount() {
         return unReadAmount;
@@ -36,6 +45,22 @@ public class PicTextBean {
         this.picRes = picRes;
         this.textName = textName;
         this.isSelect = isSelect;
+    }
+
+    public int getPicbg() {
+        return picbg;
+    }
+
+    public void setPicbg(int picbg) {
+        this.picbg = picbg;
+    }
+
+    public String getTextNameEn() {
+        return textNameEn == null ? "" : textNameEn;
+    }
+
+    public void setTextNameEn(String textNameEn) {
+        this.textNameEn = textNameEn == null ? "" : textNameEn;
     }
 
     public boolean isSelect() {

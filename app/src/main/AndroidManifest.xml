@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.juntai.project.sell.mall.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:appComponentFactory="@string/app_name"
         android:icon="@mipmap/app_icon"
@@ -30,21 +30,23 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name="com.juntai.project.sell.mall.home.shop.SearchShopCommodityActivity"></activity>
+        <activity android:name=".home.live.LivePrepareActivity"></activity>
+        <activity android:name=".home.commodityManager.CommodityManagerActivity" />
+        <activity android:name=".home.shop.SearchShopCommodityActivity" />
         <activity
-            android:name="com.juntai.project.sell.mall.share.ShareActivity"
+            android:name=".share.ShareActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.search.SearchActivity"
-            android:launchMode="singleTop" />
-
-        <activity android:name=".mine.verified.VerifiedActivity"
-            android:launchMode="singleTop"/>
-        <activity
-            android:name="com.juntai.project.sell.mall.mine.myinfo.ModifyNickNameActivity"
+            android:name=".search.SearchActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.news.ChatActivity"
+            android:name=".mine.verified.VerifiedActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".mine.myinfo.ModifyNickNameActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".news.ChatActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -59,54 +61,54 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.juntai.project.sell.mall.order.refund.RefundRequestActivity"
+            android:name=".order.refund.RefundRequestActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.order.refund.RefundActivity"
+            android:name=".order.refund.RefundActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity"
+            android:name=".base.displayPicVideo.PicVideoDisplayActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.order.evaluate.EvaluateActivity"
+            android:name=".order.evaluate.EvaluateActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity"
+            android:name=".order.orderDetail.OrderDetailActivity"
             android:exported="false" />
         <activity
-            android:name="com.juntai.project.sell.mall.order.allOrder.AllOrderActivity"
+            android:name=".order.allOrder.AllOrderActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.juntai.project.sell.mall.order.confirmOrder.ConfirmOrderActivity"
+            android:name=".order.confirmOrder.ConfirmOrderActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.juntai.project.sell.mall.mine.collect.CollectShopesActivity"
+            android:name=".mine.collect.CollectShopesActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.mine.collect.CollectCommoditiesActivity"
+            android:name=".mine.collect.CollectCommoditiesActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.mine.modifyPwd.BackPwdActivity"
+            android:name=".mine.modifyPwd.BackPwdActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.home.shop.ShopActivity"
+            android:name=".home.shop.ShopActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity"
+            android:name=".home.commodityfragment.commodity_detail.CommodityDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.entrance.RegistActivity"
+            android:name=".entrance.RegistActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.home.QRScanActivity"
+            android:name=".home.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.entrance.LoginActivity"
+            android:name=".entrance.LoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.juntai.project.sell.mall.mine.address.AddressListActivity" />
-        <activity android:name="com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity" />
+        <activity android:name=".mine.address.AddressListActivity" />
+        <activity android:name=".mine.address.AddOrEditAddressActivity" />
         <activity
-            android:name="com.juntai.project.sell.mall.entrance.SplashActivity"
+            android:name=".entrance.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -115,38 +117,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.juntai.project.sell.mall.home.map.weather.WeatherActivity"
+            android:name=".home.map.weather.WeatherActivity"
             android:launchMode="singleTop" /> <!-- 适配华为（huawei）刘海屏 -->
-        <activity android:name="com.juntai.project.sell.mall.home.map.weather.SelectLocationForWeatherActivity" /> <!-- 适配小米（xiaomi）刘海屏 -->
+        <activity android:name=".home.map.weather.SelectLocationForWeatherActivity" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <activity
-            android:name="com.juntai.project.sell.mall.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" /> <!-- 百度地图 -->
         <!-- Ma - debug-Release-key : A2hxzsrCO3VOXGXBzVjP3zKKYBsNhi1A -->
         <activity
-            android:name="com.juntai.project.sell.mall.mine.AboutActivity"
+            android:name=".mine.AboutActivity"
             android:launchMode="singleTop" /> <!-- 百度地图 -->
         <!--  -->
         <activity
-            android:name="com.juntai.project.sell.mall.mine.myinfo.ImageCropActivity"
+            android:name=".mine.myinfo.ImageCropActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.home.shop.ijkplayer.PlayerLiveActivity"
+            android:name=".home.shop.ijkplayer.PlayerLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity"
+            android:name=".mine.myinfo.HeadCropActivity"
             android:launchMode="singleTop" />
 
-        <service android:name="com.juntai.project.sell.mall.home.shop.ijkplayer.KeepAliveService" />
+        <service android:name=".home.shop.ijkplayer.KeepAliveService" />
 
         <activity
-            android:name="com.juntai.project.sell.mall.mine.setting.MyInformationActivity"
+            android:name=".mine.setting.MyInformationActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.project.sell.mall.mine.modifyPwd.ModifyPwdActivity"
+            android:name=".mine.modifyPwd.ModifyPwdActivity"
             android:launchMode="singleTop" /> <!-- 关于 -->
         <meta-data
             android:name="android.max_aspect"
@@ -163,7 +165,7 @@
             android:value="z6hHCFoqFUYW9rT67MmaFcIUOY7fhPxw" />
 
         <provider
-            android:name="com.juntai.project.sell.mall.utils.MyFileProvider"
+            android:name=".utils.MyFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
