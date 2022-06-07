@@ -234,7 +234,11 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.COMMIT_SUGGESTION)
     Observable<BaseResult> commitSuggestion(@Body RequestBody requestBody);
-
+    /**
+     * 用户认证
+     */
+    @POST(AppHttpPathMall.USER_AUTH)
+    Observable<BaseResult> userAuth(@Body RequestBody jsonBody);
     /**
      * 修改用户信息
      *

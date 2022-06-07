@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name_tag_tv"
+        style="@style/item_title_style"
+        android:text="真实姓名"
+        android:textSize="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/name_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="请填写真实姓名"
+        android:maxLength="11"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/name_tag_tv"
+        app:layout_constraintLeft_toRightOf="@+id/name_tag_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name_tag_tv" />
+
+    <View
+        android:id="@+id/id_card_divider_tag"
+        style="@style/divider_style"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_tag_tv"></View>
+
+    <TextView
+        android:id="@+id/id_card_tag_tv"
+        style="@style/item_title_style"
+        android:text="身份证号"
+        android:textSize="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_card_divider_tag" />
+
+    <EditText
+        android:id="@+id/id_card_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:digits="0123456789xyzXYZ"
+        android:hint="请填写身份证号"
+        android:inputType="number"
+        android:maxLength="18"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/id_card_tag_tv"
+        app:layout_constraintLeft_toRightOf="@+id/id_card_tag_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/id_card_tag_tv" />
+    <View
+        style="@style/divider_style"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_card_tag_tv"></View>
+</android.support.constraint.ConstraintLayout>

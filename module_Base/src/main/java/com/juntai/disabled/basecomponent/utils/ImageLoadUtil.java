@@ -73,7 +73,16 @@ public class ImageLoadUtil {
     public static void loadImage(Context context, int recouse, ImageView view) {
         Glide.with(context).load(recouse).into(view);
     }
-
+    /**
+     * @param context
+     * @param url
+     * @param error
+     * @param placeholder
+     * @param view
+     */
+    public static void loadImage(Context context, String url, int error, int placeholder, ImageView view) {
+        Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).apply(new RequestOptions().error(error).placeholder(placeholder)).into(view);
+    }
     /**
      * 加载图片
      */

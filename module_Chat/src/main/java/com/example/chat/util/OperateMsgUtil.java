@@ -114,7 +114,7 @@ public class OperateMsgUtil {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("token", UserInfoManagerChat.getUserToken())
                 .addFormDataPart("account", UserInfoManagerChat.getAccount())
-                .addFormDataPart("typeEnd", "app_buy")
+                .addFormDataPart("typeEnd", "app_seller")
                 .addFormDataPart("userId", String.valueOf(UserInfoManagerChat.getUserId()))
                 .addFormDataPart("type", "1")
                 .addFormDataPart("fromUserId", String.valueOf(messageBodyBean.getFromUserId()))

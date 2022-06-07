@@ -17,6 +17,7 @@ public interface MyCenterContract {
     String SET_CLEAR_TAG ="setClearTag";
     //设置相关
     String MODIFY_PWD = "setUpdatePsdTag";
+    String VERIFIED = "实名认证";
     String SET_UPDATE_TEL_TAG = "setUpdateTelTag";
     String SET_WEIXIN_TAG ="setWeiXinTag";
     String SET_QQ_TAG = "setQQTag";

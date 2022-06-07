@@ -32,7 +32,26 @@ import okhttp3.RequestBody;
  */
 public abstract class BaseAppPresent<M extends IModel, V extends IView> extends BasePresenter<M, V> {
 
+    public void userAuth(String tag, RequestBody requestBody) {
+        AppNetModuleMall.createrRetrofit()
+                .userAuth(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
 
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
         /*====================================================    商城   ==============================================================*/
         public void creatOrderCart(RequestBody requestBody, String tag) {
             AppNetModuleMall.createrRetrofit()

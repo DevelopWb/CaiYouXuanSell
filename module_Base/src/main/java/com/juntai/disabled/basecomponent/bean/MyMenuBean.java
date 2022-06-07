@@ -9,7 +9,10 @@ public class MyMenuBean implements Serializable {
     private String tag;
     //分割线
     private boolean hasEndLine;
-
+    public MyMenuBean(String name, int imageId) {
+        this.name = name;
+        this.imageId = imageId;
+    }
     public MyMenuBean(String name, int number, int imageId, String tag, boolean hasEndLine) {
         this.name = name;
         this.number = number;

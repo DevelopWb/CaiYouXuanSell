@@ -6,6 +6,7 @@
     <string name="user_xieyi_url">https://www.kb167.com/yinsi/zhcl-user.html</string>
     <string name="protocal_notice1">我已阅读并同意《隐私协议》</string>
     <string name="protocal_notice2">和《用户协议》</string>
+    <string name="call_to_police_notice">警方提示:请放心填写,我们不会随意泄漏您的信息！</string>
 
     <string name="warn_mofify_name">好名字可以让你的朋友更容易记住你</string>
 
@@ -23,5 +24,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="id_card_notice">手持身份证照片（要求：必须看清身份证号码, 露出头部和手肘）</string>
+    <string name="verified_success">提交成功！\n  我们需要人工审核, 最长1-3个工作日\n如遇紧急事情，请及时拨打110！</string>
 
 </resources>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/verified_notice_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/call_to_police_notice"
+        android:textColor="@color/red"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/recycleview_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/verified_notice_tv"
+        app:layout_constraintBottom_toTopOf="@+id/verified_confirm_tv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <!--    <android.support.v4.widget.NestedScrollView-->
+    <!--        android:id="@+id/smartrefreshlayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:paddingBottom="15dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/verified_confirm_tv"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/verified_notice_tv">-->
+
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:paddingLeft="20dp"-->
+    <!--            android:paddingRight="20dp">-->
+
+    <!--            <android.support.constraint.ConstraintLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:background="@drawable/stroke_gray_square_bg"-->
+    <!--                android:orientation="vertical">-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/name_tag_tv"-->
+    <!--                    style="@style/item_title_style"-->
+    <!--                    android:text="真实姓名"-->
+    <!--                    android:textSize="16dp"-->
+    <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--                <EditText-->
+    <!--                    android:id="@+id/name_et"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:background="@null"-->
+    <!--                    android:hint="请填写真实姓名"-->
+    <!--                    android:maxLength="11"-->
+    <!--                    android:textSize="16dp"-->
+    <!--                    app:layout_constraintBottom_toBottomOf="@+id/name_tag_tv"-->
+    <!--                    app:layout_constraintLeft_toRightOf="@+id/name_tag_tv"-->
+    <!--                    app:layout_constraintRight_toRightOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="@+id/name_tag_tv" />-->
+
+    <!--                <View-->
+    <!--                    android:id="@+id/id_card_divider_tag"-->
+    <!--                    style="@style/divider_style"-->
+    <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/name_tag_tv"></View>-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/id_card_tag_tv"-->
+    <!--                    style="@style/item_title_style"-->
+    <!--                    android:text="身份证号"-->
+    <!--                    android:textSize="16dp"-->
+    <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/id_card_divider_tag" />-->
+
+    <!--                <EditText-->
+    <!--                    android:id="@+id/id_card_tv"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:background="@null"-->
+    <!--                    android:digits="0123456789xyzXYZ"-->
+    <!--                    android:hint="请填写身份证号"-->
+    <!--                    android:inputType="number"-->
+    <!--                    android:maxLength="18"-->
+    <!--                    android:textSize="16dp"-->
+    <!--                    app:layout_constraintBottom_toBottomOf="@+id/id_card_tag_tv"-->
+    <!--                    app:layout_constraintLeft_toRightOf="@+id/id_card_tag_tv"-->
+    <!--                    app:layout_constraintRight_toRightOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="@+id/id_card_tag_tv" />-->
+    <!--            </android.support.constraint.ConstraintLayout>-->
+
+
+    <!--            <FrameLayout-->
+    <!--                android:id="@+id/id_card_positive_fl"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content" />-->
+
+    <!--            <FrameLayout-->
+    <!--                android:id="@+id/id_card_obverse_fl"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content" />-->
+
+    <!--            <FrameLayout-->
+    <!--                android:id="@+id/id_card_with_hand_fl"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content" />-->
+
+    <!--        </LinearLayout>-->
+    <!--    </android.support.v4.widget.NestedScrollView>-->
+
+    <android.support.constraint.Group
+        android:id="@+id/verified_info_filling_g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="verified_notice_tv,smartrefreshlayout,verified_confirm_tv" />
+
+    <android.support.constraint.Group
+        android:id="@+id/verified_info_filled_g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="verified_success_tag_tv,verified_succeed_confirm_tv,verified_success_title_tv" />
+
+    <include
+        layout="@layout/verified_notice_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <TextView
+        android:id="@+id/verified_confirm_tv"
+        style="@style/bt_bg_style"
+        app:layout_constraintTop_toBottomOf="@+id/smartrefreshlayout"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:text="确认"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

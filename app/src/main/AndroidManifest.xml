@@ -37,6 +37,9 @@
         <activity
             android:name="com.juntai.project.sell.mall.search.SearchActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".mine.verified.VerifiedActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name="com.juntai.project.sell.mall.mine.myinfo.ModifyNickNameActivity"
             android:launchMode="singleTop" />

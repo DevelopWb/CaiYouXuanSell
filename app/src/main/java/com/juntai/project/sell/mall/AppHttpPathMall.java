@@ -89,7 +89,10 @@ public class AppHttpPathMall {
     public static final String MODIFY_USER_ACCOUNT = BASE + "/member/updateUserAccountNumber";
 
 
-
+    /**
+     * 用户实名认证
+     */
+    public static final String USER_AUTH ="https://www.dgjpcs.cn/server/dongGuanPoliceStation/u/webConnector/realNameAuthentication.shtml";
 
 
     /*====================================================    天气   ==============================================================*/

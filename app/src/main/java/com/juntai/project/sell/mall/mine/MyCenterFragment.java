@@ -4,11 +4,9 @@ package com.juntai.project.sell.mall.mine;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
-import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
@@ -25,14 +22,13 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.project.sell.mall.AppHttpPathMall;
-import com.juntai.project.sell.mall.AppHttpPathMallMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
-import com.juntai.project.sell.mall.entrance.LoginActivity;
+import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.mine.modifyPwd.ModifyPwdActivity;
-import com.juntai.project.sell.mall.mine.setting.MyInformationActivity;
+import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
+import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -93,6 +89,10 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                             case MyCenterContract.MODIFY_PWD:
                                 startActivity(new Intent(mContext, ModifyPwdActivity.class));
                                 break;
+                            case MyCenterContract.VERIFIED:
+                                // TODO: 2022/6/6 实名认证
+                                startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, UserInfoManagerMall.getRealNameStatus()));
+                                break;
 
                             case MyCenterContract.SET_ABOUT_TAG:
                                 // 关于我们
@@ -152,15 +152,16 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getMyMsgUnread(getBaseBuilder().build(), AppHttpPathMall.MY_NEWS_UNREAD);
+        if (UserInfoManagerMall.isLogin()) {
+            mLoginOut.setVisibility(View.VISIBLE);
+            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
+        } else {
+            mLoginOut.setVisibility(View.GONE);
+        }
     }
 
     @Override
     protected void lazyLoad() {
-        if (UserInfoManager.isLogin()) {
-            //  获取用户基本信息的接口
-            mPresenter.getUserInfo(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.USER_INFO);
-        }
     }
 
     @Override
@@ -171,35 +172,25 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onClick(View v) {
-        if (!UserInfoManager.isLogin()) {
+        if (!UserInfoManagerMall.isLogin()) {
             return;
         }
         switch (v.getId()) {
             case R.id.login_out:
                 //退出登录
-                dialog = getBaseActivity().setAlertDialogHeightWidth(DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
+                DialogUtil.getMessageDialog(mContext, "是否退出登录", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //  调用退出登录接口
+                        dialog.dismiss();
+                        // : 2022/5/16 调用退出登录的接口
                         mPresenter.logout(getBaseAppActivity().getBaseBuilder().build(), AppHttpPathMall.LOGOUT);
 
                     }
-                }).show(), -1, 0);
+                }).show();
                 break;
-
             case R.id.head_cl:
                 //基本信息
 
-                if (UserInfoManager.getAccountStatus() == 1) {
-                    ToastUtils.toast(mContext, "待审核,请耐心等待");
-                } else if (UserInfoManager.getAccountStatus() == 2) {
-                    //审核成功
-                    //  跳转到用户详情页面
-                    startActivityForResult(new Intent(mContext, MyInformationActivity.class), BaseActivity.BASE_REQUEST_RESULT);
-                } else {
-                    //跳转到补充资料的界面
-                    startActivityForResult(new Intent(mContext, AddInformationActivity.class), BaseActivity.BASE_REQUEST_RESULT);
-                }
 
                 break;
 
@@ -220,54 +211,16 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     public void onSuccess(String tag, Object o) {
         switch (tag) {
             case AppHttpPathMall.LOGOUT:
-                dialog.dismiss();
-                ToastUtils.success(mContext, "退出成功");
-                Hawk.delete(HawkProperty.LOGIN_KEY);
-                Hawk.delete(HawkProperty.TOKEN_KEY);
-                startActivity(new Intent(mContext, LoginActivity.class));
+                getBaseAppActivity().reLogin(UserInfoManagerMall.getPhoneNumber());
 
                 break;
-            case AppHttpPathMall.MY_NEWS_UNREAD:
-                BaseResult result = (BaseResult) o;
-                if (result != null) {
-                    if (!TextUtils.isEmpty(result.message)) {
-                        MultipleItem  multipleItem = myMenuAdapter.getData().get(1);
-                        MyMenuBean  myMenuBean = (MyMenuBean) multipleItem.getObject();
-                        myMenuBean.setNumber(Integer.parseInt(result.message));
-                        myMenuAdapter.notifyItemChanged(1);
-                    }
+            case AppHttpPathMall.GET_USER_INFO:
+                UserBeanMall loginBean = (UserBeanMall) o;
+                if (loginBean != null) {
+                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
+                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
+                    mNickname.setText(UserInfoManagerMall.getUserNickName());
                 }
-
-                break;
-            case AppHttpPathMall.USER_INFO:
-                UserBean userBean = (UserBean) o;
-                UserBean.DataBean dataBean = userBean.getData();
-                if (dataBean != null) {
-                    mNickname.setText(dataBean.getNickname());
-                    mNickname.setAlpha(0.8f);
-                    switch (dataBean.getState()) {
-                        case 1:
-                            mInfoDesTv.setTextColor(ContextCompat.getColor(mContext, R.color.textColorPrimary));
-                            mInfoDesTv.setText("待审核");
-                            break;
-                        case 2:
-                            mInfoDesTv.setTextColor(ContextCompat.getColor(mContext, R.color.black));
-                            mInfoDesTv.setText(UserInfoManager.getUserDetailInfoWithoutName());
-                            break;
-                        default:
-                            mInfoDesTv.setTextColor(ContextCompat.getColor(mContext, R.color.textColorPrimary));
-                            mInfoDesTv.setText("待补充信息");
-                            break;
-                    }
-                    if (!headUrl.equals(userBean.getData().getHeadPortrait())) {
-                        headUrl = userBean.getData().getHeadPortrait();
-                        ImageLoadUtil.loadCirImgNoCrash(mContext.getApplicationContext(),
-                                UrlFormatUtil.getImageOriginalUrl(headUrl), mHeadImage,
-                                R.mipmap.default_user_head_icon, R.mipmap.default_user_head_icon);
-                    }
-                    Hawk.put(HawkProperty.LOGIN_KEY, userBean);
-                }
-
                 break;
             default:
                 break;

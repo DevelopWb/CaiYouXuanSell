@@ -20,7 +20,7 @@ public class UserInfoManagerMall {
     /**
      * 设备登陆类型
      */
-    public static String DEVICE_TYPE = "app_buy";
+    public static String DEVICE_TYPE = "app_seller";
     public static String WECHAT_ID = null;//wechatid
     public static String OTHER_NICK_NAME = null;//第三方昵称
 
@@ -123,19 +123,15 @@ public class UserInfoManagerMall {
     public static String getAccount() {
         return getUser() != null && getUser() != null ? getUser().getAccount() : "";
     }
-
-    public static boolean canUsePubAccount() {
-        return (getUser() != null && getUser() != null) && getUser().getPaymentType() == 1;
-    }
-
     /**
-     * 获取用户信息
+     * 获取getUserId
      *
      * @return
      */
-    public static String getSchoolName() {
-        return getUser() != null && getUser() != null ? getUser().getSchoolName() : "";
+    public static int getRealNameStatus() {
+        return getUser() != null? getUser().getRealNameStatus() : 0;
     }
+
 
 
     public static String getHeadPic() {
