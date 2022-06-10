@@ -35,7 +35,7 @@ import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
 import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
-import com.juntai.project.sell.mall.home.shop.ShopActivity;
+import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.project.sell.mall.mine.address.AddressListActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
@@ -414,7 +414,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * @param shopId
      */
     public void startToShop(int shopId) {
-        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
+//        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
 
     }
 
@@ -541,6 +541,13 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      */
     public void startToSearchActivity() {
         startActivity(new Intent(mContext, SearchActivity.class));
+    }
+    /**
+     * 进入店铺认证
+     */
+    public void startToShopAuthActivity() {
+        // : 2022/6/8 进入到店铺认证界面
+        startActivity(new Intent(mContext, ShopManagerActivity.class));
     }
 
 }

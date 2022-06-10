@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/form_pic_title_tv"
+        style="@style/item_title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="1.申请人残疾证照片"></TextView>
+    <LinearLayout
+        android:id="@+id/select_pic_icon_gv"
+        android:layout_width="210dp"
+        android:layout_height="150dp"
+        android:background="@mipmap/business_pic_bg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/form_pic_src_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:scaleType="centerInside"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pic_form_notice_tv"
+        style="@style/item_title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="附件格式:.png/.jpg/.jpeg"></TextView>
+</LinearLayout>

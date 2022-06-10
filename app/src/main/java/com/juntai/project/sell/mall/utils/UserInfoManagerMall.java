@@ -131,6 +131,23 @@ public class UserInfoManagerMall {
     public static int getRealNameStatus() {
         return getUser() != null? getUser().getRealNameStatus() : 0;
     }
+    /**
+     * 获取getUserId
+     *
+     * @return
+     */
+    public static int getShopId() {
+        return getUser() != null? getUser().getShopId() : 0;
+    }
+
+    /**
+     * 店铺状态
+     *店铺申请状态（1审核中；2审核通过；3审核失败）
+     * @return
+     */
+    public static int getShopStatus() {
+        return getUser() != null? getUser().getShopState() : 0;
+    }
 
 
 

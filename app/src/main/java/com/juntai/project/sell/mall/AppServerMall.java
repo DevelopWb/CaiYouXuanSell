@@ -29,6 +29,9 @@ import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
+import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
+import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
+import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
 import com.juntai.project.sell.mall.beans.shop.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 
@@ -55,6 +58,7 @@ public interface AppServerMall {
      */
     @GET(AppHttpPathMall.BASE_CAMERA_URL + "/vss/video_keepalive/{sessionid}")
     Observable<OpenLiveBean> keepAlive(@Path("sessionid") String sessionid);
+
     /**
      * 打开视频流
      *
@@ -234,11 +238,13 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.COMMIT_SUGGESTION)
     Observable<BaseResult> commitSuggestion(@Body RequestBody requestBody);
+
     /**
      * 用户认证
      */
     @POST(AppHttpPathMall.USER_AUTH)
     Observable<BaseResult> userAuth(@Body RequestBody jsonBody);
+
     /**
      * 修改用户信息
      *
@@ -314,7 +320,7 @@ public interface AppServerMall {
 
 
 
-        /*====================================================    消息   ==============================================================*/
+    /*====================================================    消息   ==============================================================*/
 
     @POST(AppHttpPathMall.SEND_MSG)
     Observable<BaseResult> sendMessage(@Body RequestBody requestBody);
@@ -333,5 +339,22 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.SEARCH_SHOP)
     Observable<ShopListDataBean> startSearchShop(@Body RequestBody requestBody);
+
+
+
+    /*====================================================    卖家端   ==============================================================*/
+
+
+    @POST(AppHttpPathMall.SHOP_HOME_INFO)
+    Observable<ShopHomeInfoBean> getShopHomeInfo(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.GET_SYSTEM_NOTICE)
+    Observable<SystemNoticeListBean> getSystemNotice(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.GET_SYSTEM_NOTICE_DETAIL)
+    Observable<SystemNoticeBean> getSystemNoticeDetail(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.NOTICE_READ)
+    Observable<BaseResult> readNotice(@Body RequestBody requestBody);
 
 }

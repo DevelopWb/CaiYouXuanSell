@@ -184,7 +184,14 @@ public class ImageLoadUtil {
     public static void loadImageNoCache(Context context, String url, ImageView view) {
         Glide.with(context).load(url).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false)).into(view);
     }
-
+    /**
+     * @param context
+     * @param url     加载网络视频的时候 不能使用硬盘缓存
+     * @param view
+     */
+    public static void loadImageNoCache(Context context, String url, ImageView view, int error) {
+        Glide.with(context).load(url).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).error(error).skipMemoryCache(true)).into(view);
+    }
 
     /**
      * @param context

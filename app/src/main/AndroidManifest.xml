@@ -30,7 +30,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".home.live.LivePrepareActivity"></activity>
+        <activity android:name=".home.shop.ShopManagerActivity"></activity>
+        <activity android:name=".home.systemNotice.PicTextActivity" />
+        <activity android:name=".home.systemNotice.SystemNoticeActivity" />
+        <activity android:name=".home.live.LivePrepareActivity" />
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
         <activity android:name=".home.shop.SearchShopCommodityActivity" />
         <activity

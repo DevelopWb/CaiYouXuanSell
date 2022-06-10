@@ -12,6 +12,7 @@ import com.example.chat.MainContract;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
+import com.juntai.project.sell.mall.base.selectPics.BaseSelectPhotosFragment;
 import com.juntai.project.sell.mall.base.selectPics.BaseSelectPicsAndVedioActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
@@ -63,7 +64,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
+    protected BaseSelectPhotosFragment getFragment() {
         return SelectPhotosFragment.newInstance().setMaxCount(3);
     }
 

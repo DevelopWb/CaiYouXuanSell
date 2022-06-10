@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+
+    <LinearLayout
+        android:id="@+id/select_pic_icon_gv"
+        android:layout_width="210dp"
+        android:layout_height="150dp"
+        android:background="@mipmap/business_pic_bg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/select_pic_icon_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:scaleType="centerInside"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/delete_pushed_news_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/icon_delete"
+        android:visibility="visible"
+        android:background="@drawable/bg_btn_red_round"
+        app:layout_constraintRight_toRightOf="@+id/select_pic_icon_gv"
+        app:layout_constraintTop_toTopOf="@+id/select_pic_icon_gv" />
+    <ImageView
+        android:id="@+id/item_video_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/play_button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>

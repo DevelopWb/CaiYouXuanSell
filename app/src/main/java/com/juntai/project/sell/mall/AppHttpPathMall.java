@@ -139,10 +139,7 @@ public class AppHttpPathMall {
 
     /*====================================================    店铺   ==============================================================*/
 
-    /**
-     * 店铺详情
-     */
-    public static final String SHOP_DETAIL = BASE + "/buyers/selectShopInfo";
+
     /**
      * 店铺商品列表
      */
@@ -326,5 +323,43 @@ public class AppHttpPathMall {
      * 搜索
      */
     public static final String SEARCH_SHOP = BASE + "/member/search";
+
+
+
+
+
+
+
+        /*====================================================    卖家端   ==============================================================*/
+
+
+    /**
+     * 首页
+     */
+    public static final String SHOP_HOME_INFO = BASE + "/seller/selectShopHome";
+    /**
+     * 系统公告和通知
+     *
+     */
+    public static final String GET_SYSTEM_NOTICE = BASE + "/seller/getSysNoticeList";
+
+    /**
+     * 系统公告和通知
+     *
+     */
+    public static final String GET_SYSTEM_NOTICE_DETAIL = BASE + "/seller/getSysNoticeInfo";
+    /**
+     * 消息已读
+     *
+     */
+    public static final String NOTICE_READ = BASE + "/msg/updateMsgRead";
+
+
+
+
+    /**
+     * 店铺详情
+     */
+    public static final String SHOP_DETAIL = BASE + "/seller/selectShopInfo";
 
 }

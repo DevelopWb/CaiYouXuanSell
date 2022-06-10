@@ -14,15 +14,19 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.PicTextBean;
+import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
 import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
+import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.sunfusheng.marqueeview.MarqueeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +39,8 @@ import java.util.List;
  * @UpdateDate: 2022/5/9 17:26
  */
 public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener {
-    private LinearLayout mSearchLl;
+    private LinearLayout mSearchLl,mSystemNoticeLl;
     private ImageView mSwitchModeIv;
-    private View view;
     private ImageView mShopOwnerHeadIv;
     /**
      * 店铺名称
@@ -54,13 +57,14 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     /**
      * 描述
      */
-    private TextView mShopDesTv;
+    private TextView mShopDesTv, mShopTypeTv;
     private RecyclerView mShopFlowRv;
     private ShopFlowAdapter shopFlowAdapter;
+    private MarqueeView mMarqueeView;
 
     @Override
     protected HomePagePresent createPresenter() {
-        return null;
+        return new HomePagePresent();
     }
 
 
@@ -70,6 +74,14 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         arrays.add(new TextKeyValueBean(HomePageContract.SHOP_FLOW_BUSINESS, "0"));
         arrays.add(new TextKeyValueBean(HomePageContract.SHOP_FLOW_VISIT, "0"));
         return arrays;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        super.lazyLoad();
+        // TODO: 2022/6/8 先写死 UserInfoManagerMall.getShopId()
+        mPresenter.getShopHomeInfo(getBaseAppActivity().getBaseBuilder()
+                .add("shopId", String.valueOf(1)).build(), AppHttpPathMall.SHOP_HOME_INFO);
     }
 
     @Override
@@ -119,7 +131,9 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         // TODO: 2022/6/7 店铺装修
                         break;
                     case HomePageContract.SHOP_MANAGER_SHOP:
-                        // TODO: 2022/6/7 店铺管理
+                        // : 2022/6/7 店铺管理
+                        getBaseAppActivity().startToShopAuthActivity();
+
                         break;
                     case HomePageContract.SHOP_MANAGER_GUIDE:
                         // TODO: 2022/6/7 新手教程
@@ -132,8 +146,9 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     }
 
     private View getAdapterHeadView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.shop_head_view,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.shop_head_view, null);
         mSearchLl = (LinearLayout) view.findViewById(R.id.search_ll);
+        mSystemNoticeLl = (LinearLayout) view.findViewById(R.id.system_notice_ll);
         mSwitchModeIv = (ImageView) view.findViewById(R.id.share_shop_iv);
         mSwitchModeIv.setOnClickListener(this);
         mSearchLl.setOnClickListener(this);
@@ -143,6 +158,15 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         mShopCreatTimeTv = (TextView) view.findViewById(R.id.shop_creat_time_tv);
         mShopScoreTv = (TextView) view.findViewById(R.id.shop_score_tv);
         mShopDesTv = (TextView) view.findViewById(R.id.shop_des_tv);
+        mMarqueeView = (MarqueeView) view.findViewById(R.id.marqueeView);
+        mMarqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                // : 2022/6/8 跳转到系统消息界面
+                startActivity(new Intent(mContext, SystemNoticeActivity.class));
+            }
+        });
+        mShopTypeTv = (TextView) view.findViewById(R.id.shop_type_tv);
         mShopFlowRv = (RecyclerView) view.findViewById(R.id.shop_flow_rv);
         shopFlowAdapter = new ShopFlowAdapter(R.layout.text_key_value_item_vertical);
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);
@@ -192,7 +216,66 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
 
     @Override
     public void onSuccess(String tag, Object o) {
+        switch (tag) {
+            case AppHttpPathMall.SHOP_HOME_INFO:
+                ShopHomeInfoBean infoBean = (ShopHomeInfoBean) o;
+                if (infoBean != null) {
+                    ShopHomeInfoBean.DataBean dataBean = infoBean.getData();
+                    if (dataBean != null) {
+                        mShopNameTv.setText(dataBean.getName());
+                        mShopCreatTimeTv.setText(dataBean.getCreateTime());
+                        mShopDesTv.setText(dataBean.getIntroduction());
+                        mShopScoreTv.setText(String.valueOf(dataBean.getShopFraction()));
+                        List<ShopHomeInfoBean.DataBean.CategoryListBean> categoryListBeans = dataBean.getCategoryList();
+                        if (categoryListBeans == null || categoryListBeans.isEmpty()) {
+                            mShopTypeTv.setVisibility(View.GONE);
+                        } else {
+                            mShopTypeTv.setVisibility(View.VISIBLE);
+                            StringBuffer sb = new StringBuffer();
+                            for (int i = 0; i < categoryListBeans.size(); i++) {
+                                ShopHomeInfoBean.DataBean.CategoryListBean category = categoryListBeans.get(i);
+                                if (i != categoryListBeans.size() - 1) {
+                                    sb.append(category.getName() + "/");
+                                } else {
+                                    sb.append(category.getName());
+                                }
+                            }
+                            mShopTypeTv.setText(sb.toString());
+                        }
+                        List<TextKeyValueBean> arrays = shopFlowAdapter.getData();
+                        for (int i = 0; i < arrays.size(); i++) {
+                            TextKeyValueBean keyValueBean = arrays.get(i);
+                            switch (i) {
+                                case 0:
+                                    keyValueBean.setValue(String.valueOf(dataBean.getTodayOrderNum()));
+                                    break;
+                                case 1:
+                                    keyValueBean.setValue(String.valueOf(dataBean.getTodayMoney()));
+                                    break;
+                                case 2:
+                                    keyValueBean.setValue(String.valueOf(dataBean.getTodayVisitor()));
+                                    break;
+                                default:
+                                    break;
+                            }
 
+                        }
+                        shopFlowAdapter.notifyDataSetChanged();
+
+                        List<ShopHomeInfoBean.DataBean.SysNoticeListBean>  noticeListBeans = dataBean.getSysNoticeList();
+                        if (noticeListBeans == null||noticeListBeans.isEmpty()) {
+                            mSystemNoticeLl.setVisibility(View.GONE);
+                        }else {
+                            mSystemNoticeLl.setVisibility(View.VISIBLE);
+                            mMarqueeView.startWithList(noticeListBeans);
+                        }
+
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

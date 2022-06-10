@@ -2,15 +2,22 @@ package com.juntai.project.sell.mall.entrance;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.MainActivity;
+import com.juntai.project.sell.mall.base.BaseAppActivity;
+import com.juntai.project.sell.mall.beans.UserBeanMall;
+import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.HomePagePresent;
+import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.orhanobut.hawk.Hawk;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,13 +27,33 @@ import io.reactivex.functions.Consumer;
  * @aouther Ma
  * @date 2019/3/13
  */
-public class SplashActivity extends RxAppCompatActivity {
+public class SplashActivity extends BaseAppActivity<HomePagePresent> implements HomePageContract.IHomePageView {
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_FINE_LOCATION};
+
+    @Override
+    protected HomePagePresent createPresenter() {
+        return new HomePagePresent();
+    }
+
+    @Override
+    public int getLayoutView() {
+        return 0;
+    }
+
+    @Override
+    public void initView() {
+        initToolbarAndStatusBar(false);
+    }
+
+    @Override
+    public void initData() {
+
+    }
 
     @SuppressLint("CheckResult")
     @Override
@@ -45,8 +72,15 @@ public class SplashActivity extends RxAppCompatActivity {
                             //有一个权限没通过
                         }
                         if (UserInfoManagerMall.isLogin()) {
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        }else {
+                            if (UserInfoManagerMall.getShopStatus() == 2) {
+                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            } else {
+                                // : 2022/6/8 获取用户详情
+                                mPresenter.getUserInfo(getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
+
+                            }
+
+                        } else {
                             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         }
                         finish();
@@ -56,5 +90,49 @@ public class SplashActivity extends RxAppCompatActivity {
                     public void accept(Throwable throwable) throws Exception {
                     }
                 });
+    }
+
+    @Override
+    public void onSuccess(String tag, Object o) {
+
+        switch (tag) {
+            case AppHttpPathMall.GET_USER_INFO:
+                UserBeanMall loginBean = (UserBeanMall) o;
+                if (loginBean != null) {
+                    Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
+                    switch (UserInfoManagerMall.getShopStatus()) {
+                        case 0:
+                            // : 2022/6/8 跳转到店铺提交页面
+                            startToShopAuthActivity();
+                            break;
+                        case 1:
+                            // : 2022/6/8 审核中
+                            showAlertDialogOfKnown("店铺认证正在审核中,请耐心等待");
+                            break;
+                        case 2:
+                            // : 2022/6/8 审核通过
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
+                            break;
+                        case 3:
+                            // TODO: 2022/6/8 审核失败  是否需要加上原因
+                            showAlertDialog("店铺认证不通过,请重新提交","去认证","", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startToShopAuthActivity();
+                                }
+                            });
+
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="25dp"
+    android:background="@color/white"
+    android:paddingBottom="30dp">
+    <TextView
+        android:id="@+id/shop_protocal_tv"
+        android:layout_marginLeft="15dp"
+        android:drawableLeft="@drawable/radiobutton_normal"
+        android:layout_width="wrap_content"
+        android:text="开店协议查看"
+        android:layout_height="wrap_content"></TextView>
+
+    <TextView
+        android:id="@+id/commit_business_form_tv"
+        android:layout_marginTop="15dp"
+        style="@style/bt_bg_style"
+        android:text="提交"
+        ></TextView>
+
+</LinearLayout>

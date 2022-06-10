@@ -93,6 +93,7 @@ dependencies {
     implementation project(':module_Chat')
 //    implementation sell(':chatModule')
     implementation 'com.oginotihiro:cropview:1.0.0'
+    implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
     implementation 'com.github.promeg:tinypinyin:2.0.3' // TinyPinyin核心包，约80KB
     implementation project(':jjdxm-ijkplayer')
     implementation project(':module_Base')

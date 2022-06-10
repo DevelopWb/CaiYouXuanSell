@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -33,9 +34,11 @@
             app:layout_constraintTop_toTopOf="parent" />
         >
     </android.support.constraint.ConstraintLayout>
+
     <include
         layout="@layout/homepage_top_search"
         app:layout_constraintTop_toBottomOf="@+id/top_ll" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/shop_owner_cl"
         android:layout_width="match_parent"
@@ -79,8 +82,6 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="@+id/shop_name_tv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shop_name_tv">
@@ -112,6 +113,25 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/shop_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="dfasdf"
+            android:background="@drawable/sp_filled_gray_lighter"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -135,6 +155,7 @@
         android:padding="10dp" />
 
     <LinearLayout
+        android:id="@+id/system_notice_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -154,6 +175,17 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@color/colorAccent"></View>
+        <com.sunfusheng.marqueeview.MarqueeView
+            android:id="@+id/marqueeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mvAnimDuration="1000"
+            app:mvDirection="left_to_right"
+            app:mvInterval="3000"
+            app:mvSingleLine="true"
+            app:mvTextColor="@color/gray_deeper"
+            app:mvTextSize="12sp" />
     </LinearLayout>
 
 

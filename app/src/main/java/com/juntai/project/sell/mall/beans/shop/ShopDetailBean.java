@@ -15,7 +15,7 @@ public class ShopDetailBean extends BaseResult {
 
 
     /**
-     * data : {"id":1,"userId":101,"name":"测试小店","headPortrait":"https://www.juntaikeji.com","introduction":"店铺简介","shopFraction":5,"createTime":"2022-04-24 12:03:01","backImg":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","cameraUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","shopImg":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","classifyList":[{"id":52,"shopId":1,"shopClassifyName":"上衣"},{"id":53,"shopId":1,"shopClassifyName":"鞋子"}]}
+     * data : {"id":1,"userId":101,"userAccount":"18669505929","name":"测试小店","headPortrait":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","introduction":"店铺简介","phoneNumber":"18669505929","backImg":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","cameraUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","shopImg":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","shopImgList":["https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"],"commodityStyle":1,"category":"1,2,3","categoryList":[1,2,3],"gpsAddress":"山东临沂","longitude":"118.365616","latitude":"35.1511631","businessLicense":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","idPositive":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","idSide":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","shopRealScene":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","isAgreement":1,"state":2,"createTime":"2022-04-24 12:03:01"}
      */
 
     private DataBean data;
@@ -32,67 +32,57 @@ public class ShopDetailBean extends BaseResult {
         /**
          * id : 1
          * userId : 101
+         * userAccount : 18669505929
          * name : 测试小店
-         * headPortrait : https://www.juntaikeji.com
+         * headPortrait : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
          * introduction : 店铺简介
-         * shopFraction : 5.0
-         * createTime : 2022-04-24 12:03:01
-         * backImg : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * phoneNumber : 18669505929
+         * backImg : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
          * cameraUrl : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
-         * shopImg : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
-         * classifyList : [{"id":52,"shopId":1,"shopClassifyName":"上衣"},{"id":53,"shopId":1,"shopClassifyName":"鞋子"}]
+         * shopImg : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * shopImgList : ["https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"]
+         * commodityStyle : 1
+         * category : 1,2,3
+         * categoryList : [1,2,3]
+         * gpsAddress : 山东临沂
+         * longitude : 118.365616
+         * latitude : 35.1511631
+         * businessLicense : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
+         * idPositive : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * idSide : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
+         * shopRealScene : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
+         * isAgreement : 1
+         * state : 2
+         * createTime : 2022-04-24 12:03:01
          */
 
         private int id;
         private int userId;
-        private int isCollect;
-        private String shareUrl;//分享地址
+        private String userAccount;
         private String name;
         private String headPortrait;
         private String introduction;
-        private double shopFraction;
-        private String createTime;
+        private String phoneNumber;
         private String backImg;
         private String cameraUrl;
-        private String cameraNumber;
-        private String cameraCover;
         private String shopImg;
-        private List<ClassifyListBean> classifyList;
-
-        public int getIsCollect() {
-            return isCollect;
-        }
-
-        public String getCameraNumber() {
-            return cameraNumber == null ? "" : cameraNumber;
-        }
-
-        public void setCameraNumber(String cameraNumber) {
-            this.cameraNumber = cameraNumber == null ? "" : cameraNumber;
-        }
-
-        public String getCameraCover() {
-            return cameraCover == null ? "" : cameraCover;
-        }
-
-        public void setCameraCover(String cameraCover) {
-            this.cameraCover = cameraCover == null ? "" : cameraCover;
-        }
-
-        public void setIsCollect(int isCollect) {
-            this.isCollect = isCollect;
-        }
+        private int commodityStyle;
+        private String category;
+        private String gpsAddress;
+        private String longitude;
+        private String latitude;
+        private String businessLicense;
+        private String idPositive;
+        private String idSide;
+        private String shopRealScene;
+        private int isAgreement;
+        private int state;
+        private String createTime;
+        private List<String> shopImgList;
+        private List<Integer> categoryList;
 
         public int getId() {
             return id;
-        }
-
-        public String getShareUrl() {
-            return shareUrl == null ? "" : shareUrl;
-        }
-
-        public void setShareUrl(String shareUrl) {
-            this.shareUrl = shareUrl == null ? "" : shareUrl;
         }
 
         public void setId(int id) {
@@ -105,6 +95,14 @@ public class ShopDetailBean extends BaseResult {
 
         public void setUserId(int userId) {
             this.userId = userId;
+        }
+
+        public String getUserAccount() {
+            return userAccount;
+        }
+
+        public void setUserAccount(String userAccount) {
+            this.userAccount = userAccount;
         }
 
         public String getName() {
@@ -131,20 +129,12 @@ public class ShopDetailBean extends BaseResult {
             this.introduction = introduction;
         }
 
-        public double getShopFraction() {
-            return shopFraction;
+        public String getPhoneNumber() {
+            return phoneNumber;
         }
 
-        public void setShopFraction(double shopFraction) {
-            this.shopFraction = shopFraction;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
         }
 
         public String getBackImg() {
@@ -171,48 +161,116 @@ public class ShopDetailBean extends BaseResult {
             this.shopImg = shopImg;
         }
 
-        public List<ClassifyListBean> getClassifyList() {
-            return classifyList;
+        public int getCommodityStyle() {
+            return commodityStyle;
         }
 
-        public void setClassifyList(List<ClassifyListBean> classifyList) {
-            this.classifyList = classifyList;
+        public void setCommodityStyle(int commodityStyle) {
+            this.commodityStyle = commodityStyle;
         }
 
-        public static class ClassifyListBean {
-            /**
-             * id : 52
-             * shopId : 1
-             * shopClassifyName : 上衣
-             */
+        public String getCategory() {
+            return category;
+        }
 
-            private int id;
-            private int shopId;
-            private String shopClassifyName;
+        public void setCategory(String category) {
+            this.category = category;
+        }
 
-            public int getId() {
-                return id;
-            }
+        public String getGpsAddress() {
+            return gpsAddress;
+        }
 
-            public void setId(int id) {
-                this.id = id;
-            }
+        public void setGpsAddress(String gpsAddress) {
+            this.gpsAddress = gpsAddress;
+        }
 
-            public int getShopId() {
-                return shopId;
-            }
+        public String getLongitude() {
+            return longitude;
+        }
 
-            public void setShopId(int shopId) {
-                this.shopId = shopId;
-            }
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
 
-            public String getShopClassifyName() {
-                return shopClassifyName;
-            }
+        public String getLatitude() {
+            return latitude;
+        }
 
-            public void setShopClassifyName(String shopClassifyName) {
-                this.shopClassifyName = shopClassifyName;
-            }
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getBusinessLicense() {
+            return businessLicense;
+        }
+
+        public void setBusinessLicense(String businessLicense) {
+            this.businessLicense = businessLicense;
+        }
+
+        public String getIdPositive() {
+            return idPositive;
+        }
+
+        public void setIdPositive(String idPositive) {
+            this.idPositive = idPositive;
+        }
+
+        public String getIdSide() {
+            return idSide;
+        }
+
+        public void setIdSide(String idSide) {
+            this.idSide = idSide;
+        }
+
+        public String getShopRealScene() {
+            return shopRealScene;
+        }
+
+        public void setShopRealScene(String shopRealScene) {
+            this.shopRealScene = shopRealScene;
+        }
+
+        public int getIsAgreement() {
+            return isAgreement;
+        }
+
+        public void setIsAgreement(int isAgreement) {
+            this.isAgreement = isAgreement;
+        }
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public List<String> getShopImgList() {
+            return shopImgList;
+        }
+
+        public void setShopImgList(List<String> shopImgList) {
+            this.shopImgList = shopImgList;
+        }
+
+        public List<Integer> getCategoryList() {
+            return categoryList;
+        }
+
+        public void setCategoryList(List<Integer> categoryList) {
+            this.categoryList = categoryList;
         }
     }
 }

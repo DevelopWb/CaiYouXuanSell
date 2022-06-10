@@ -19,6 +19,7 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
 
     private int widthAndHeigh = 60;
     private boolean delateable = true;
+    private boolean isBigPic = false;
 
     public void setWidthAndHeigh(int widthAndHeigh) {
         this.widthAndHeigh = widthAndHeigh;
@@ -27,15 +28,21 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
         this.delateable = delateable;
     }
 
-    public ShowSelectedPicsAdapter(int layoutResId) {
+    public ShowSelectedPicsAdapter(int layoutResId,boolean isBigPic) {
         super(layoutResId);
+        this.isBigPic = isBigPic;
     }
 
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         if ("-1".equals(item)) {
-            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+            if (isBigPic) {
+                ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), 0, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+            }else {
+                ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+
+            }
             helper.setGone(R.id.delete_pushed_news_iv, false);
         } else {
             ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
@@ -53,10 +60,13 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
         }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
         helper.addOnClickListener(R.id.delete_pushed_news_iv);
-        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
-        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
-        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
-        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+        if (!isBigPic) {
+            ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
+            ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+            linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
+            linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
+            imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+        }
+
     }
 }

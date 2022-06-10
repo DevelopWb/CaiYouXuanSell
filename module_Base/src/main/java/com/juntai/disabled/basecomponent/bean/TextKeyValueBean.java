@@ -16,6 +16,7 @@ public class TextKeyValueBean {
     private String hint;
     private int type;//0代表高度固定的edittext  1代表高度不固定的edittext
     private boolean isImportant;//是否必填
+    private boolean isDetail;//是否必填
     private boolean valueGravityToRight;//value靠右
 
     public TextKeyValueBean(String key, String value) {
@@ -23,12 +24,13 @@ public class TextKeyValueBean {
         this.value = value;
     }
 
-    public TextKeyValueBean(String key, String value, String hint, int type, boolean isImportant) {
+    public TextKeyValueBean(String key, String value, String hint, int type, boolean isImportant,boolean isDetail) {
         this.key = key;
         this.value = value;
         this.hint = hint;
         this.type = type;
         this.isImportant = isImportant;
+        this.isDetail = isDetail;
     }
     public boolean isValueGravityToRight() {
         return valueGravityToRight;
@@ -39,7 +41,7 @@ public class TextKeyValueBean {
     }
 
     public String getHint() {
-        return TextUtils.isEmpty(hint) ? "暂无" : hint;
+        return TextUtils.isEmpty(hint) ? "" : hint;
     }
 
     public void setHint(String hint) {
@@ -63,7 +65,7 @@ public class TextKeyValueBean {
     }
 
     public String getValue() {
-        return TextUtils.isEmpty(value) ? "暂无" : value;
+        return TextUtils.isEmpty(value) ?isDetail? "暂无":"" : value;
     }
 
     public void setValue(String value) {

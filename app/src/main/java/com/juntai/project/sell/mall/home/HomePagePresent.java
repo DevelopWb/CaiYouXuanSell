@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.home;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
@@ -11,6 +12,9 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppPresent;
 import com.juntai.project.sell.mall.beans.AroundShopBean;
 import com.juntai.project.sell.mall.beans.PicTextBean;
+import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
+import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
+import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,6 +174,88 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
                 .subscribe(new BaseObserver<AroundShopBean>(getView()) {
                     @Override
                     public void onSuccess(AroundShopBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void getShopHomeInfo(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getShopHomeInfo(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopHomeInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopHomeInfoBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getSystemNotice(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getSystemNotice(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<SystemNoticeListBean>(getView()) {
+                    @Override
+                    public void onSuccess(SystemNoticeListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getSystemNoticeDetail(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getSystemNoticeDetail(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<SystemNoticeBean>(getView()) {
+                    @Override
+                    public void onSuccess(SystemNoticeBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void readNotice(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .readNotice(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

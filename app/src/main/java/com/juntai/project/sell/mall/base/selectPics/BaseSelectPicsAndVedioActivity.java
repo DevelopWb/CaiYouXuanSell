@@ -30,7 +30,7 @@ import java.util.List;
  */
 public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseRecyclerviewActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
 
-    protected SelectPhotosFragment selectPhotosFragment;
+    protected BaseSelectPhotosFragment selectPhotosFragment;
     //视频回调广播
     IntentFilter intentFilter = new IntentFilter();
     private VideoBroadcastReceiver videoBroadcastReceiver = null;
@@ -41,7 +41,7 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
 
 
     protected abstract void recordVedio();
-    protected abstract SelectPhotosFragment getFragment();
+    protected abstract BaseSelectPhotosFragment getFragment();
     @Override
     public void onLocationReceived(BDLocation bdLocation) {
 

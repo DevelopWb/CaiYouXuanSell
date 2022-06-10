@@ -80,6 +80,19 @@ public interface HomePageContract {
 
 
 
+        /*====================================================    描述信息   ==============================================================*/
+        String  SHOP_PIC  = "店铺头像";
+        String  SHOP_NAME  = "店铺名称";
+        String  SHOP_INTRODUCTION  = "店铺简介";
+        String  SHOP_ADDR  = "店铺定位及地址";
+        String  SHOP_TEL  = "店铺联系方式";
+        String  SHOP_CATEGORY  = "店铺主营类目";
+        String  SHOP_LICENSE  = "营业执照";
+        String  ID_CARD_FRONT  = "法人身份证正面";
+        String  ID_CARD_BACK  = "法人身份证反面";
+        String  SHOP_BANNER_PICS = "店铺实景相片";
+
+
 
 
     interface IHomePageView extends IView {

@@ -11,25 +11,26 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  */
 public class MultipleItem implements MultiItemEntity {
 
-
+    public static final int ITEM_HEAD_PIC = 84;//类型3
+    public static final int ITEM_TITILE_BIG = 85;//类型3
+    public static final int ITEM_TITILE_SMALL = 86;//类型3
+    public static final int ITEM_EDIT = 87;//类型3
+    public static final int ITEM_SELECT = 88;//类型3
+    public static final int ITEM_RADIO = 89;//类型3
+    public static final int ITEM_PIC = 810;//类型3
+    public static final int ITEM_NOTICE = 12;//提示
+    public static final int ITEM_DATE = 13;//日期
+    public static final int ITEM_NORMAL_RECYCLEVIEW = 814;//
+    public static final int ITEM_EDIT2 = 815;//  key value 类型
+    public static final int ITEM_LOCATION = 817;//  定位
+    public static final int ITEM_TEXT = 821;//  文本展示
+    public static final int ITEM_FRAGMENT = 818;//多选照片
 
 
 
     public static final int ITEM_DIVIDER = 1;//  divider
     public static final int ITEM_MENUS = 31;//  菜单
 
-    public static final int ITEM_TITLE = 1001;//  divider
-    public static final int ITEM_MYCENTER_MENUS = 2;//  菜单
-    public static final int ITEM_PIC_TEXT_MENUS = 3;//
-    public static final int ITEM_CONTACT = 4;//
-    public static final int ITEM_GROUP = 40;//
-    public static final int ITEM_SELECT_GROUP = 401;//
-    public static final int ITEM_SELECT_CONTACT = 41;//
-    public static final int ITEM_TEXT_VALUE = 5;//
-    public static final int ITEM_RECYCLE = 6;//
-    public static final int ITEM_KEY_VALUE = 7;//
-    //带有switch的控件
-    public static final int ITEM_KEY_VALUE_WITH_SWITCH = 8;
 
 
     /*====================================================    聊天   ==============================================================*/

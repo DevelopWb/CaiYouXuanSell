@@ -119,9 +119,9 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
     protected void getRvAdapterData() {
         // : 2022/5/8 获取店铺内所有的商品信息
 
-        mPresenter.getShopCommodityList(getBaseAppActivity().getBaseBuilderWithoutParama()
-                .add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId))
-                .add("classifyId", String.valueOf(labelId)).build(), AppHttpPathMall.SHOP_COMMODITY_LIST);
+//        mPresenter.getShopCommodityList(getBaseAppActivity().getBaseBuilderWithoutParama()
+//                .add("shopId", String.valueOf(((ShopActivity) getActivity()).shopId))
+//                .add("classifyId", String.valueOf(labelId)).build(), AppHttpPathMall.SHOP_COMMODITY_LIST);
 
     }
 

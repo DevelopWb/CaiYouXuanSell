@@ -31,6 +31,8 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
      * 实名认证状态（0未提交；1提交审核中；2审核通过；3审核失败）
      */
     private int realNameStatus;
+    private int shopId;
+    private int shopState;
     private String account;
     private String phoneNumber;
     private String nickname;
@@ -50,6 +52,22 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
 
     public int getRealNameStatus() {
         return realNameStatus;
+    }
+
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
+    public int getShopState() {
+        return shopState;
+    }
+
+    public void setShopState(int shopState) {
+        this.shopState = shopState;
     }
 
     public void setRealNameStatus(int realNameStatus) {

@@ -21,6 +21,7 @@
         android:layout_marginRight="10dp"
         android:text="dfadfasdf"/>
     <ImageView
+        android:id="@+id/location_iv"
         android:layout_width="15dp"
         android:src="@mipmap/location_icon"
         android:layout_height="15dp"></ImageView>
