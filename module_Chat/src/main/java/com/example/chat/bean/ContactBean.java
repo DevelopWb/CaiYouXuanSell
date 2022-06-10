@@ -37,6 +37,10 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
     private String phoneNumber;
     private String nickname;
     private String headPortrait;
+    /**
+     * 开店申请不通过的原因
+     */
+    private String stateContent;
     private String schoolName;
     private int paymentType;
 
@@ -56,6 +60,14 @@ public class ContactBean extends BaseIndexPinyinBean implements Parcelable {
 
     public int getShopId() {
         return shopId;
+    }
+
+    public String getStateContent() {
+        return stateContent == null ? "" : stateContent;
+    }
+
+    public void setStateContent(String stateContent) {
+        this.stateContent = stateContent == null ? "" : stateContent;
     }
 
     public void setShopId(int shopId) {

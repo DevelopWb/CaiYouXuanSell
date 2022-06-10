@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -16,22 +17,34 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.chat.bean.UploadFileBean;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
+import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.selectPics.SelectBigPicFragment;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.BaseNormalRecyclerviewBean;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.HeadPicBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
+import com.juntai.project.sell.mall.home.HomePageContract;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -86,6 +99,31 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
     protected void convert(BaseViewHolder helper, MultipleItem item) {
         baseActivity = (BaseActivity) mContext;
         switch (item.getItemType()) {
+            case MultipleItem.ITEM_PIC:
+                PicBean businessPicBean = (PicBean) item.getObject();
+                String picPath = businessPicBean.getPicPath();
+                String name = businessPicBean.getPicName();
+                int index = businessPicBean.getPicNameIndex();
+                if (index > 0) {
+                    helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s", String.valueOf(index), ".",
+                            name));
+                } else {
+                    helper.setText(R.id.form_pic_title_tv, name);
+                }
+                ImageView picIv = helper.getView(R.id.form_pic_src_iv);
+                helper.setGone(R.id.pic_form_notice_tv, false);
+                //详情时 图片不可点击  示例图不可点击
+                if (!isDetail) {
+                    helper.addOnClickListener(R.id.form_pic_src_iv);
+                }
+
+                if (!TextUtils.isEmpty(picPath)) {
+                    ImageLoadUtil.loadImage(mContext, picPath, picIv);
+
+                } else {
+                    ImageLoadUtil.loadImage(mContext,0, picIv);
+                }
+                break;
             case MultipleItem.ITEM_FRAGMENT:
                 //上传材料时 多选照片
                 PicBean picBean = (PicBean) item.getObject();
@@ -105,7 +143,34 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                     @Override
                     public void loadSuccess(List<String> icons) {
                         PicBean picBean = (PicBean) fragment.getObject();
-                        picBean.setFragmentPics(icons);
+                        if (icons.size() > 0) {
+                            MultipartBody.Builder builder = new MultipartBody.Builder()
+                                    .setType(MultipartBody.FORM);
+                            for (String filePath : icons) {
+                                try {
+                                    builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            AppNetModuleMall.createrRetrofit()
+                                    .uploadFiles(builder.build())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new BaseObserver<UploadFileBean>(null) {
+                                        @Override
+                                        public void onSuccess(UploadFileBean o) {
+                                            picBean.setFragmentPics(o.getFilePaths());
+                                        }
+
+                                        @Override
+                                        public void onError(String msg) {
+                                        }
+                                    });
+                        }else {
+                            // : 2022/6/10 删没了
+                            picBean.setFragmentPics(null);
+                        }
                     }
                 });
 
@@ -133,8 +198,11 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 break;
             case MultipleItem.ITEM_HEAD_PIC:
                 helper.addOnClickListener(R.id.form_head_pic_iv);
-                HeadPicBean headPicBean = (HeadPicBean) item.getObject();
+                PicBean headPicBean = (PicBean) item.getObject();
                 ImageView headIv = helper.getView(R.id.form_head_pic_iv);
+                if (!isDetail) {
+                    helper.addOnClickListener(R.id.form_head_pic_iv);
+                }
                 String headPicPath = headPicBean.getPicPath();
                 if (!TextUtils.isEmpty(headPicPath)) {
                     if (headPicPath.contains(SDCARD_TAG)) {
@@ -216,6 +284,18 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 });
                 editText.setHint(textValueEditBean.getHint());
                 editText.setText(textValueEditBean.getValue());
+                String editKey = ((TextKeyValueBean) editText.getTag()).getKey();
+                //正则
+                switch (editKey) {
+                    case HomePageContract.SHOP_TEL:
+                        //联系方式
+                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    default:
+                        //输入类型为普通文本
+                        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                }
                 break;
             case MultipleItem.ITEM_EDIT2:
                 TextKeyValueBean textValueEditBean2 = (TextKeyValueBean) item.getObject();
@@ -225,17 +305,6 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 editText2.setTag(textValueEditBean2);
                 addTextChange(editText2);
                 editText2.setText(textValueEditBean2.getValue());
-                String editKeyTv = textValueEditBean2.getKey();
-
-                if (editKeyTv.contains("F") || editKeyTv.contains("C")) {
-                    //主要涉及聋儿童康复 与残疾儿童关系的地方 用于区分
-                    editKeyTv = editKeyTv.substring(1, editKeyTv.length());
-                }
-                textView2.setText(editKeyTv);
-                //                if (BusinessContract.TABLE_TITLE_CONTACT_MODE.equals(editKeyTv) || BusinessContract
-                //                .TABLE_TITLE_PHONE.equals(editKeyTv)) {
-                //                    editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
-                //                }
                 break;
             case MultipleItem.ITEM_SELECT:
                 TextKeyValueBean textValueSelectBean = (TextKeyValueBean) item.getObject();

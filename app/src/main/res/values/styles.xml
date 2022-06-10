@@ -23,7 +23,7 @@
     </style>
     <!--购物车checkbox-->
     <style name="checkbox_style" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:drawableLeft">@drawable/radiobutton_normal</item>
+        <item name="android:drawableLeft">@drawable/radiobutton_accent</item>
         <item name="android:button">@null</item>
     </style>
     <style name="shop_login_edittext_style">

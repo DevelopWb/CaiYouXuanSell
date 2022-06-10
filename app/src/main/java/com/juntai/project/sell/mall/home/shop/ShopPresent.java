@@ -6,7 +6,6 @@ import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
-import com.juntai.project.sell.mall.beans.sell.adapterbean.HeadPicBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
@@ -39,7 +38,7 @@ public class ShopPresent extends BaseAppMallPresent {
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.SHOP_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_HEAD_PIC,
-                new HeadPicBean(HomePageContract.SHOP_PIC, -1,
+                new PicBean(HomePageContract.SHOP_PIC, -1,
                         bean == null ? "" : bean.getHeadPortrait())));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_NAME, bean == null ? "" :
                         bean.getName()
@@ -60,18 +59,18 @@ public class ShopPresent extends BaseAppMallPresent {
                 new PicBean(HomePageContract.SHOP_LICENSE, 1, bean == null ? "" :
                         bean.getBusinessLicense())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.ID_CARD_FRONT, -1, bean == null ? "" :
+                new PicBean(HomePageContract.ID_CARD_FRONT, 2, bean == null ? "" :
                         bean.getIdPositive())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
-                new PicBean(HomePageContract.ID_CARD_BACK, 2, bean == null ? "" :
+                new PicBean(HomePageContract.ID_CARD_BACK, 3, bean == null ? "" :
                         bean.getIdSide())));
         if (bean != null) {
             List<String> pics =bean.getShopImgList();
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT,
-                    new PicBean(HomePageContract.SHOP_BANNER_PICS, 3,pics)));
+                    new PicBean(HomePageContract.SHOP_BANNER_PICS, 4,pics)));
         }else {
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT,
-                    new PicBean(HomePageContract.SHOP_BANNER_PICS, 3, new ArrayList<>())));
+                    new PicBean(HomePageContract.SHOP_BANNER_PICS, 4, new ArrayList<>())));
         }
         return arrays;
     }

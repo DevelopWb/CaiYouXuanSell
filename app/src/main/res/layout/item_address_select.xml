@@ -76,7 +76,7 @@
         android:id="@+id/item_address_sel_rad"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:button="@drawable/radiobutton_normal"
+        android:button="@drawable/radiobutton_accent"
         android:gravity="center"
         android:padding="7dp"
         app:layout_constraintBottom_toBottomOf="parent"

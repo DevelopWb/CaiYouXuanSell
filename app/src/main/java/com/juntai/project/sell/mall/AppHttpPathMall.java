@@ -25,6 +25,8 @@ public class AppHttpPathMall {
      * 上传图片或视频
      */
     public static final String UPLOAD_FILES = BASE + "/uploadFile/upload";
+    public static final String UPLOAD_ONE_PIC =  "/uploadFile/uploadonepic";
+    public static final String UPLOAD_MORE_PIC =  "/uploadFile/uploadmorepic";
     /**
      * 登录
      */

@@ -29,10 +29,10 @@ android {
     }
     signingConfigs {
         release {
-
-            storeFile file('caiYouXuan.jks')
+//68:53:CC:D6:34:05:16:B2:A7:B0:1B:5C:04:3F:72:52:BA:50:C6:B0
+            storeFile file('caiyouxuansell.keystore')
             storePassword "bugaosuni5156"
-            keyAlias "caiyouxuan"
+            keyAlias "caiyouxuansell"
             keyPassword "bugaosuni5156"
             v1SigningEnabled true
             v2SigningEnabled true

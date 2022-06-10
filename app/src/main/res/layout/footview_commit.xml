@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/shop_protocal_tv"
         android:layout_marginLeft="15dp"
-        android:drawableLeft="@drawable/radiobutton_normal"
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/radiobutton_normal"
         android:layout_width="wrap_content"
         android:text="开店协议查看"
         android:layout_height="wrap_content"></TextView>

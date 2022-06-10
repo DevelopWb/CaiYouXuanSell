@@ -115,8 +115,8 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
 
                             break;
                         case 3:
-                            // TODO: 2022/6/8 审核失败  是否需要加上原因
-                            showAlertDialog("店铺认证不通过,请重新提交","去认证","", new DialogInterface.OnClickListener() {
+                            // : 2022/6/8 审核失败  是否需要加上原因
+                            showAlertDialog(String.format("%s,请重新提交",UserInfoManagerMall.getUser().getStateContent()),"去认证","", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     startToShopAuthActivity();
