@@ -1,5 +1,7 @@
 package com.juntai.project.sell.mall.home.shop;
 
+import android.text.TextUtils;
+
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
@@ -50,10 +52,9 @@ public class ShopPresent extends BaseAppMallPresent {
                 bean.getGpsAddress()
                 , bean == null ? null : bean.getLatitude(), bean == null ? null : bean.getLongitude())));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_TEL, bean == null ? "" :
-                        bean.getName()
+                        bean.getPhoneNumber()
                 , true, 0,isDetail);
-        // TODO: 2022/6/9 这个地方需要调整
-        initTextType(arrays, MultipleItem.ITEM_SELECT, HomePageContract.SHOP_CATEGORY, bean == null ? "" : "主营类目", true, 0,isDetail);
+        initTextSelectType(arrays, HomePageContract.SHOP_CATEGORY, bean == null ? "" :TextUtils.join(",", bean.getCategoryList()), bean == null ? "" :bean.getCategory(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺证件"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
                 new PicBean(HomePageContract.SHOP_LICENSE, 1, bean == null ? "" :
@@ -64,17 +65,26 @@ public class ShopPresent extends BaseAppMallPresent {
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
                 new PicBean(HomePageContract.ID_CARD_BACK, 3, bean == null ? "" :
                         bean.getIdSide())));
-        if (bean != null) {
-            List<String> pics =bean.getShopImgList();
-            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT,
-                    new PicBean(HomePageContract.SHOP_BANNER_PICS, 4,pics)));
-        }else {
-            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT,
-                    new PicBean(HomePageContract.SHOP_BANNER_PICS, 4, new ArrayList<>())));
-        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
+                new PicBean(HomePageContract.SHOP_INNER_PICS, 4, bean == null ? "" :
+                        bean.getShopRealScene())));
         return arrays;
     }
 
+    /**
+     * initTextType
+     *
+     * @param arrays
+     * @param key
+     */
+    private void initTextSelectType(List<MultipleItem> arrays, String key, String id, String value,
+                                    boolean isImportant) {
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (key, isImportant)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
+                new TextKeyValueBean(key, value, id, String.format("%s%s", "请选择",
+                        key), 0, isImportant)));
+    }
 
     /**
      * initTextType

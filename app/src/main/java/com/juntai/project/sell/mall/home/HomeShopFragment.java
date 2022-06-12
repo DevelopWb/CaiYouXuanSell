@@ -19,6 +19,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
+import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
 import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
@@ -79,9 +80,11 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     @Override
     protected void lazyLoad() {
         super.lazyLoad();
-        // TODO: 2022/6/8 先写死 UserInfoManagerMall.getShopId()
         mPresenter.getShopHomeInfo(getBaseAppActivity().getBaseBuilder()
-                .add("shopId", String.valueOf(1)).build(), AppHttpPathMall.SHOP_HOME_INFO);
+                .add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_HOME_INFO);
+
+
+
     }
 
     @Override
@@ -91,6 +94,11 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (UserInfoManagerMall.getShopStatus()==1) {
+                    // : 2022/6/8 审核中
+                    getBaseAppActivity().showAlertDialogOfKnown("店铺认证审核中,请耐心等待");
+                    return;
+                }
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
                     case HomePageContract.SHOP_MANAGER_COMMODITY:
@@ -132,7 +140,8 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         break;
                     case HomePageContract.SHOP_MANAGER_SHOP:
                         // : 2022/6/7 店铺管理
-                        getBaseAppActivity().startToShopAuthActivity();
+                        mPresenter.getShopDetail(getBaseAppActivity().getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
+
 
                         break;
                     case HomePageContract.SHOP_MANAGER_GUIDE:
@@ -217,6 +226,15 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
+            case AppHttpPathMall.SHOP_DETAIL:
+                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+                if (shopDetailBean != null) {
+                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
+                    if (dataBean != null) {
+                        getBaseAppActivity().startToShopAuthActivity(dataBean);
+                    }
+                }
+                break;
             case AppHttpPathMall.SHOP_HOME_INFO:
                 ShopHomeInfoBean infoBean = (ShopHomeInfoBean) o;
                 if (infoBean != null) {

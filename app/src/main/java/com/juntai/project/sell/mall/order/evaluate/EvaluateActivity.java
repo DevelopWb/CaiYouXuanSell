@@ -186,7 +186,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
             case MainContract.UPLOAD_IMAGES:
                 //发送图片
                 List<String> picPaths = (List<String>) o;
-                builder.add("imgUrl", listToString(picPaths));
+                builder.add("imgUrl", TextUtils.join(",",picPaths));
                 if (TextUtils.isEmpty(videoPath)) {
                     if (picPaths != null && picPaths.size() > 0) {
                         // 调用评价的接口

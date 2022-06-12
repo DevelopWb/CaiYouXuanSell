@@ -136,7 +136,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         fragment.setIcons(picBean.getFragmentPics());
                     }
                 } else {
-                    fragment.setPhotoDelateable(true).setMaxCount(4);
+                    fragment.setPhotoDelateable(true).setMaxCount(1);
                 }
 
                 fragment.setSpanCount(1).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {

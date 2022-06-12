@@ -90,7 +90,7 @@ public interface HomePageContract {
         String  SHOP_LICENSE  = "营业执照";
         String  ID_CARD_FRONT  = "法人身份证正面";
         String  ID_CARD_BACK  = "法人身份证反面";
-        String  SHOP_BANNER_PICS = "店铺实景相片";
+        String SHOP_INNER_PICS = "店铺实景相片";
 
 
 

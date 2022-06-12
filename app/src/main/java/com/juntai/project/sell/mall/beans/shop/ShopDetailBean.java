@@ -1,7 +1,10 @@
 package com.juntai.project.sell.mall.beans.shop;
 
+import android.os.Parcel;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +31,7 @@ public class ShopDetailBean extends BaseResult {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements android.os.Parcelable {
         /**
          * id : 1
          * userId : 101
@@ -272,5 +275,81 @@ public class ShopDetailBean extends BaseResult {
         public void setCategoryList(List<Integer> categoryList) {
             this.categoryList = categoryList;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.id);
+            dest.writeInt(this.userId);
+            dest.writeString(this.userAccount);
+            dest.writeString(this.name);
+            dest.writeString(this.headPortrait);
+            dest.writeString(this.introduction);
+            dest.writeString(this.phoneNumber);
+            dest.writeString(this.backImg);
+            dest.writeString(this.cameraUrl);
+            dest.writeString(this.shopImg);
+            dest.writeInt(this.commodityStyle);
+            dest.writeString(this.category);
+            dest.writeString(this.gpsAddress);
+            dest.writeString(this.longitude);
+            dest.writeString(this.latitude);
+            dest.writeString(this.businessLicense);
+            dest.writeString(this.idPositive);
+            dest.writeString(this.idSide);
+            dest.writeString(this.shopRealScene);
+            dest.writeInt(this.isAgreement);
+            dest.writeInt(this.state);
+            dest.writeString(this.createTime);
+            dest.writeStringList(this.shopImgList);
+            dest.writeList(this.categoryList);
+        }
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+            this.id = in.readInt();
+            this.userId = in.readInt();
+            this.userAccount = in.readString();
+            this.name = in.readString();
+            this.headPortrait = in.readString();
+            this.introduction = in.readString();
+            this.phoneNumber = in.readString();
+            this.backImg = in.readString();
+            this.cameraUrl = in.readString();
+            this.shopImg = in.readString();
+            this.commodityStyle = in.readInt();
+            this.category = in.readString();
+            this.gpsAddress = in.readString();
+            this.longitude = in.readString();
+            this.latitude = in.readString();
+            this.businessLicense = in.readString();
+            this.idPositive = in.readString();
+            this.idSide = in.readString();
+            this.shopRealScene = in.readString();
+            this.isAgreement = in.readInt();
+            this.state = in.readInt();
+            this.createTime = in.readString();
+            this.shopImgList = in.createStringArrayList();
+            this.categoryList = new ArrayList<Integer>();
+            in.readList(this.categoryList, Integer.class.getClassLoader());
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel source) {
+                return new DataBean(source);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
     }
 }

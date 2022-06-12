@@ -137,6 +137,19 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.SHOP_DETAIL)
     Observable<ShopDetailBean> getShopDetail(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.SHOP_APPLY)
+    Observable<BaseResult> shopApply(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.EDIT_SHOP_APPLY)
+    Observable<BaseResult> eidtShopApply(@Body RequestBody requestBody);
+
+    /**
+     * 获取所有的类目
+     * @param requestBody
+     * @return
+     */
+    @POST(AppHttpPathMall.ALL_CATEGORY)
+    Observable<IdNameBean> getAllCategory(@Body RequestBody requestBody);
+
     @POST(AppHttpPathMall.SHOP_COMMODITY_LIST)
     Observable<ShopCommodityListBean> getShopCommodityList(@Body RequestBody requestBody);
 

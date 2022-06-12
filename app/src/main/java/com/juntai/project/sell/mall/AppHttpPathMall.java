@@ -363,5 +363,15 @@ public class AppHttpPathMall {
      * 店铺详情
      */
     public static final String SHOP_DETAIL = BASE + "/seller/selectShopInfo";
+    /**
+     * 店铺申请
+     */
+    public static final String SHOP_APPLY = BASE + "/seller/applyShop";
+    public static final String EDIT_SHOP_APPLY = BASE + "/seller/updateApplyShop";
+
+    /**
+     * 所有类目
+     */
+    public static final String ALL_CATEGORY = BASE + "/seller/selectShopCategoryList";
 
 }

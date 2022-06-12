@@ -12,6 +12,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.MainActivity;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
+import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -74,16 +75,17 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                         if (UserInfoManagerMall.isLogin()) {
                             if (UserInfoManagerMall.getShopStatus() == 2) {
                                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                finish();
                             } else {
                                 // : 2022/6/8 获取用户详情
                                 mPresenter.getUserInfo(getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
-
                             }
 
                         } else {
                             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                            finish();
                         }
-                        finish();
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -103,23 +105,22 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                     switch (UserInfoManagerMall.getShopStatus()) {
                         case 0:
                             // : 2022/6/8 跳转到店铺提交页面
-                            startToShopAuthActivity();
+                            startToShopAuthActivity(null);
+                            finish();
                             break;
                         case 1:
-                            // : 2022/6/8 审核中
-                            showAlertDialogOfKnown("店铺认证正在审核中,请耐心等待");
-                            break;
                         case 2:
                             // : 2022/6/8 审核通过
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
-
+                            finish();
                             break;
                         case 3:
                             // : 2022/6/8 审核失败  是否需要加上原因
-                            showAlertDialog(String.format("%s,请重新提交",UserInfoManagerMall.getUser().getStateContent()),"去认证","", new DialogInterface.OnClickListener() {
+                            showAlertDialog(String.format("%s,请重新提交", UserInfoManagerMall.getUser().getStateContent()), "去认证", "", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    startToShopAuthActivity();
+                                    // : 2022/6/10 获取店铺信息 跳转到店铺管理页面
+                                    mPresenter.getShopDetail(getBaseBuilder().add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_DETAIL);
                                 }
                             });
 
@@ -128,6 +129,17 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                             break;
                     }
 
+                }
+                break;
+
+            case AppHttpPathMall.SHOP_DETAIL:
+                ShopDetailBean shopDetailBean = (ShopDetailBean) o;
+                if (shopDetailBean != null) {
+                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
+                    if (dataBean != null) {
+                       startToShopAuthActivity(dataBean);
+                       finish();
+                    }
                 }
                 break;
             default:

@@ -32,10 +32,19 @@ public class IdNameBean extends BaseResult {
 
         private int id;
         private String name;
+        private boolean  selected;
 
         public DataBean(int id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public boolean isSelected() {
+            return selected;
+        }
+
+        public void setSelected(boolean selected) {
+            this.selected = selected;
         }
 
         public int getId() {

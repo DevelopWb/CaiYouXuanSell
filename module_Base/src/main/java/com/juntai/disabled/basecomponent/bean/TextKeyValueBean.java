@@ -13,6 +13,7 @@ public class TextKeyValueBean {
 
     private  String key;
     private  String value;
+    private  String ids;
     private String hint;
     private int type;//0代表高度固定的edittext  1代表高度不固定的edittext
     private boolean isImportant;//是否必填
@@ -32,6 +33,22 @@ public class TextKeyValueBean {
         this.isImportant = isImportant;
         this.isDetail = isDetail;
     }
+    public TextKeyValueBean(String key, String value, String ids, String hint, int type, boolean isImportant) {
+        this.key = key;
+        this.value = value;
+        this.ids = ids;
+        this.hint = hint;
+        this.type = type;
+        this.isImportant = isImportant;
+    }
+    public String getIds() {
+        return ids == null ? "" : ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids == null ? "" : ids;
+    }
+
     public boolean isValueGravityToRight() {
         return valueGravityToRight;
     }

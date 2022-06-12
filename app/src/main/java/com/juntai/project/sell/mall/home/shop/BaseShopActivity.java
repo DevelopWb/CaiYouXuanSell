@@ -18,7 +18,9 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
+import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.shop.shopCategory.ChoseCategoryActivity;
 import com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -41,6 +43,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     private String address;
     private TextView mSelectTv;
     private TextKeyValueBean selectBean;
+    protected ShopDetailBean.DataBean dataBean;
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
@@ -54,7 +57,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     public boolean requestLocation() {
-        return true;
+        return dataBean==null;
     }
 
     @Override
@@ -75,6 +78,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     @Override
     public void initData() {
         super.initData();
+        dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
         setTitleName(getTitleName());
         if (getFootView() != null) {
             baseQuickAdapter.setFooterView(getFootView());
@@ -110,7 +114,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         switch (selectBean.getKey()) {
                             case HomePageContract.SHOP_CATEGORY:
                                 // : 2022/6/10 选择店铺主营类目
-                                startActivityForResult(new Intent(mContext,ChoseCategoryActivity.class),BASE_REQUEST_RESULT);
+                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class),ChoseCategoryActivity.ACTIVITY_RESULT);
                                 break;
                         }
                         break;
@@ -133,8 +137,8 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                 startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
                         path), BASE_REQUEST_RESULT);
             } else {
-                picBean.setPicPath(path);
-                baseQuickAdapter.notifyItemChanged(currentPosition);
+                // TODO: 2022/6/10 上传图片
+                mPresenter.uploadFile(AppHttpPathMall.UPLOAD_ONE_PIC, path);
             }
 
         }
@@ -171,22 +175,35 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == BASE_REQUEST_RESULT) {
+        if (requestCode==BASE_REQUEST_RESULT&&resultCode == BASE_REQUEST_RESULT) {
             if (data != null) {
                 String path = data.getStringExtra(HeadCropActivity.CROPED_HEAD_PIC);
                 // : 2022/6/10 上传头像图片到后台
                 mPresenter.uploadFile(AppHttpPathMall.UPLOAD_ONE_PIC, path);
-
-
             }
 
         }
-        if (requestCode == LocateSelectionActivity.SELECT_ADDR) {
+        if (requestCode == LocateSelectionActivity.SELECT_ADDR&&resultCode == BASE_REQUEST_RESULT) {
             //地址选择
             lat = data.getDoubleExtra(LocateSelectionActivity.LAT, 0.0);
             lng = data.getDoubleExtra(LocateSelectionActivity.LNG, 0.0);
             address = data.getStringExtra(LocateSelectionActivity.ADDRNAME);
             notifyLocationItem();
+
+        }
+
+        if (resultCode==ChoseCategoryActivity.ACTIVITY_RESULT) {
+            if (data == null) {
+                return;
+            }
+            //返回选择的经营类目
+            String  categoryids = data.getStringExtra(BASE_STRING);
+            String  categoryNames = data.getStringExtra(BASE_STRING2);
+            if (selectBean != null) {
+                mSelectTv.setText(categoryNames);
+                selectBean.setValue(categoryNames);
+                selectBean.setIds(categoryids);
+            }
 
         }
 
@@ -240,7 +257,6 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         ToastUtils.toast(mContext, msg);
                         return null;
                     }
-                    builder.add("shopRealScene", listToString(photos));
 
                     break;
                 case MultipleItem.ITEM_PIC:
@@ -270,6 +286,13 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 }
                                 builder.add("idSide", picPath);
                                 break;
+                            case HomePageContract.SHOP_INNER_PICS:
+                                if (!StringTools.isStringValueOk(picPath)) {
+                                    ToastUtils.toast(mContext, "请选择店铺实景相片");
+                                    return null;
+                                }
+                                builder.add("shopRealScene", picPath);
+                                break;
                         }
                     }
                     break;
@@ -297,7 +320,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
                 case MultipleItem.ITEM_SELECT:
                     TextKeyValueBean textValueSelectBean = (TextKeyValueBean) array.getObject();
-                    String textSelectValue = textValueSelectBean.getValue();
+                    String textSelectValue = textValueSelectBean.getIds();
 
                     if (textValueSelectBean.isImportant() && !StringTools.isStringValueOk(textSelectValue)) {
                         ToastUtils.toast(mContext, "请选择" + textValueSelectBean.getKey());
@@ -314,7 +337,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             }
         }
 
-        return null;
+        return builder;
     }
 
     /**

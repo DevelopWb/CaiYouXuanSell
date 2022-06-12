@@ -33,6 +33,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.selectPics.BaseSelectPicsActivity;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
+import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
 import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
@@ -45,7 +46,6 @@ import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.project.sell.mall.order.refund.RefundActivity;
 import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
 import com.juntai.project.sell.mall.search.SearchActivity;
-import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
@@ -320,25 +320,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 
     }
 
-    /**
-     * 将list中的数据转成字符串  并以逗号隔开
-     *
-     * @return
-     */
-    public String listToString(List<String> arrays) {
-        if (arrays == null || arrays.size() == 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder(arrays.size());
-        for (String selectedServicePeople : arrays) {
-            sb.append(selectedServicePeople + ",");
-        }
-        String people = sb.toString();
-        if (StringTools.isStringValueOk(people)) {
-            people = people.substring(0, people.length() - 1);
-        }
-        return people;
-    }
 
     /**
      * 复制电话号码
@@ -545,9 +526,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     /**
      * 进入店铺认证
      */
-    public void startToShopAuthActivity() {
+    public void startToShopAuthActivity(ShopDetailBean.DataBean dataBean) {
         // : 2022/6/8 进入到店铺认证界面
-        startActivity(new Intent(mContext, ShopManagerActivity.class));
+        startActivity(new Intent(mContext, ShopManagerActivity.class)
+        .putExtra(BASE_PARCELABLE,dataBean));
     }
 
 }
