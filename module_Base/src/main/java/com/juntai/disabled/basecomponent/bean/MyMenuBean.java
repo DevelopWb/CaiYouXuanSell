@@ -6,18 +6,16 @@ public class MyMenuBean implements Serializable {
     private String name;
     private int number;
     private int imageId;
-    private String tag;
     //分割线
     private boolean hasEndLine;
     public MyMenuBean(String name, int imageId) {
         this.name = name;
         this.imageId = imageId;
     }
-    public MyMenuBean(String name, int number, int imageId, String tag, boolean hasEndLine) {
+    public MyMenuBean(String name, int number, int imageId, boolean hasEndLine) {
         this.name = name;
         this.number = number;
         this.imageId = imageId;
-        this.tag = tag;
         this.hasEndLine = hasEndLine;
     }
 
@@ -29,13 +27,6 @@ public class MyMenuBean implements Serializable {
         this.hasEndLine = hasEndLine;
     }
 
-    public String getTag() {
-        return tag == null ? "" : tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag == null ? "" : tag;
-    }
 
     public String getName() {
         return name;

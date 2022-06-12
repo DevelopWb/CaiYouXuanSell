@@ -48,7 +48,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
     /**
      * 登录
      */
-    private TextView mLoginTv;
+    private TextView mLoginTv,mLoginTypeTv;
     /**
      * 密码
      */
@@ -202,6 +202,12 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                 //切换登录方式
                 loginType++;
                 switchLoginType();
+                if (0 == loginType % 2) {
+                    mLoginTypeTv.setText("手机号登录");
+                }else {
+                    mLoginTypeTv.setText("验证码登录");
+
+                }
 
                 break;
         }
@@ -237,6 +243,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
         initToolbarAndStatusBar(false);
         mImmersionBar.statusBarColor(R.color.transparent).statusBarDarkFont(true).init();
         mLoginTv = (TextView) findViewById(R.id.login_tv);
+        mLoginTypeTv = (TextView) findViewById(R.id.login_type_tv);
         mLoginTv.setOnClickListener(this);
         mRebackPwdTv = (TextView) findViewById(R.id.reback_pwd_tv);
         mRebackPwdTv.setOnClickListener(this);

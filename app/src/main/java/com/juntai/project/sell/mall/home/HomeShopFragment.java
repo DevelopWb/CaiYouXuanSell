@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
@@ -144,9 +145,6 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
 
 
                         break;
-                    case HomePageContract.SHOP_MANAGER_GUIDE:
-                        // TODO: 2022/6/7 新手教程
-                        break;
                     default:
                         break;
                 }
@@ -196,15 +194,13 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     }
 
     private List<PicTextBean> getManagerMenus() {
-        // TODO: 2022/6/7 资源文件需要替换 
         List<PicTextBean> arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_COMMODITY));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_ORDER));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_LIVE));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_ASSENT));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_FURNISH));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_SHOP));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher, HomePageContract.SHOP_MANAGER_GUIDE));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_commodity_manager, HomePageContract.SHOP_MANAGER_COMMODITY));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_order_manager, HomePageContract.SHOP_MANAGER_ORDER));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_live, HomePageContract.SHOP_MANAGER_LIVE));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_assent, HomePageContract.SHOP_MANAGER_ASSENT));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_furnish, HomePageContract.SHOP_MANAGER_FURNISH));
+        arrays.add(new PicTextBean(R.mipmap.homemenu_shop_manager, HomePageContract.SHOP_MANAGER_SHOP));
         return arrays;
     }
 
@@ -241,9 +237,10 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                     ShopHomeInfoBean.DataBean dataBean = infoBean.getData();
                     if (dataBean != null) {
                         mShopNameTv.setText(dataBean.getName());
-                        mShopCreatTimeTv.setText(dataBean.getCreateTime());
-                        mShopDesTv.setText(dataBean.getIntroduction());
-                        mShopScoreTv.setText(String.valueOf(dataBean.getShopFraction()));
+                        mShopCreatTimeTv.setText(String.format("开店时间：%s",dataBean.getCreateTime()));
+                        mShopDesTv.setText(String.format("店铺简介：%s",dataBean.getIntroduction()));
+                        mShopScoreTv.setText(String.format("店铺得分：%s",dataBean.getShopFraction()));
+                        ImageLoadUtil.loadHeadCirclePic(mContext,dataBean.getHeadPortrait(),mShopOwnerHeadIv);
                         List<ShopHomeInfoBean.DataBean.CategoryListBean> categoryListBeans = dataBean.getCategoryList();
                         if (categoryListBeans == null || categoryListBeans.isEmpty()) {
                             mShopTypeTv.setVisibility(View.GONE);

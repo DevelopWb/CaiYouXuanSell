@@ -359,6 +359,10 @@ public class AppHttpPathMall {
 
 
 
+        /*====================================================    卖家店铺   ==============================================================*/
+
+
+
     /**
      * 店铺详情
      */
@@ -367,10 +371,13 @@ public class AppHttpPathMall {
      * 店铺申请
      */
     public static final String SHOP_APPLY = BASE + "/seller/applyShop";
+    /**
+     * 编辑店铺申请
+     */
     public static final String EDIT_SHOP_APPLY = BASE + "/seller/updateApplyShop";
 
     /**
-     * 所有类目
+     * 经营类目
      */
     public static final String ALL_CATEGORY = BASE + "/seller/selectShopCategoryList";
 

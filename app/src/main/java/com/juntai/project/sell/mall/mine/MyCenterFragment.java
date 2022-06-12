@@ -68,7 +68,6 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mBaseInfoCl = getView(R.id.head_cl);
         mBaseInfoCl.setOnClickListener(this);
         mNickname = getView(R.id.nickname);
-        mNickname.setAlpha(0.3f);
         mInfoDesTv = getView(R.id.info_des_tv);
 
         mMenuRecycler = getView(R.id.menu_recycler);
@@ -85,15 +84,26 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 switch (multipleItem.getItemType()) {
                     case MultipleItem.ITEM_MENUS:
                         MyMenuBean myMenuBean = (MyMenuBean) multipleItem.getObject();
-                        switch (myMenuBean.getTag()) {
+                        switch (myMenuBean.getName()) {
+                            case MyCenterContract.MENU_MODIFY_PHONE:
+                                // TODO: 2022/6/12 修改手机号
+                                break;
                             case MyCenterContract.MODIFY_PWD:
                                 startActivity(new Intent(mContext, ModifyPwdActivity.class));
                                 break;
-                            case MyCenterContract.VERIFIED:
-                                // TODO: 2022/6/6 实名认证
+                            case MyCenterContract.MENU_MODIFY_AUTH:
+                                // : 2022/6/6 实名认证
                                 startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, UserInfoManagerMall.getRealNameStatus()));
                                 break;
-
+//                            case MyCenterContract.MENU_MODIFY_SUGGESTION:
+//                                // : 2022/6/12 投诉建议
+//                                break;
+                            case MyCenterContract.MENU_MODIFY_BIND:
+                                // TODO: 2022/6/12 绑定第三方
+                                break;
+                            case MyCenterContract.MENU_MODIFY_GUIDE:
+                                // TODO: 2022/6/12 新手教程
+                                break;
                             case MyCenterContract.SET_ABOUT_TAG:
                                 // 关于我们
                                 startActivity(new Intent(mContext, AboutActivity.class));
@@ -220,6 +230,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManagerMall.getHeadPic(), mHeadImage);
                     mNickname.setText(UserInfoManagerMall.getUserNickName());
+                    mInfoDesTv.setText(UserInfoManagerMall.getPhoneNumber());
                 }
                 break;
             default:

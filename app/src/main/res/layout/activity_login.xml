@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
-    tools:context=".mall.entrance.LoginActivity">
+    >
 
     <TextView
         android:id="@+id/regist_tv"
@@ -18,7 +18,7 @@
         android:paddingTop="5dp"
         android:paddingRight="15dp"
         android:paddingBottom="5dp"
-        android:text="注册"
+        android:text="立即注册"
         android:textColor="@color/colorAccent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -33,41 +33,15 @@
         app:layout_constraintTop_toBottomOf="@+id/regist_tv">
 
         <TextView
+            android:id="@+id/login_type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:paddingBottom="5dp"
-            android:text="登录"
+            android:layout_marginBottom="10dp"
+            android:text="手机号登录"
             android:textColor="@color/black"
-            android:textSize="26dp"></TextView>
+            android:textSize="24dp"></TextView>
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/regist_tag_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="你好,欢迎来到"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="商城!"
-                android:textColor="@color/colorAccent"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="@+id/regist_tag_tv"
-                app:layout_constraintLeft_toRightOf="@+id/regist_tag_tv"
-                app:layout_constraintTop_toTopOf="@+id/regist_tag_tv"></TextView>
-        </android.support.constraint.ConstraintLayout>
 
 
         <LinearLayout

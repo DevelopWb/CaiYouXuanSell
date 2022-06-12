@@ -3,6 +3,7 @@ package com.juntai.project.sell.mall.home.shop;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -20,7 +21,7 @@ import okhttp3.FormBody;
 public class ShopManagerActivity extends BaseShopActivity {
 
 
-    private TextView mShopProtocalTv;
+    private RadioButton mShopProtocalRb;
     private boolean isAgree = false;
 
     @Override
@@ -40,8 +41,7 @@ public class ShopManagerActivity extends BaseShopActivity {
     protected View getFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
         TextView commitTv = view.findViewById(R.id.commit_business_form_tv);
-        mShopProtocalTv = view.findViewById(R.id.shop_protocal_tv);
-        initViewLeftDrawable(mShopProtocalTv, R.mipmap.radiobutton_normal, 20, 20);
+        mShopProtocalRb = view.findViewById(R.id.shop_protocal_rb);
         commitTv.setOnClickListener(this);
         if (dataBean != null) {
             commitTv.setText("提交店铺修改");
@@ -49,7 +49,7 @@ public class ShopManagerActivity extends BaseShopActivity {
             commitTv.setText("提交店铺申请");
 
         }
-        mShopProtocalTv.setOnClickListener(this);
+        mShopProtocalRb.setOnClickListener(this);
         return view;
     }
 
@@ -84,15 +84,14 @@ public class ShopManagerActivity extends BaseShopActivity {
                 }
 
                 break;
-            case R.id.shop_protocal_tv:
+            case R.id.shop_protocal_rb:
                 // : 2022/6/9 协议
-                isAgree = !isAgree;
                 if (isAgree) {
-                    initViewLeftDrawable(mShopProtocalTv, R.mipmap.radiobutton_press, 20, 20);
+                    mShopProtocalRb.setChecked(false);
                 } else {
-                    initViewLeftDrawable(mShopProtocalTv, R.mipmap.radiobutton_normal, 20, 20);
-
+                    mShopProtocalRb.setChecked(true);
                 }
+                isAgree = !isAgree;
                 break;
             default:
                 break;
