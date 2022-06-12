@@ -122,6 +122,16 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     protected void getRvAdapterData() {
         if (orderDetailBean == null) {
             finish();

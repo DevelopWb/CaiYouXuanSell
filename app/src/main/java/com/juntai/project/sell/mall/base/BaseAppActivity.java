@@ -280,6 +280,9 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .add("token", UserInfoManagerMall.getUserToken())
                 .add("typeEnd", UserInfoManagerMall.DEVICE_TYPE)
                 .add("userId", String.valueOf(UserInfoManagerMall.getUserId()));
+        if (UserInfoManagerMall.getShopId()>0) {
+            builder.add("shopId", String.valueOf(UserInfoManagerMall.getShopId()));
+        }
         return builder;
     }
 

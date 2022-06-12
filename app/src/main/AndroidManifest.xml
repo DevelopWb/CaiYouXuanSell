@@ -30,7 +30,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".home.shop.EditShopManagerActivity"></activity>
+        <activity android:name=".home.commodityManager.allCommodity.AllCommodityActivity"></activity>
+        <activity android:name=".home.commodityManager.commodityCategory.CommodityCategoryActivity" />
+        <activity android:name=".home.shop.EditShopManagerActivity" />
         <activity android:name=".home.shop.shopCategory.ChoseCategoryActivity" />
         <activity android:name=".home.shop.ShopManagerActivity" />
         <activity android:name=".home.systemNotice.PicTextActivity" />

@@ -4,10 +4,12 @@ import android.text.TextUtils;
 
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
@@ -129,6 +131,90 @@ public class ShopPresent extends BaseAppMallPresent {
                 .subscribe(new BaseObserver<ShopCommodityListBean>(getView()) {
                     @Override
                     public void onSuccess(ShopCommodityListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void addCommodityCategorys(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .addCommodityCategorys(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getCommodityCategorys(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getCommodityCategorys(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopCommodityCategoryListBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopCommodityCategoryListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void modifyCommodityCategorys(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .modifyCommodityCategorys(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void deleteCommodityCategorys(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .deleteCommodityCategorys(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

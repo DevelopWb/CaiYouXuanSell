@@ -2,6 +2,7 @@ package com.juntai.project.sell.mall.base;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -43,6 +44,12 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         baseQuickAdapter = getBaseQuickAdapter();
         linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) : getBaseAdapterManager();
         if (baseQuickAdapter != null) {
+            if (getAdapterHeadView() != null) {
+                baseQuickAdapter.addHeaderView(getAdapterHeadView());
+            }
+            if (getAdapterFootView() != null) {
+                baseQuickAdapter.addFooterView(getAdapterFootView());
+            }
             mRecyclerview.setLayoutManager(linearLayoutManager);
             mRecyclerview.setAdapter(baseQuickAdapter);
             mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
@@ -63,6 +70,9 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         }
 
     }
+
+    protected abstract View getAdapterHeadView();
+    protected abstract View getAdapterFootView();
 
     @Override
     public void initData() {

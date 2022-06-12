@@ -110,6 +110,15 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
     }
 
 
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
 
     @Override
     public void initData() {

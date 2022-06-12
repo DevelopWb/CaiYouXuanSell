@@ -29,6 +29,7 @@ import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
@@ -139,15 +140,17 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.SHOP_APPLY)
     Observable<BaseResult> shopApply(@Body RequestBody requestBody);
+
     @POST(AppHttpPathMall.EDIT_SHOP_APPLY)
     Observable<BaseResult> eidtShopApply(@Body RequestBody requestBody);
 
     /**
      * 获取所有的类目
+     *
      * @param requestBody
      * @return
      */
-    @POST(AppHttpPathMall.ALL_CATEGORY)
+    @POST(AppHttpPathMall.ALL_SHOP_CATEGORY)
     Observable<IdNameBean> getAllCategory(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.SHOP_COMMODITY_LIST)
@@ -369,5 +372,22 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.NOTICE_READ)
     Observable<BaseResult> readNotice(@Body RequestBody requestBody);
+
+
+
+
+    /*====================================================    商品类目   ==============================================================*/
+
+    @POST(AppHttpPathMall.ALL_COMMODITY_CATEGORY)
+    Observable<ShopCommodityCategoryListBean> getCommodityCategorys(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.ADD_COMMODITY_CATEGORY)
+    Observable<BaseResult> addCommodityCategorys(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.MODIFY_COMMODITY_CATEGORY)
+    Observable<BaseResult> modifyCommodityCategorys(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.DELETE_COMMODITY_CATEGORY)
+    Observable<BaseResult> deleteCommodityCategorys(@Body RequestBody requestBody);
 
 }

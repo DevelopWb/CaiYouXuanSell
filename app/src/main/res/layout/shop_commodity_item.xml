@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/commodity_cover_iv"
+        android:layout_width="80dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commodity_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/commodity_resove_tv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/commodity_cover_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commodity_resove_tv"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="库存"
+        app:layout_constraintBottom_toTopOf="@+id/edit_commodity_rv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/commodity_cover_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commodity_name_tv" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/edit_commodity_rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="@+id/commodity_resove_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commodity_resove_tv" />
+
+</android.support.constraint.ConstraintLayout>

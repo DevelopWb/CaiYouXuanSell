@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.home.commodityfragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 /**
  * @Author: tobato
@@ -21,5 +22,15 @@ public class HomePageCommodityFragment extends BaseCommodityListFragment {
     @Override
     protected int getType() {
         return 0;
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.home.shop;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.util.MultipleItem;
@@ -59,6 +60,16 @@ public class SearchShopCommodityActivity extends BaseSearchActivity<ShopPresent>
         CommodityBean commodityBean = (CommodityBean) multipleItem.getObject();
         // : 2022/5/10 跳转到商品详情
         startToCommodityDetail(commodityBean.getId());
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
     }
 
     @Override

@@ -43,6 +43,16 @@ public class SystemNoticeActivity extends BaseRecyclerviewActivity<HomePagePrese
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void initData() {
         super.initData();
         setTitleName("系统公告");

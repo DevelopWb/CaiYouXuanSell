@@ -90,6 +90,16 @@ public class ShopCommodityListFragment extends BaseRecyclerviewFragment<ShopPres
 
     }
 
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
     public void onEvent(EventBusObject eventBusObject) {
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.CHANGE_COMMODITY_ARRAY_TYPE:

@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.home.commodityManager;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -8,6 +9,8 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
+import com.juntai.project.sell.mall.home.commodityManager.commodityCategory.CommodityCategoryActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
 import java.util.ArrayList;
@@ -37,8 +40,8 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
 
     private List<PicTextBean> getAdapterDate() {
         List<PicTextBean>  arrays = new ArrayList<>();
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher,R.drawable.sp_filled_accent,HomePageContract.COMMODITY_MANAGER_CATEGORY,"abcd"));
-        arrays.add(new PicTextBean(R.mipmap.ic_launcher,R.drawable.sp_filled_accent,HomePageContract.COMMODITY_MANAGER_TOTAL,"edfasdf"));
+        arrays.add(new PicTextBean(R.mipmap.commodity_category,R.mipmap.commodity_category_bg,HomePageContract.COMMODITY_MANAGER_CATEGORY,"Category management"));
+        arrays.add(new PicTextBean(R.mipmap.commodity_managere_icon,R.mipmap.commodity_manager_bg,HomePageContract.COMMODITY_MANAGER_TOTAL,"Commodity management"));
         return arrays;
     }
 
@@ -58,6 +61,16 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void initData() {
         super.initData();
         setTitleName("商品管理");
@@ -67,10 +80,13 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
                 PicTextBean picTextBean = (PicTextBean) adapter.getItem(position);
                 switch (picTextBean.getTextName()) {
                     case HomePageContract.COMMODITY_MANAGER_CATEGORY:
-                        // TODO: 2022/6/7 商品类目管理
+                        // : 2022/6/7 商品类目管理
+                        startActivity(new Intent(mContext, CommodityCategoryActivity.class));
+
                         break;
                     case HomePageContract.COMMODITY_MANAGER_TOTAL:
-                        // TODO: 2022/6/7 商品管理
+                        // : 2022/6/7 商品管理
+                        startActivity(new Intent(mContext, AllCommodityActivity.class));
 
 
 

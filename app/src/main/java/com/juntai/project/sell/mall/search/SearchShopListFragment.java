@@ -75,6 +75,16 @@ public class SearchShopListFragment extends BaseRecyclerviewFragment<HomePagePre
         });
     }
 
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {

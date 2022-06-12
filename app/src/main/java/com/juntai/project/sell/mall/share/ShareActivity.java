@@ -144,6 +144,16 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         });
     }
 
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
 
     @Override
     public void initData() {

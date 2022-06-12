@@ -31,6 +31,16 @@ public class ShopManagerActivity extends BaseShopActivity {
 
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void initData() {
         super.initData();
         baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, false));

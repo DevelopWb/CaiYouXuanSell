@@ -91,7 +91,6 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     @Override
     protected void initData() {
         super.initData();
-        baseQuickAdapter.addHeaderView(getAdapterHeadView());
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -152,7 +151,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         });
     }
 
-    private View getAdapterHeadView() {
+    private View getHeadView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.shop_head_view, null);
         mSearchLl = (LinearLayout) view.findViewById(R.id.search_ll);
         mSystemNoticeLl = (LinearLayout) view.findViewById(R.id.system_notice_ll);
@@ -181,6 +180,16 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         mShopFlowRv.setAdapter(shopFlowAdapter);
         shopFlowAdapter.setNewData(getFlowAdapterData());
         return view;
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return getHeadView();
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
     }
 
     @Override

@@ -379,6 +379,27 @@ public class AppHttpPathMall {
     /**
      * 经营类目
      */
-    public static final String ALL_CATEGORY = BASE + "/seller/selectShopCategoryList";
+    public static final String ALL_SHOP_CATEGORY = BASE + "/seller/selectShopCategoryList";
+
+
+
+
+        /*====================================================    商品类目   ==============================================================*/
+    /**
+     * 商品类目
+     */
+    public static final String ALL_COMMODITY_CATEGORY = BASE + "/seller/selectShopClassifyList";
+    /**
+     * 添加商品类目
+     */
+    public static final String ADD_COMMODITY_CATEGORY = BASE + "/seller/addShopClassify";
+    /**
+     * 修改商品类目
+     */
+    public static final String MODIFY_COMMODITY_CATEGORY = BASE + "/seller/updateShopClassify";
+    /**
+     * 删除商品类目
+     */
+    public static final String DELETE_COMMODITY_CATEGORY = BASE + "/seller/deleteShopClassify";
 
 }

@@ -37,6 +37,16 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void initData() {
         super.initData();
         setTitleName("主营类目");
@@ -75,7 +85,7 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
 
     @Override
     protected void getRvAdapterData() {
-        mPresenter.getAllCategory(getBaseBuilderWithoutParama().build(), AppHttpPathMall.ALL_CATEGORY);
+        mPresenter.getAllCategory(getBaseBuilderWithoutParama().build(), AppHttpPathMall.ALL_SHOP_CATEGORY);
 
     }
 
@@ -98,7 +108,7 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.ALL_CATEGORY:
+            case AppHttpPathMall.ALL_SHOP_CATEGORY:
                 IdNameBean idNameBean = (IdNameBean) o;
                 if (idNameBean != null) {
                     List<IdNameBean.DataBean> dataBeans = idNameBean.getData();

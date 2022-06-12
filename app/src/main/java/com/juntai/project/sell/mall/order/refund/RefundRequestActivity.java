@@ -80,6 +80,16 @@ public class RefundRequestActivity extends BaseRecyclerviewActivity<OrderPresent
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             default:

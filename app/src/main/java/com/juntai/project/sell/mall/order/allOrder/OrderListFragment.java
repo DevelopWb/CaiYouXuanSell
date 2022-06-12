@@ -169,6 +169,16 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
         });
     }
 
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
 
     @Override
     public void onEvent(EventBusObject eventBusObject) {

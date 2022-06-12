@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.search;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.juntai.project.sell.mall.home.commodityfragment.BaseCommodityListFragment;
 
@@ -23,5 +24,15 @@ public class SearchCommodityFragment extends BaseCommodityListFragment {
     @Override
     protected int getType() {
         return 1;
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
     }
 }

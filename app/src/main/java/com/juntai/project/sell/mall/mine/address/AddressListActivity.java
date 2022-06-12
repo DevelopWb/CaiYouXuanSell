@@ -89,6 +89,16 @@ public class AddressListActivity extends BaseRecyclerviewActivity<AddrPresent> i
         });
     }
 
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
     /**
      * 删除收货地址
      *

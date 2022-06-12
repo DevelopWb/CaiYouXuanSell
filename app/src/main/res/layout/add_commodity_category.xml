@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="15dp"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/category_name_et"
+        style="@style/login_edit_tv_style"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/sp_filled_gray_lighter"
+        android:hint="输入类目名称"
+         />
+
+    <TextView
+        android:id="@+id/add_category_tv"
+        android:layout_width="60dp"
+        android:gravity="center"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/sp_filled_accent"
+        android:paddingLeft="7dp"
+        android:paddingTop="5dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="5dp"
+        android:text="添加"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>

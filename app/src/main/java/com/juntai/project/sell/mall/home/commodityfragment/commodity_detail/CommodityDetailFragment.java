@@ -46,6 +46,16 @@ public class CommodityDetailFragment extends BaseRecyclerviewFragment<CommodityP
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void initData() {
         super.initData();
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

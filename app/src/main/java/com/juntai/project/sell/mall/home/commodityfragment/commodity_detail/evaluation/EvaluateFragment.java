@@ -2,6 +2,7 @@ package com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.eva
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.project.sell.mall.AppHttpPathMall;
@@ -36,6 +37,16 @@ public class EvaluateFragment extends BaseRecyclerviewFragment<CommodityPresent>
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
         return null;
     }
 

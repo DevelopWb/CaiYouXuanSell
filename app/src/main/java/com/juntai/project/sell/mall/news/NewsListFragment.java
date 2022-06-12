@@ -58,6 +58,16 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
     }
 
     @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
+        return null;
+    }
+
+    @Override
     public void onEvent(EventBusObject eventBusObject) {
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
