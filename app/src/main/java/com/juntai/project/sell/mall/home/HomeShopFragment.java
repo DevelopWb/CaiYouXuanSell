@@ -22,7 +22,6 @@ import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
-import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
 import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;

@@ -35,7 +35,6 @@ import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
-import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.project.sell.mall.mine.address.AddressListActivity;
@@ -382,15 +381,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     }
 
 
-    /**
-     * 跳转到商品详情
-     *
-     * @param commodityId
-     */
-    public void startToCommodityDetail(int commodityId) {
-        startActivityForResult(new Intent(mContext, CommodityDetailActivity.class)
-                .putExtra(BASE_ID, commodityId), BASE_REQUEST_RESULT);
-    }
 
     /**
      * 跳转到店铺首页
