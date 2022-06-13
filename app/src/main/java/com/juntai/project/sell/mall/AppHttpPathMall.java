@@ -402,4 +402,19 @@ public class AppHttpPathMall {
      */
     public static final String DELETE_COMMODITY_CATEGORY = BASE + "/seller/deleteShopClassify";
 
+
+
+
+        /*====================================================    商品管理   ==============================================================*/
+
+    /**
+     * 商品列表
+     */
+    public static final String GET_ALL_COMMODITY = BASE + "/seller/selectCommodityList";
+    /**
+     * 商品详情
+     */
+    public static final String GET_COMMODITY_DETAIL = BASE + "/seller/selectCommodityInfo";
+
+
 }

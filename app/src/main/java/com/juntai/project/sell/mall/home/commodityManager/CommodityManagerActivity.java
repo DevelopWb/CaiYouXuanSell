@@ -85,8 +85,9 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
 
                         break;
                     case HomePageContract.COMMODITY_MANAGER_TOTAL:
-                        // : 2022/6/7 商品管理
+                        //todo : 2022/6/7 商品管理
                         startActivity(new Intent(mContext, AllCommodityActivity.class));
+//                        startActivity(new Intent(mContext, TestActivity.class));
 
 
 

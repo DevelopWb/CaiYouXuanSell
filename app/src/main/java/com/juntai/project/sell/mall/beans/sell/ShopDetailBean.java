@@ -1,4 +1,4 @@
-package com.juntai.project.sell.mall.beans.shop;
+package com.juntai.project.sell.mall.beans.sell;
 
 import android.os.Parcel;
 

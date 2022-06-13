@@ -33,7 +33,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.selectPics.BaseSelectPicsActivity;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
-import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
@@ -44,7 +44,6 @@ import com.juntai.project.sell.mall.order.evaluate.EvaluateActivity;
 import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.project.sell.mall.order.refund.RefundActivity;
 import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
-import com.juntai.project.sell.mall.search.SearchActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
@@ -510,12 +509,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .putExtra(BASE_PARCELABLE, contactBean));
     }
 
-    /**
-     * 进入聊天界面
-     */
-    public void startToSearchActivity() {
-        startActivity(new Intent(mContext, SearchActivity.class));
-    }
     /**
      * 进入店铺认证
      */

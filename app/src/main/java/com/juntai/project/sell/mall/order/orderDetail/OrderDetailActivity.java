@@ -108,7 +108,6 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderDetailBean.CommodityListBean commodityListBean = (OrderDetailBean.CommodityListBean) adapter.getItem(position);
-                startToCommodityDetail(commodityListBean.getCommodityId());
             }
         });
         mOrderCommodityAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

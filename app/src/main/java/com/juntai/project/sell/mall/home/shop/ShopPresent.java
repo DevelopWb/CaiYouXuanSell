@@ -10,11 +10,11 @@ import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
-import com.juntai.project.sell.mall.beans.shop.ShopCommodityListBean;
-import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.util.ArrayList;
@@ -123,28 +123,6 @@ public class ShopPresent extends BaseAppMallPresent {
         }
 
     }
-
-    public void getShopCommodityList(RequestBody requestBody, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .getShopCommodityList(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ShopCommodityListBean>(getView()) {
-                    @Override
-                    public void onSuccess(ShopCommodityListBean o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
     public void addCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .addCommodityCategorys(requestBody)
@@ -170,7 +148,7 @@ public class ShopPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .getCommodityCategorys(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ShopCommodityCategoryListBean>(getView()) {
+                .subscribe(new BaseObserver<ShopCommodityCategoryListBean>(null) {
                     @Override
                     public void onSuccess(ShopCommodityCategoryListBean o) {
                         if (getView() != null) {
@@ -191,7 +169,7 @@ public class ShopPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .modifyCommodityCategorys(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
                     public void onSuccess(BaseResult o) {
                         if (getView() != null) {
@@ -212,9 +190,30 @@ public class ShopPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .deleteCommodityCategorys(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
                     public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getAllCommodity(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getAllCommodity(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopCommodityListBean>(null) {
+                    @Override
+                    public void onSuccess(ShopCommodityListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

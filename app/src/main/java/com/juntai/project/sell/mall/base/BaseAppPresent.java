@@ -8,12 +8,11 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
-import com.juntai.project.sell.mall.beans.CommodityDesListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.ShopListDataBean;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
-import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -377,26 +376,6 @@ public abstract class BaseAppPresent<M extends IModel, V extends IView> extends 
                             getView().onSuccess(tag, o);
                         }
 
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
-    public void startSearchCommodity(RequestBody body, String tag) {
-        AppNetModuleMall.createrRetrofit()
-                .startSearchCommodity(body)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<CommodityDesListBean>(null) {
-                    @Override
-                    public void onSuccess(CommodityDesListBean o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
                     }
 
                     @Override

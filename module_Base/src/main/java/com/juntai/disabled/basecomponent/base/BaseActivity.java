@@ -223,6 +223,20 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     /**
      * 展示对话框
      * @param msg
+     */
+    public void showAlertDialogOfOneBt(String title,String msg,String btName,DialogInterface.OnClickListener positiveListener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton(btName, positiveListener).create();
+        if (!TextUtils.isEmpty(title)) {
+            alertDialog.setTitle(title);
+        }
+        alertDialog.show();
+        setAlertDialogHeightWidth(alertDialog,-1,0);
+    }
+    /**
+     * 展示对话框
+     * @param msg
      * @param positiveTitle
      * @param negativeTitle
      * @param positiveListener

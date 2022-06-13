@@ -20,5 +20,12 @@ public class ShopCommodityCategoryAdapter extends BaseQuickAdapter<ShopCommodity
     @Override
     protected void convert(BaseViewHolder helper, ShopCommodityCategoryListBean.DataBean item) {
         helper.setText(R.id.commodity_category_name_tv, item.getShopClassifyName());
+
+        helper.addOnClickListener(R.id.modify_tv);
+        helper.addOnClickListener(R.id.delete_tv);
+
     }
+
+
+
 }

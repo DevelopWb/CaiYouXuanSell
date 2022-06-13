@@ -13,9 +13,6 @@ import com.juntai.project.sell.mall.beans.AroundShopBean;
 import com.juntai.project.sell.mall.beans.CartListBean;
 import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.beans.CollectDataBean;
-import com.juntai.project.sell.mall.beans.CommodityDesListBean;
-import com.juntai.project.sell.mall.beans.CommodityDetailBean;
-import com.juntai.project.sell.mall.beans.CommodityEvaluationBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.beans.PlayUrlBean;
@@ -30,11 +27,11 @@ import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
-import com.juntai.project.sell.mall.beans.shop.ShopCommodityListBean;
-import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
 
 import java.util.List;
 
@@ -114,21 +111,7 @@ public interface AppServerMall {
 
 
 
-    /*====================================================    商品信息   ==============================================================*/
 
-
-    @POST(AppHttpPathMall.COMMODIFY_LABELS)
-    Observable<IdNameBean> getCommodityLaBels();
-
-
-    @POST(AppHttpPathMall.COMMODIFY_RECOMMEND)
-    Observable<CommodityDesListBean> getCommodityRecommendList(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.COMMODIFY_DETAIL)
-    Observable<CommodityDetailBean> getCommodityDetail(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.COMMODIFY_EVALUATION)
-    Observable<CommodityEvaluationBean> getCommodityEvaluation(@Body RequestBody requestBody);
 
 
 
@@ -153,8 +136,6 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.ALL_SHOP_CATEGORY)
     Observable<IdNameBean> getAllCategory(@Body RequestBody requestBody);
 
-    @POST(AppHttpPathMall.SHOP_COMMODITY_LIST)
-    Observable<ShopCommodityListBean> getShopCommodityList(@Body RequestBody requestBody);
 
 
     @POST(AppHttpPathMall.SHOP_COLLECT)
@@ -350,8 +331,6 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.NEWS_LIST)
     Observable<NewsListBean> getNewsList(@Body RequestBody requestBody);
 
-    @POST(AppHttpPathMall.SEARCH_COMMODITY)
-    Observable<CommodityDesListBean> startSearchCommodity(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.SEARCH_SHOP)
     Observable<ShopListDataBean> startSearchShop(@Body RequestBody requestBody);
@@ -389,5 +368,12 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.DELETE_COMMODITY_CATEGORY)
     Observable<BaseResult> deleteCommodityCategorys(@Body RequestBody requestBody);
+
+
+
+        /*====================================================    商品管理   ==============================================================*/
+
+    @POST(AppHttpPathMall.GET_ALL_COMMODITY)
+    Observable<ShopCommodityListBean> getAllCommodity(@Body RequestBody requestBody);
 
 }

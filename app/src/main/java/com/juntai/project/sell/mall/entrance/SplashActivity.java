@@ -12,7 +12,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.MainActivity;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
-import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;

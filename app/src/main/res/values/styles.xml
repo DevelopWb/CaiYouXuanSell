@@ -26,6 +26,12 @@
         <item name="android:drawableLeft">@drawable/radiobutton_accent</item>
         <item name="android:button">@null</item>
     </style>
+
+    <style name="CustomAlertDialogBackground" parent="@style/Theme.AppCompat.Light.Dialog.Alert" >
+        <item name="android:background">@drawable/sp_filled_white_10dp</item>
+        <!--下面这个透明色很重要-->
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
     <style name="shop_login_edittext_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

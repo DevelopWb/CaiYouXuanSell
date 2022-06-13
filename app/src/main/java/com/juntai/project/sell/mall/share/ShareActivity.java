@@ -20,7 +20,7 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
-import com.juntai.project.sell.mall.home.commodityfragment.commodity_detail.PicTextAdapter;
+import com.juntai.project.sell.mall.home.PicTextAdapter;
 import com.juntai.project.sell.mall.utils.ToolShare;
 import com.king.zxing.util.CodeUtils;
 

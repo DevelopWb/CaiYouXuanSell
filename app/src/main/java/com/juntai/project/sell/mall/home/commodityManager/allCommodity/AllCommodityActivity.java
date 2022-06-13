@@ -1,11 +1,11 @@
 package com.juntai.project.sell.mall.home.commodityManager.allCommodity;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.util.SparseArray;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
+import com.juntai.project.sell.mall.base.BaseTabViewPageActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
@@ -14,19 +14,42 @@ import com.juntai.project.sell.mall.home.shop.ShopPresent;
  * @description 描述 店铺内所有商品 管理
  * @date 2022/6/12 14:44
  */
-public class AllCommodityActivity extends BaseRecyclerviewActivity<ShopPresent> implements HomePageContract.IHomePageView {
-
+public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> implements HomePageContract.IHomePageView {
     @Override
     protected ShopPresent createPresenter() {
         return new ShopPresent();
     }
 
     @Override
+    protected int getTabMode() {
+        return TabLayout.MODE_FIXED;
+    }
+
+    @Override
+    protected int getTabHeadLayout() {
+        return 0;
+    }
+
+    @Override
+    protected int getTabFootLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void commitSearch(String s) {
+
+    }
+
+    @Override
+    protected String getTitleName() {
+        return "商品管理";
+    }
+
+    @Override
     public void initData() {
         super.initData();
-        setTitleName("商品管理");
+        mSearchLl.setVisibility(View.GONE);
         getTitleRightTv().setText("添加商品");
-        baseQuickAdapter.setNewData(getTestData());
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,37 +60,26 @@ public class AllCommodityActivity extends BaseRecyclerviewActivity<ShopPresent> 
     }
 
     @Override
-    protected View getAdapterHeadView() {
-        return null;
-    }
-
-    @Override
-    protected View getAdapterFootView() {
-        return null;
-    }
-
-    @Override
-    protected LinearLayoutManager getBaseAdapterManager() {
-        return null;
-    }
-
-    @Override
-    protected void getRvAdapterData() {
+    protected void onTabSelected(int i) {
 
     }
 
     @Override
-    protected boolean enableRefresh() {
-        return true;
+    protected SparseArray<Fragment> getFragments() {
+        SparseArray<Fragment> arrays = new SparseArray<>();
+        arrays.append(0,ShopCommodityFragment.getInstance(0));
+        arrays.append(1,ShopCommodityFragment.getInstance(1));
+        return arrays;
     }
 
     @Override
-    protected boolean enableLoadMore() {
-        return false;
+    protected String[] getTabTitles() {
+        return new String[] {"已上架商品","待上架商品"};
     }
 
+
     @Override
-    protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new ShopCommodityAdapter(R.layout.shop_commodity_item);
+    public void onSuccess(String tag, Object o) {
+
     }
 }

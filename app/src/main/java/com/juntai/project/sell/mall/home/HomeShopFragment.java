@@ -20,7 +20,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
-import com.juntai.project.sell.mall.beans.shop.ShopDetailBean;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
 import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
@@ -308,7 +308,6 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                 // TODO: 2022/6/7 分享店铺
                 break;
             case R.id.search_ll:
-                getBaseAppActivity().startToSearchActivity();
                 break;
             case R.id.scan_iv:
                 // : 2022/5/31 扫码

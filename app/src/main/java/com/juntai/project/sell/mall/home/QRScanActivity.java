@@ -154,8 +154,7 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
                 //店铺分享
                 startToShop(Integer.parseInt(id));
             } else {
-                // : 2022/5/31 商品分享
-                startToCommodityDetail(Integer.parseInt(id));
+                // todo: 2022/5/31 商品分享
             }
         } else {
             startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
