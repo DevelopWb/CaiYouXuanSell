@@ -22,15 +22,19 @@ import java.util.List;
  * @UpdateDate: 2022/6/12 14:17
  */
 public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean.DataBean.ListBean, BaseViewHolder> {
-    public ShopCommodityAdapter(int layoutResId) {
+
+  private  OnChildClickCallBack childClickCallBack;
+
+    public ShopCommodityAdapter(int layoutResId,OnChildClickCallBack childClickCallBack) {
         super(layoutResId);
+        this.childClickCallBack = childClickCallBack;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ShopCommodityListBean.DataBean.ListBean item) {
         ImageLoadUtil.loadSquareImage(mContext, item.getCoverImg(), helper.getView(R.id.commodity_cover_iv));
         helper.setText(R.id.commodity_name_tv, item.getName());
-        helper.setText(R.id.commodity_resove_tv, String.format("库存%s", item.getStock()));
+        helper.setText(R.id.commodity_resove_tv, String.format("库存量 %s", item.getStock()));
 
         RecyclerView recyclerView = helper.getView(R.id.edit_commodity_rv);
         ShopCommodityEditAdapter editAdapter = new ShopCommodityEditAdapter(R.layout.edit_commodity_item);
@@ -55,7 +59,29 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean
 
                 switch (bean.getTextContent()) {
                     case "修改":
-// TODO: 2022/6/12 修改商品属性
+                        if (childClickCallBack != null) {
+                            childClickCallBack.onChildClick(0,bean.getListBean());
+                        }
+                        break;
+                    case "删除":
+                        if (childClickCallBack != null) {
+                            childClickCallBack.onChildClick(1,bean.getListBean());
+                        }
+                        break;
+                    case "规格":
+                        if (childClickCallBack != null) {
+                            childClickCallBack.onChildClick(2,bean.getListBean());
+                        }
+                        break;
+                    case "上架":
+                        if (childClickCallBack != null) {
+                            childClickCallBack.onChildClick(3,bean.getListBean());
+                        }
+                        break;
+                    case "下架":
+                        if (childClickCallBack != null) {
+                            childClickCallBack.onChildClick(4,bean.getListBean());
+                        }
                         break;
                     default:
                         break;
@@ -67,15 +93,25 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean
 
     private List<EditShopCommodityBean> getEditMenus(ShopCommodityListBean.DataBean.ListBean item) {
         List<EditShopCommodityBean> arrays = new ArrayList<>();
-        arrays.add(new EditShopCommodityBean("修改", item.getId()));
-        arrays.add(new EditShopCommodityBean("删除", item.getId()));
-        arrays.add(new EditShopCommodityBean("规格", item.getId()));
+        arrays.add(new EditShopCommodityBean("修改", item));
+        arrays.add(new EditShopCommodityBean("删除", item));
+        arrays.add(new EditShopCommodityBean("规格", item));
         if (item.getPutAwayStatus() == 0) {
-            arrays.add(new EditShopCommodityBean("下架", item.getId()));
+            arrays.add(new EditShopCommodityBean("下架", item));
         } else {
-            arrays.add(new EditShopCommodityBean("上架", item.getId()));
+            arrays.add(new EditShopCommodityBean("上架", item));
         }
 
         return arrays;
     }
+
+    public interface OnChildClickCallBack{
+        /**
+         *
+         * @param editType  0 修改 1 删除 2规格 3上架 4下架
+         * @param item
+         */
+        void onChildClick(int editType,ShopCommodityListBean.DataBean.ListBean item);
+    }
+
 }

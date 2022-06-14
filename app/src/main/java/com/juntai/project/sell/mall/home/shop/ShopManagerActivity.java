@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
+import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import okhttp3.FormBody;
@@ -23,6 +24,7 @@ public class ShopManagerActivity extends BaseShopActivity {
 
     private RadioButton mShopProtocalRb;
     private boolean isAgree = false;
+    private ShopDetailBean.DataBean dataBean;
 
     @Override
     protected boolean isDetail() {
@@ -43,10 +45,15 @@ public class ShopManagerActivity extends BaseShopActivity {
     @Override
     public void initData() {
         super.initData();
+        dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+
         baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, false));
 
     }
-
+    @Override
+    public boolean requestLocation() {
+        return dataBean==null;
+    }
     @Override
     protected View getFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);

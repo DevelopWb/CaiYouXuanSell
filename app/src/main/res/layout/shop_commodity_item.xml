@@ -29,7 +29,6 @@
         android:id="@+id/commodity_resove_tv"
         android:layout_width="0dp"
         android:layout_marginLeft="10dp"
-
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="库存"
@@ -42,6 +41,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/edit_commodity_rv"
         android:layout_width="0dp"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

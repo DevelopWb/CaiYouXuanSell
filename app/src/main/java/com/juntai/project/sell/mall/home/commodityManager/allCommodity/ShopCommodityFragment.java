@@ -21,7 +21,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/13 9:58
  */
-public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView {
+public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView,ShopCommodityAdapter.OnChildClickCallBack {
 
     private int status;
 
@@ -76,7 +76,7 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new ShopCommodityAdapter(R.layout.shop_commodity_item);
+        return new ShopCommodityAdapter(R.layout.shop_commodity_item,this);
     }
 
     @Override
@@ -98,6 +98,23 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
                         setData(arrays,dataBean.getTotalCount());
                     }
                 }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     *
+     * @param editType  0 修改 1 删除 2规格 3上架 4下架
+     * @param item
+     */
+    @Override
+    public void onChildClick(int editType, ShopCommodityListBean.DataBean.ListBean item) {
+        switch (editType) {
+            case 0:
+                // TODO: 2022/6/13 修改商品
+                
                 break;
             default:
                 break;

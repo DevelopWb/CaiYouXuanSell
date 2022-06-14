@@ -27,6 +27,8 @@ import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.bdmap.utils.DateUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
+import com.juntai.project.sell.mall.beans.ItemFragmentBean;
+import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
@@ -97,6 +99,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
     private List<String> arrays;
 
     private T object;
+    private ItemFragmentBean itemFragmentBean;
 
     public T getObject() {
         return object;
@@ -104,6 +107,8 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
 
     public void setObject(T object) {
         this.object = object;
+        itemFragmentBean = (ItemFragmentBean) object;
+
     }
 
 
@@ -268,7 +273,16 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
-            imageCompress(Matisse.obtainPathResult(data));
+            if (HomePageContract.COMMODITY_VIDEO.equals(itemFragmentBean.getKey())) {
+                icons.add(Matisse.obtainPathResult(data).get(0));
+                selectedPicsAdapter.setNewData(reSortIconList());
+                if (onPicLoadSuccessCallBack != null) {
+                    onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
+                }
+            }else {
+                imageCompress(Matisse.obtainPathResult(data));
+            }
+
         } else if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
             imageCompress(cameraPath);
         }
@@ -396,7 +410,11 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                 if (id == R.id.select_pic_icon_iv) {
                     if ("-1".equals(icon_path)) {
                         int count = mMaxCount - (icons.size() - 1);
-                        choseImageFromFragment(type, BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
+                        if (HomePageContract.COMMODITY_VIDEO.equals(itemFragmentBean.getKey())) {
+                            choseVideoFromFragment(BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
+                        }else {
+                            choseImageFromFragment(type, BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
+                        }
                     } else {
                         if (icon_path.contains(".mp4")) {
                             //视频路径
@@ -554,6 +572,31 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                         openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                         startActivityForResult(openCameraIntent, TAKE_PICTURE);
                     }
+                } else {
+                    Toasty.info(mContext, "请给与相应权限").show();
+                }
+            }
+        });
+    }
+    /**
+     * 图片选择
+     *
+     * @param fragment
+     * @param maxSelectable 最大图片选择数
+     * @param requestCode   请求得code
+     */
+    public void choseVideoFromFragment( Fragment fragment, int maxSelectable, int requestCode) {
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean) {
+                        Matisse.from(fragment).choose(MimeType.ofVideo()).showSingleMediaType(true)
+                                //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                                .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
+                                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(requestCode);
+                        //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
                 } else {
                     Toasty.info(mContext, "请给与相应权限").show();
                 }

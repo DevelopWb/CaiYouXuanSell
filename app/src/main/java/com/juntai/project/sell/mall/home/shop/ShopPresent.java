@@ -9,6 +9,9 @@ import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
+import com.juntai.project.sell.mall.beans.ItemFragmentBean;
+import com.juntai.project.sell.mall.beans.RadioBean;
+import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
@@ -33,6 +36,84 @@ public class ShopPresent extends BaseAppMallPresent {
 
 
     /**
+     * 店铺商品信息
+     *
+     * @return
+     */
+    public List<MultipleItem> getCommodityBaseInfoData(CommodityDetailBean bean, boolean isDetail) {
+        List<MultipleItem> arrays = new ArrayList<>();
+        initTextSelectType(arrays, HomePageContract.COMMODITY_CATEGORY_NAME, bean == null ? "" : String.valueOf(bean.getCategoryId()), bean == null ? "" : bean.getCategoryName(), true);
+        initTextSelectType(arrays, HomePageContract.COMMODITY_SORT, bean == null ? "" : String.valueOf(bean.getShopClassifyId()), bean == null ? "" : bean.getShopClassifyName(), true);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_NAME, bean == null ? "" :
+                        bean.getName()
+                , true, 0, isDetail);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (HomePageContract.COMMODITY_PRIMARY_PIC, true)));
+        if (bean != null) {
+            String coverPic = bean.getCoverImg();
+            List<String> pics = new ArrayList<>();
+            pics.add(coverPic);
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(HomePageContract.COMMODITY_PRIMARY_PIC, 4, 1,
+                    1, false,
+                    pics)));
+        } else {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT, new ItemFragmentBean(HomePageContract.COMMODITY_PRIMARY_PIC, 4, 1,
+                    1, false,
+                    new ArrayList<>())));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (HomePageContract.COMMODITY_BANNER_PICS, true)));
+        if (bean != null) {
+            List<CommodityDetailBean.ImagesBean> imagesBeans = bean.getImages();
+            List<String> pics = new ArrayList<>();
+            for (CommodityDetailBean.ImagesBean imagesBean : imagesBeans) {
+                pics.add(imagesBean.getImgUrl());
+            }
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, pics.size(),
+                    pics.size(), false,
+                    pics)));
+        } else {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT2, new ItemFragmentBean(HomePageContract.COMMODITY_BANNER_PICS, 4, 4,
+                    1, false,
+                    new ArrayList<>())));
+        }
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (HomePageContract.COMMODITY_VIDEO, true)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
+                1, false,
+                new ArrayList<>())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                (HomePageContract.COMMODITY_DETAIL_INFO, true)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_RICH_TEXT,
+                new TextKeyValueBean(HomePageContract.COMMODITY_DETAIL_INFO, bean==null?"":bean.getDescription())));
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
+                        String.valueOf(bean.getPrice())
+                , true, 0, isDetail);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_STOCK, bean == null ? "" :
+                        String.valueOf(bean.getStock())
+                , true, 0, isDetail);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_POSTAGE, bean == null ? "" :
+                        String.valueOf(bean.getTransportCharges())
+                , true, 0, isDetail);
+        initRadioType(arrays, HomePageContract.COMMODITY_POST_FREE, bean == null ? 0 : bean.getIsPostage(), new String[]{
+                "是", "否"}, false);
+        return arrays;
+    }
+
+    /**
+     * @param arrays
+     * @param typeName
+     */
+    private void initRadioType(List<MultipleItem> arrays, String typeName, int defaultIndex, String[] values,
+                               boolean isImportant) {
+        String titleName = null;
+        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
+                isImportant)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_RADIO, new RadioBean(typeName, values,"",defaultIndex)));
+    }
+
+    /**
      * 店铺管理
      *
      * @return
@@ -46,17 +127,17 @@ public class ShopPresent extends BaseAppMallPresent {
                         bean == null ? "" : bean.getHeadPortrait())));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_NAME, bean == null ? "" :
                         bean.getName()
-                , true, 0,isDetail);
+                , true, 0, isDetail);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_INTRODUCTION, bean == null ? "" :
-                bean.getIntroduction(), true, 1,isDetail);
+                bean.getIntroduction(), true, 1, isDetail);
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_LOCATION, new LocationBean(bean == null ? null :
                 bean.getGpsAddress()
                 , bean == null ? null : bean.getLatitude(), bean == null ? null : bean.getLongitude())));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SHOP_TEL, bean == null ? "" :
                         bean.getPhoneNumber()
-                , true, 0,isDetail);
-        initTextSelectType(arrays, HomePageContract.SHOP_CATEGORY, bean == null ? "" :TextUtils.join(",", bean.getCategoryList()), bean == null ? "" :bean.getCategory(), true);
+                , true, 0, isDetail);
+        initTextSelectType(arrays, HomePageContract.SHOP_CATEGORY, bean == null ? "" : TextUtils.join(",", bean.getCategoryList()), bean == null ? "" : bean.getCategory(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_BIG, "店铺证件"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_PIC,
                 new PicBean(HomePageContract.SHOP_LICENSE, 1, bean == null ? "" :
@@ -96,33 +177,34 @@ public class ShopPresent extends BaseAppMallPresent {
      * @param editHeightType 0代表高度固定 1代表不固定
      */
     private void initTextType(List<MultipleItem> arrays, int layoutType, String typeName, String value,
-                              boolean isImportant, int editHeightType,boolean isDetail) {
+                              boolean isImportant, int editHeightType, boolean isDetail) {
         switch (layoutType) {
             case MultipleItem.ITEM_SELECT:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                         (typeName, isImportant)));
                 arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
                         new TextKeyValueBean(typeName, value, String.format("%s%s", "请选择",
-                                typeName), 0, isImportant,isDetail)));
+                                typeName), 0, isImportant, isDetail)));
                 break;
             case MultipleItem.ITEM_EDIT:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
                         isImportant)));
                 arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT,
                         new TextKeyValueBean(typeName, value,
-                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant,isDetail)));
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
 
                 break;
             case MultipleItem.ITEM_EDIT2:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT2,
                         new TextKeyValueBean(typeName, value,
-                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant,isDetail)));
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
                 break;
             default:
                 break;
         }
 
     }
+
     public void addCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .addCommodityCategorys(requestBody)
@@ -144,6 +226,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void getCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getCommodityCategorys(requestBody)
@@ -165,6 +248,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void modifyCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .modifyCommodityCategorys(requestBody)
@@ -186,6 +270,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void deleteCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .deleteCommodityCategorys(requestBody)
@@ -207,6 +292,7 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+
     public void getAllCommodity(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getAllCommodity(requestBody)

@@ -1,5 +1,7 @@
 package com.juntai.project.sell.mall.base.selectPics;
 
+import android.os.Bundle;
+
 import com.juntai.project.sell.mall.R;
 
 /**
@@ -33,8 +35,11 @@ public class SelectPhotosFragment extends BaseSelectPhotosFragment {
      *
      * @return
      */
-    public static SelectPhotosFragment newInstance() {
+    public static SelectPhotosFragment newInstance(String tag) {
+        Bundle bundle = new Bundle();
+        bundle.putString(BASE_STRING,tag);
         SelectPhotosFragment fragment = new SelectPhotosFragment();
+        fragment.setArguments(bundle);
         return fragment;
     }
 

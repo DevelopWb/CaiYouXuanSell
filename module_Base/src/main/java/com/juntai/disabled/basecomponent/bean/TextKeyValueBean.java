@@ -20,6 +20,7 @@ public class TextKeyValueBean {
     private boolean isDetail;//是否必填
     private boolean valueGravityToRight;//value靠右
 
+
     public TextKeyValueBean(String key, String value) {
         this.key = key;
         this.value = value;

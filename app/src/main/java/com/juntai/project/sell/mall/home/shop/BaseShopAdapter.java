@@ -1,6 +1,9 @@
 package com.juntai.project.sell.mall.home.shop;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -9,42 +12,39 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.chat.bean.UploadFileBean;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
-import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
-import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
-import com.juntai.project.sell.mall.base.selectPics.SelectBigPicFragment;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+import com.juntai.project.sell.mall.beans.ItemFragmentBean;
+import com.juntai.project.sell.mall.beans.RadioBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.BaseNormalRecyclerviewBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import cn.qzb.richeditor.RE;
+import cn.qzb.richeditor.RichEditor;
 
 /**
  * @Author: tobato
@@ -55,11 +55,16 @@ import okhttp3.RequestBody;
  */
 public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
     public static String SDCARD_TAG = "/storage/emulated";
+    private int iconDefaultColor = Color.parseColor("#CDCDCD");
+    private int iconSelectColor = Color.BLACK;
 
     private boolean isDetail = false;//是否是详情模式
     private FragmentManager mFragmentManager;
     private OnCheckEdittextValueFormatCallBack checkEdittextValueFormatCallBack;
     private BaseActivity baseActivity;
+    private OnPicVideoLoadSuccessCallBack onPicVideoLoadSuccessCallBack;
+    private RichEditor mEditor;
+    private RE re;
 
 
     public void setCheckEdittextValueFormatCallBack(OnCheckEdittextValueFormatCallBack checkEdittextValueFormatCallBack) {
@@ -77,7 +82,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public BaseShopAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager) {
+    public BaseShopAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager, OnPicVideoLoadSuccessCallBack onPicVideoLoadSuccessCallBack) {
         super(data);
         addItemType(MultipleItem.ITEM_HEAD_PIC, R.layout.item_layout_type_head_pic);
         addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.item_layout_type_title_big);
@@ -89,9 +94,14 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         addItemType(MultipleItem.ITEM_LOCATION, R.layout.item_layout_location);
         addItemType(MultipleItem.ITEM_TEXT, R.layout.item_text);
         addItemType(MultipleItem.ITEM_PIC, R.layout.item_pic);
+        addItemType(MultipleItem.ITEM_RADIO, R.layout.item_layout_type_radio);
         addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.item_pic_fragment);
+        addItemType(MultipleItem.ITEM_FRAGMENT2, R.layout.item_pic_fragment2);
+        addItemType(MultipleItem.ITEM_FRAGMENT_VIDEO, R.layout.item_pic_fragment3);
+        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.item_pic_text);
         this.isDetail = isDetail;
         this.mFragmentManager = mFragmentManager;
+        this.onPicVideoLoadSuccessCallBack = onPicVideoLoadSuccessCallBack;
     }
 
 
@@ -99,6 +109,219 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
     protected void convert(BaseViewHolder helper, MultipleItem item) {
         baseActivity = (BaseActivity) mContext;
         switch (item.getItemType()) {
+            case MultipleItem.ITEM_RICH_TEXT:
+                TextKeyValueBean richBean = (TextKeyValueBean) item.getObject();
+                String richValue = richBean.getValue();
+                FrameLayout mWebContainer = helper.getView(R.id.web_container);
+
+                changeIconColor(helper.getView(R.id.action_bold), iconDefaultColor);
+                changeIconColor(helper.getView(R.id.action_italic), iconDefaultColor);
+                changeIconColor(helper.getView(R.id.action_underline), iconDefaultColor);
+                changeIconColor(helper.getView(R.id.action_align_left), iconDefaultColor);
+                changeIconColor(helper.getView(R.id.action_align_center), iconDefaultColor);
+                changeIconColor(helper.getView(R.id.action_align_right), iconDefaultColor);
+                mEditor = new RichEditor(mContext.getApplicationContext());
+                mWebContainer.addView(mEditor);
+                re = RE.getInstance(mEditor);
+                if (!TextUtils.isEmpty(richValue)) {
+                    re.setHtml(richBean.getValue());
+                    re.moveToEndEdit();
+                }
+                re.setPlaceHolder("请输入商品详情");
+                re.setPadding(20, 10, 20, 10);
+                mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
+                    @Override
+                    public void onTextChange(String text) {
+                        richBean.setValue(re.getHtml().replaceAll("\n", "</br>"));
+                    }
+                });
+                helper.addOnClickListener(R.id.action_img);
+                helper.getView(R.id.action_bold).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        re.setBold();
+                        if (re.isBold()) {
+                            changeIconColor(helper.getView(R.id.action_bold), iconSelectColor);
+                        } else {
+                            changeIconColor(helper.getView(R.id.action_bold), iconDefaultColor);
+                        }
+                    }
+                });
+                helper.getView(R.id.action_italic).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        re.setItalic();
+                        if (re.isItalic()) {
+                            changeIconColor(helper.getView(R.id.action_italic), iconSelectColor);
+                        } else {
+                            changeIconColor(helper.getView(R.id.action_italic), iconDefaultColor);
+                        }
+                    }
+                });
+                helper.getView(R.id.action_underline).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        re.setUnderLine();
+                        if (re.isUnderline()) {
+                            changeIconColor(helper.getView(R.id.action_underline), iconSelectColor);
+                        } else {
+                            changeIconColor(helper.getView(R.id.action_underline), iconDefaultColor);
+                        }
+                    }
+                });
+                helper.getView(R.id.action_align_left).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (re.getTextAlign() == 1) {
+                            return;
+                        }
+                        re.setAlignLeft();
+                        changeIconColor(helper.getView(R.id.action_align_left), iconSelectColor);
+                        changeIconColor(helper.getView(R.id.action_align_center), iconDefaultColor);
+                        changeIconColor(helper.getView(R.id.action_align_right), iconDefaultColor);
+                    }
+                });
+                helper.getView(R.id.action_align_center).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (re.getTextAlign() == 2) {
+                            return;
+                        }
+                        re.setAlignCenter();
+                        changeIconColor(helper.getView(R.id.action_align_left), iconDefaultColor);
+                        changeIconColor(helper.getView(R.id.action_align_center), iconSelectColor);
+                        changeIconColor(helper.getView(R.id.action_align_right), iconDefaultColor);
+                    }
+                });
+                helper.getView(R.id.action_align_right).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (re.getTextAlign() == 3) {
+                            return;
+                        }
+                        re.setAlignRight();
+                        changeIconColor(helper.getView(R.id.action_align_left), iconDefaultColor);
+                        changeIconColor(helper.getView(R.id.action_align_center), iconDefaultColor);
+                        changeIconColor(helper.getView(R.id.action_align_right), iconSelectColor);
+                    }
+                });
+                helper.getView(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        re.undo();
+                    }
+                });
+                helper.getView(R.id.action_redo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        re.redo();
+                    }
+                });
+
+
+                break;
+
+            case MultipleItem.ITEM_RADIO:
+                RadioBean radioBean = (RadioBean) item.getObject();
+                RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
+                if (isDetail) {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(false);
+                    }
+                } else {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(true);
+                    }
+                }
+                radioGroup.setTag(radioBean);
+                RadioButton radioButton0 = helper.getView(R.id.radio_zero_rb);
+                RadioButton radioButton1 = helper.getView(R.id.radio_first_rb);
+                RadioButton radioButton2 = helper.getView(R.id.radio_second_rb);
+                RadioButton radioButton3 = helper.getView(R.id.radio_third_rb);
+                String[] values = radioBean.getValues();
+                radioButton2.setVisibility(View.GONE);
+                radioButton3.setVisibility(View.GONE);
+                if (values != null) {
+                    if (values.length > 1) {
+                        radioButton0.setText(values[0]);
+                        radioButton1.setText(values[1]);
+                        if (values.length == 3) {
+                            radioButton2.setVisibility(View.VISIBLE);
+                            radioButton2.setText(values[2]);
+                        }
+                        if (values.length == 4) {
+                            radioButton2.setVisibility(View.VISIBLE);
+                            radioButton2.setText(values[2]);
+                            radioButton3.setVisibility(View.VISIBLE);
+                            radioButton3.setText(values[3]);
+                        }
+                    }
+
+                } else {
+                    radioButton0.setText("是");
+                    radioButton1.setText("否");
+                }
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                        if (radioCheckedCallBack != null) {
+//                            radioCheckedCallBack.radioChecked(group, checkedId);
+//                        }
+                        RadioBean radioBean = (RadioBean) group.getTag();
+                        switch (checkedId) {
+                            case R.id.radio_zero_rb:
+                                radioBean.setDefaultSelectedIndex(0);
+                                break;
+                            case R.id.radio_first_rb:
+                                radioBean.setDefaultSelectedIndex(1);
+                                break;
+                            case R.id.radio_second_rb:
+                                radioBean.setDefaultSelectedIndex(2);
+                                break;
+                            case R.id.radio_third_rb:
+                                radioBean.setDefaultSelectedIndex(3);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+                int defaultIndex = radioBean.getDefaultSelectedIndex();
+
+                switch (defaultIndex) {
+                    case 0:
+                        radioButton0.setChecked(true);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(false);
+                        break;
+                    case 1:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(true);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(false);
+                        break;
+                    case 2:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(true);
+                        radioButton3.setChecked(false);
+                        break;
+                    case 3:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(true);
+                        break;
+                    default:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(false);
+                        break;
+                }
+
+                break;
             case MultipleItem.ITEM_PIC:
                 PicBean businessPicBean = (PicBean) item.getObject();
                 String picPath = businessPicBean.getPicPath();
@@ -121,73 +344,54 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                     ImageLoadUtil.loadImage(mContext, picPath, picIv);
 
                 } else {
-                    ImageLoadUtil.loadImage(mContext,0, picIv);
+                    ImageLoadUtil.loadImage(mContext, 0, picIv);
                 }
                 break;
             case MultipleItem.ITEM_FRAGMENT:
+            case MultipleItem.ITEM_FRAGMENT2:
+            case MultipleItem.ITEM_FRAGMENT_VIDEO:
                 //上传材料时 多选照片
-                PicBean picBean = (PicBean) item.getObject();
-                SelectBigPicFragment fragment = (SelectBigPicFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
-                fragment.setObject(picBean);
+                ItemFragmentBean itemFragmentBean = (ItemFragmentBean) item.getObject();
+                SelectPhotosFragment fragment = null;
+                switch (itemFragmentBean.getKey()) {
+                    case HomePageContract.COMMODITY_PRIMARY_PIC:
+                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
 
-                if (isDetail) {
-                    fragment.setPhotoDelateable(false).setMaxCount(picBean.getFragmentPics().size());
-                    if (!picBean.getFragmentPics().isEmpty()) {
-                        fragment.setIcons(picBean.getFragmentPics());
-                    }
-                } else {
-                    fragment.setPhotoDelateable(true).setMaxCount(1);
+                        break;
+                    case HomePageContract.COMMODITY_BANNER_PICS:
+                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg2);
+
+                        break;
+                    case HomePageContract.COMMODITY_VIDEO:
+                        fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg3);
+
+                        break;
+                    default:
+                        break;
                 }
 
-                fragment.setSpanCount(1).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
+                fragment.setObject(itemFragmentBean);
+                if (isDetail) {
+                    fragment.setPhotoDelateable(false).setMaxCount(itemFragmentBean.getFragmentPics().size());
+                    if (!itemFragmentBean.getFragmentPics().isEmpty()) {
+                        fragment.setIcons(itemFragmentBean.getFragmentPics());
+                    }
+                } else {
+                    fragment.setPhotoDelateable(true).setMaxCount(itemFragmentBean.getmMaxCount());
+                }
+
+                SelectPhotosFragment finalFragment = fragment;
+                fragment.setSpanCount(itemFragmentBean.getmSpanCount()).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
                     @Override
                     public void loadSuccess(List<String> icons) {
-                        PicBean picBean = (PicBean) fragment.getObject();
-                        if (icons.size() > 0) {
-                            MultipartBody.Builder builder = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM);
-                            for (String filePath : icons) {
-                                try {
-                                    builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
-                                } catch (UnsupportedEncodingException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            AppNetModuleMall.createrRetrofit()
-                                    .uploadFiles(builder.build())
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new BaseObserver<UploadFileBean>(null) {
-                                        @Override
-                                        public void onSuccess(UploadFileBean o) {
-                                            picBean.setFragmentPics(o.getFilePaths());
-                                        }
 
-                                        @Override
-                                        public void onError(String msg) {
-                                        }
-                                    });
-                        }else {
-                            // : 2022/6/10 删没了
-                            picBean.setFragmentPics(null);
+                        ItemFragmentBean itemFragmentBean = (ItemFragmentBean) finalFragment.getObject();
+                        if (onPicVideoLoadSuccessCallBack != null) {
+                            onPicVideoLoadSuccessCallBack.uploadPicVideo(itemFragmentBean, icons);
                         }
+
                     }
                 });
-
-
-                int picNameIndex = picBean.getPicNameIndex();
-                String picName = picBean.getPicName();
-                if (picNameIndex > 0) {
-                    helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s", String.valueOf(picNameIndex), ".",
-                            picBean.getPicName()));
-                } else {
-                    helper.setText(R.id.form_pic_title_tv, picBean.getPicName());
-                }
-                helper.setGone(R.id.pic_form_notice_tv, false);
-                //                //详情时 图片不可点击  示例图不可点击
-                //                if (!isDetail) {
-                //                    helper.addOnClickListener(R.id.form_pic_src_iv);
-                //                }
                 break;
             case MultipleItem.ITEM_TEXT:
 //                BaseStringBean baseStringBean = (BaseStringBean) item.getObject();
@@ -360,6 +564,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 break;
         }
     }
+
     private void addTextChange(EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -386,6 +591,11 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
             }
         });
     }
+
+    // 改变底部图标颜色
+    private void changeIconColor(ImageView imageView, int color) {
+        ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(color));
+    }
     private void initEdittextFocuseStatus(EditText editText) {
         if (isDetail) {
             editText.setClickable(false);
@@ -401,6 +611,35 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
      */
     interface OnCheckEdittextValueFormatCallBack {
         void checkEdittextValueFormat(TextKeyValueBean keyValueBean);
+    }
+
+
+    public interface OnPicVideoLoadSuccessCallBack {
+        void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons);
+    }
+    public void destroyWebView() {
+        if (mEditor != null) {
+            ViewParent parent = mEditor.getParent();
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(mEditor);
+            }
+            mEditor.stopLoading();
+            mEditor.getSettings().setJavaScriptEnabled(false);
+            mEditor.clearHistory();
+            mEditor.removeAllViews();
+            mEditor.destroy();
+        }
+    }
+
+    public void insertImage(TextKeyValueBean keyValueBean,int current,List<String> icons){
+        if (re != null) {
+            for (String icon : icons) {
+                re.insertImage(icon, "image");
+            }
+            re.moveToEndEdit();
+            keyValueBean.setValue(re.getHtml());
+            notifyItemChanged(current);
+        }
     }
 
 }

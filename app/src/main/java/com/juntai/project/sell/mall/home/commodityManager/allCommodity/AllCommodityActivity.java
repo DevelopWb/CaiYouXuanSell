@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.home.commodityManager.allCommodity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
@@ -7,6 +8,7 @@ import android.view.View;
 
 import com.juntai.project.sell.mall.base.BaseTabViewPageActivity;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.AddCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
 /**
@@ -53,8 +55,8 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2022/6/12 添加商品
-
+                // : 2022/6/12 添加商品
+                startActivity(new Intent(mContext, AddCommodityActivity.class));
             }
         });
     }
@@ -67,14 +69,14 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     @Override
     protected SparseArray<Fragment> getFragments() {
         SparseArray<Fragment> arrays = new SparseArray<>();
-        arrays.append(0,ShopCommodityFragment.getInstance(0));
-        arrays.append(1,ShopCommodityFragment.getInstance(1));
+        arrays.append(0, ShopCommodityFragment.getInstance(0));
+        arrays.append(1, ShopCommodityFragment.getInstance(1));
         return arrays;
     }
 
     @Override
     protected String[] getTabTitles() {
-        return new String[] {"已上架商品","待上架商品"};
+        return new String[]{"已上架商品", "待上架商品"};
     }
 
 

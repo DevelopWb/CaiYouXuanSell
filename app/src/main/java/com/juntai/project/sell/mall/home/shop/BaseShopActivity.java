@@ -8,26 +8,37 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.chat.bean.UploadFileBean;
 import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.project.sell.mall.AppHttpPathMall;
+import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
-import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.shopCategory.ChoseCategoryActivity;
 import com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -36,14 +47,13 @@ import okhttp3.FormBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/9 11:08
  */
-public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPresent> implements HomePageContract.IHomePageView, SelectPhotosFragment.OnPhotoItemClick, View.OnClickListener {
+public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPresent> implements HomePageContract.IHomePageView, SelectPhotosFragment.OnPhotoItemClick, View.OnClickListener, BaseShopAdapter.OnPicVideoLoadSuccessCallBack {
 
     private int currentPosition;
     private PicBean picBean;
     private String address;
     private TextView mSelectTv;
     private TextKeyValueBean selectBean;
-    protected ShopDetailBean.DataBean dataBean;
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
@@ -57,7 +67,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     public boolean requestLocation() {
-        return dataBean==null;
+        return false;
     }
 
     @Override
@@ -72,13 +82,46 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new BaseShopAdapter(null, isDetail(), getSupportFragmentManager());
+        return new BaseShopAdapter(null, isDetail(), getSupportFragmentManager(), this);
+    }
+
+
+    @Override
+    public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons) {
+        if (icons.size() > 0) {
+            MultipartBody.Builder builder = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM);
+            for (String filePath : icons) {
+                try {
+                    builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+            AppNetModuleMall.createrRetrofit()
+                    .uploadFiles(builder.build())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseObserver<UploadFileBean>(this) {
+                        @Override
+                        public void onSuccess(UploadFileBean o) {
+                            itemFragmentBean.setFragmentPics(o.getFilePaths());
+                        }
+
+                        @Override
+                        public void onError(String msg) {
+                            ToastUtils.toast(mContext, msg);
+                        }
+                    });
+        } else {
+            // : 2022/6/10 删没了
+            itemFragmentBean.setFragmentPics(null);
+        }
     }
 
     @Override
     public void initData() {
         super.initData();
-        dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
         setTitleName(getTitleName());
         if (getFootView() != null) {
             baseQuickAdapter.setFooterView(getFootView());
@@ -102,6 +145,9 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     case R.id.form_head_pic_iv:
                         choseImage(0, BaseShopActivity.this, 1);
                         break;
+                    case R.id.action_img:
+                        choseImage(0, BaseShopActivity.this, 9);
+                        break;
                     case R.id.location_ll:
                         //跳转到选择位置类
                         startActivityForResult(new Intent(mContext, LocateSelectionActivity.class),
@@ -114,10 +160,12 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         switch (selectBean.getKey()) {
                             case HomePageContract.SHOP_CATEGORY:
                                 // : 2022/6/10 选择店铺主营类目
-                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class),ChoseCategoryActivity.ACTIVITY_RESULT);
+                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class), ChoseCategoryActivity.ACTIVITY_RESULT);
                                 break;
                         }
                         break;
+
+
                     default:
                         break;
                 }
@@ -131,15 +179,24 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     protected void selectedPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
             String path = icons.get(0);
-            picBean = (PicBean) ((MultipleItem) baseQuickAdapter.getData().get(currentPosition)).getObject();
-            if (HomePageContract.SHOP_PIC.equals(picBean.getPicName())) {
-                //跳转到裁剪头像的界面
-                startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
-                        path), BASE_REQUEST_RESULT);
-            } else {
-                // TODO: 2022/6/10 上传图片
-                mPresenter.uploadFile(AppHttpPathMall.UPLOAD_ONE_PIC, path);
+            MultipleItem multipleItem = (MultipleItem) baseQuickAdapter.getItem(currentPosition);
+            switch (multipleItem.getItemType()) {
+                case MultipleItem.ITEM_RICH_TEXT:
+                    mPresenter.uploadFile(icons,AppHttpPathMall.UPLOAD_MORE_PIC);
+                    break;
+                default:
+                    picBean = (PicBean) multipleItem.getObject();
+                    if (HomePageContract.SHOP_PIC.equals(picBean.getPicName())) {
+                        //跳转到裁剪头像的界面
+                        startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
+                                path), BASE_REQUEST_RESULT);
+                    } else {
+                        // TODO: 2022/6/10 上传图片
+                        mPresenter.uploadFile(AppHttpPathMall.UPLOAD_ONE_PIC, path);
+                    }
+                    break;
             }
+
 
         }
     }
@@ -175,7 +232,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==BASE_REQUEST_RESULT&&resultCode == BASE_REQUEST_RESULT) {
+        if (requestCode == BASE_REQUEST_RESULT && resultCode == BASE_REQUEST_RESULT) {
             if (data != null) {
                 String path = data.getStringExtra(HeadCropActivity.CROPED_HEAD_PIC);
                 // : 2022/6/10 上传头像图片到后台
@@ -183,7 +240,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             }
 
         }
-        if (requestCode == LocateSelectionActivity.SELECT_ADDR&&resultCode == BASE_REQUEST_RESULT) {
+        if (requestCode == LocateSelectionActivity.SELECT_ADDR && resultCode == BASE_REQUEST_RESULT) {
             //地址选择
             lat = data.getDoubleExtra(LocateSelectionActivity.LAT, 0.0);
             lng = data.getDoubleExtra(LocateSelectionActivity.LNG, 0.0);
@@ -192,13 +249,13 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
         }
 
-        if (resultCode==ChoseCategoryActivity.ACTIVITY_RESULT) {
+        if (resultCode == ChoseCategoryActivity.ACTIVITY_RESULT) {
             if (data == null) {
                 return;
             }
             //返回选择的经营类目
-            String  categoryids = data.getStringExtra(BASE_STRING);
-            String  categoryNames = data.getStringExtra(BASE_STRING2);
+            String categoryids = data.getStringExtra(BASE_STRING);
+            String categoryNames = data.getStringExtra(BASE_STRING2);
             if (selectBean != null) {
                 mSelectTv.setText(categoryNames);
                 selectBean.setValue(categoryNames);
@@ -376,11 +433,24 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         baseQuickAdapter.notifyItemChanged(currentPosition);
                     }
                 }
-
-
+                break;
+            case AppHttpPathMall.UPLOAD_MORE_PIC:
+                List<String> richImages = (List<String>) o;
+                if (richImages != null && !richImages.isEmpty()) {
+                    TextKeyValueBean keyValueBean = (TextKeyValueBean) ((MultipleItem)baseQuickAdapter.getItem(currentPosition)).getObject();
+                    if (keyValueBean != null) {
+                        ((BaseShopAdapter)baseQuickAdapter).insertImage(keyValueBean,currentPosition,richImages);
+                    }
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ((BaseShopAdapter)baseQuickAdapter).destroyWebView();
     }
 }

@@ -65,7 +65,7 @@ public class EvaluateActivity extends BaseSelectPicsAndVedioActivity<OrderPresen
 
     @Override
     protected BaseSelectPhotosFragment getFragment() {
-        return SelectPhotosFragment.newInstance().setMaxCount(3);
+        return SelectPhotosFragment.newInstance("").setMaxCount(3);
     }
 
     public void initView() {

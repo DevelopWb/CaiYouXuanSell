@@ -10,12 +10,12 @@ package com.juntai.project.sell.mall.beans.sell;
 public class EditShopCommodityBean {
 
     private String textContent ;
-    private int commodityId;
+    private ShopCommodityListBean.DataBean.ListBean listBean;
     private boolean isSelect;
 
-    public EditShopCommodityBean(String textContent, int commodityId) {
+    public EditShopCommodityBean(String textContent, ShopCommodityListBean.DataBean.ListBean listBean) {
         this.textContent = textContent;
-        this.commodityId = commodityId;
+        this.listBean = listBean;
     }
 
     public String getTextContent() {
@@ -24,6 +24,14 @@ public class EditShopCommodityBean {
 
     public void setTextContent(String textContent) {
         this.textContent = textContent == null ? "" : textContent;
+    }
+
+    public ShopCommodityListBean.DataBean.ListBean getListBean() {
+        return listBean;
+    }
+
+    public void setListBean(ShopCommodityListBean.DataBean.ListBean listBean) {
+        this.listBean = listBean;
     }
 
     public boolean isSelect() {

@@ -37,6 +37,7 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         if ("-1".equals(item)) {
+            helper.setGone(R.id.item_video_tag, false);
             if (isBigPic) {
                 ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), 0, (ImageView) helper.getView(R.id.select_pic_icon_iv));
             }else {
