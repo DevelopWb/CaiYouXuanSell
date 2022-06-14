@@ -181,9 +181,6 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
             String path = icons.get(0);
             MultipleItem multipleItem = (MultipleItem) baseQuickAdapter.getItem(currentPosition);
             switch (multipleItem.getItemType()) {
-                case MultipleItem.ITEM_RICH_TEXT:
-                    mPresenter.uploadFile(icons,AppHttpPathMall.UPLOAD_MORE_PIC);
-                    break;
                 default:
                     picBean = (PicBean) multipleItem.getObject();
                     if (HomePageContract.SHOP_PIC.equals(picBean.getPicName())) {
@@ -434,23 +431,10 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     }
                 }
                 break;
-            case AppHttpPathMall.UPLOAD_MORE_PIC:
-                List<String> richImages = (List<String>) o;
-                if (richImages != null && !richImages.isEmpty()) {
-                    TextKeyValueBean keyValueBean = (TextKeyValueBean) ((MultipleItem)baseQuickAdapter.getItem(currentPosition)).getObject();
-                    if (keyValueBean != null) {
-                        ((BaseShopAdapter)baseQuickAdapter).insertImage(keyValueBean,currentPosition,richImages);
-                    }
-                }
-                break;
+
             default:
                 break;
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ((BaseShopAdapter)baseQuickAdapter).destroyWebView();
-    }
 }

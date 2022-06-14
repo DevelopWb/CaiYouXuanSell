@@ -290,6 +290,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
                 stopLoadingDialog();
                 pics.add(path);
                 selectedPicsAndEmpressed(pics);
+
             } else {
 
             }

@@ -27,7 +27,6 @@ public class MultipleItem implements MultiItemEntity {
     public static final int ITEM_FRAGMENT = 818;//多选照片
     public static final int ITEM_FRAGMENT2 = 888;//多选照片
     public static final int ITEM_FRAGMENT_VIDEO = 120;//多选照片
-    public static final int ITEM_RICH_TEXT = 121;//富文本
 
 
 

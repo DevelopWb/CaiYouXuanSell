@@ -12,10 +12,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -98,7 +95,6 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.item_pic_fragment);
         addItemType(MultipleItem.ITEM_FRAGMENT2, R.layout.item_pic_fragment2);
         addItemType(MultipleItem.ITEM_FRAGMENT_VIDEO, R.layout.item_pic_fragment3);
-        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.item_pic_text);
         this.isDetail = isDetail;
         this.mFragmentManager = mFragmentManager;
         this.onPicVideoLoadSuccessCallBack = onPicVideoLoadSuccessCallBack;
@@ -109,117 +105,6 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
     protected void convert(BaseViewHolder helper, MultipleItem item) {
         baseActivity = (BaseActivity) mContext;
         switch (item.getItemType()) {
-            case MultipleItem.ITEM_RICH_TEXT:
-                TextKeyValueBean richBean = (TextKeyValueBean) item.getObject();
-                String richValue = richBean.getValue();
-                FrameLayout mWebContainer = helper.getView(R.id.web_container);
-
-                changeIconColor(helper.getView(R.id.action_bold), iconDefaultColor);
-                changeIconColor(helper.getView(R.id.action_italic), iconDefaultColor);
-                changeIconColor(helper.getView(R.id.action_underline), iconDefaultColor);
-                changeIconColor(helper.getView(R.id.action_align_left), iconDefaultColor);
-                changeIconColor(helper.getView(R.id.action_align_center), iconDefaultColor);
-                changeIconColor(helper.getView(R.id.action_align_right), iconDefaultColor);
-                mEditor = new RichEditor(mContext.getApplicationContext());
-                mWebContainer.addView(mEditor);
-                re = RE.getInstance(mEditor);
-                if (!TextUtils.isEmpty(richValue)) {
-                    re.setHtml(richBean.getValue());
-                    re.moveToEndEdit();
-                }
-                re.setPlaceHolder("请输入商品详情");
-                re.setPadding(20, 10, 20, 10);
-                mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
-                    @Override
-                    public void onTextChange(String text) {
-                        richBean.setValue(re.getHtml().replaceAll("\n", "</br>"));
-                    }
-                });
-                helper.addOnClickListener(R.id.action_img);
-                helper.getView(R.id.action_bold).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        re.setBold();
-                        if (re.isBold()) {
-                            changeIconColor(helper.getView(R.id.action_bold), iconSelectColor);
-                        } else {
-                            changeIconColor(helper.getView(R.id.action_bold), iconDefaultColor);
-                        }
-                    }
-                });
-                helper.getView(R.id.action_italic).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        re.setItalic();
-                        if (re.isItalic()) {
-                            changeIconColor(helper.getView(R.id.action_italic), iconSelectColor);
-                        } else {
-                            changeIconColor(helper.getView(R.id.action_italic), iconDefaultColor);
-                        }
-                    }
-                });
-                helper.getView(R.id.action_underline).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        re.setUnderLine();
-                        if (re.isUnderline()) {
-                            changeIconColor(helper.getView(R.id.action_underline), iconSelectColor);
-                        } else {
-                            changeIconColor(helper.getView(R.id.action_underline), iconDefaultColor);
-                        }
-                    }
-                });
-                helper.getView(R.id.action_align_left).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (re.getTextAlign() == 1) {
-                            return;
-                        }
-                        re.setAlignLeft();
-                        changeIconColor(helper.getView(R.id.action_align_left), iconSelectColor);
-                        changeIconColor(helper.getView(R.id.action_align_center), iconDefaultColor);
-                        changeIconColor(helper.getView(R.id.action_align_right), iconDefaultColor);
-                    }
-                });
-                helper.getView(R.id.action_align_center).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (re.getTextAlign() == 2) {
-                            return;
-                        }
-                        re.setAlignCenter();
-                        changeIconColor(helper.getView(R.id.action_align_left), iconDefaultColor);
-                        changeIconColor(helper.getView(R.id.action_align_center), iconSelectColor);
-                        changeIconColor(helper.getView(R.id.action_align_right), iconDefaultColor);
-                    }
-                });
-                helper.getView(R.id.action_align_right).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (re.getTextAlign() == 3) {
-                            return;
-                        }
-                        re.setAlignRight();
-                        changeIconColor(helper.getView(R.id.action_align_left), iconDefaultColor);
-                        changeIconColor(helper.getView(R.id.action_align_center), iconDefaultColor);
-                        changeIconColor(helper.getView(R.id.action_align_right), iconSelectColor);
-                    }
-                });
-                helper.getView(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        re.undo();
-                    }
-                });
-                helper.getView(R.id.action_redo).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        re.redo();
-                    }
-                });
-
-
-                break;
 
             case MultipleItem.ITEM_RADIO:
                 RadioBean radioBean = (RadioBean) item.getObject();
@@ -616,30 +501,6 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
 
     public interface OnPicVideoLoadSuccessCallBack {
         void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons);
-    }
-    public void destroyWebView() {
-        if (mEditor != null) {
-            ViewParent parent = mEditor.getParent();
-            if (parent != null) {
-                ((ViewGroup) parent).removeView(mEditor);
-            }
-            mEditor.stopLoading();
-            mEditor.getSettings().setJavaScriptEnabled(false);
-            mEditor.clearHistory();
-            mEditor.removeAllViews();
-            mEditor.destroy();
-        }
-    }
-
-    public void insertImage(TextKeyValueBean keyValueBean,int current,List<String> icons){
-        if (re != null) {
-            for (String icon : icons) {
-                re.insertImage(icon, "image");
-            }
-            re.moveToEndEdit();
-            keyValueBean.setValue(re.getHtml());
-            notifyItemChanged(current);
-        }
     }
 
 }

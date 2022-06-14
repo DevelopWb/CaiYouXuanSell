@@ -83,10 +83,6 @@ public class ShopPresent extends BaseAppMallPresent {
         arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
                 1, false,
                 new ArrayList<>())));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                (HomePageContract.COMMODITY_DETAIL_INFO, true)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_RICH_TEXT,
-                new TextKeyValueBean(HomePageContract.COMMODITY_DETAIL_INFO, bean==null?"":bean.getDescription())));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
                 , true, 0, isDetail);

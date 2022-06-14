@@ -1,7 +1,11 @@
 package com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity;
 
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 
@@ -12,18 +16,31 @@ import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
  */
 public class AddCommodityActivity extends BaseShopActivity {
 
+    private CommodityDetailBean detailBean;
+
     @Override
     public void initData() {
         super.initData();
-        CommodityDetailBean detailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-        baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean,false));
+        detailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+        baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean, false));
 
 
     }
 
     @Override
     protected View getFootView() {
-        return null;
+        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
+        view.findViewById(R.id.shop_protocal_rb).setVisibility(View.GONE);
+        TextView commitTv = view.findViewById(R.id.commit_business_form_tv);
+        commitTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, AddCommodityDetailInfoActivity.class)
+                        .putExtra(BASE_PARCELABLE,detailBean));
+            }
+        });
+        commitTv.setText("下一步");
+        return view;
     }
 
     @Override
@@ -45,7 +62,6 @@ public class AddCommodityActivity extends BaseShopActivity {
     protected View getAdapterFootView() {
         return null;
     }
-
 
 
 }
