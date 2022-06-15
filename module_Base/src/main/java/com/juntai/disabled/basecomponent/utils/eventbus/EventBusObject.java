@@ -30,6 +30,10 @@ public class EventBusObject {
      * 刷新消息列表
      */
     public final static String REFRESH_NEWS_LIST = "REFRESH_NEWS_LIST";
+    /**
+     * 更新规格数据
+     */
+    public final static String REFRESH_COMMODITY_FORMAT_DATA = "REFRESH_COMMODITY_FORMAT_DATA";
 
     public final static String EVALUATE = "评价";
     public final static String WEIXIN_PAY_SUCCESS = "WEIXIN_PAY_SUCCESS";

@@ -13,6 +13,7 @@ import com.juntai.project.sell.mall.beans.AroundShopBean;
 import com.juntai.project.sell.mall.beans.CartListBean;
 import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.beans.CollectDataBean;
+import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.beans.PlayUrlBean;
@@ -375,10 +376,14 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.GET_ALL_COMMODITY)
     Observable<ShopCommodityListBean> getAllCommodity(@Body RequestBody requestBody);
+
     @POST(AppHttpPathMall.GET_COMMODITY_DETAIL)
     Observable<CommodityDetailDataBean> getCommodityDetail(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ADD_COMMODITY_BASE_INFO)
     Observable<BaseResult> addCommodityBaseInfo(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.CREATE_COMMODITY_FORMAT)
+    Observable<CommodityFormatListBean> createCommodityFormatList(@Body RequestBody requestBody);
 
 }

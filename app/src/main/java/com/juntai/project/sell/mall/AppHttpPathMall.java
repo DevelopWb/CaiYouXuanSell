@@ -419,6 +419,10 @@ public class AppHttpPathMall {
      * 添加商品基础信息
      */
     public static final String ADD_COMMODITY_BASE_INFO = BASE + "/seller/addCommodity";
+    /**
+     * 生成商品属性
+     */
+    public static final String CREATE_COMMODITY_FORMAT = BASE + "/seller/isFormatAttr";
 
 
 }

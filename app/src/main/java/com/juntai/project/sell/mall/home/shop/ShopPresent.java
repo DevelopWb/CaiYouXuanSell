@@ -9,6 +9,7 @@ import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.base.BaseAppMallPresent;
+import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.RadioBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
@@ -366,6 +367,27 @@ public class ShopPresent extends BaseAppMallPresent {
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
                     public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void createCommodityFormatList(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .createCommodityFormatList(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CommodityFormatListBean>(null) {
+                    @Override
+                    public void onSuccess(CommodityFormatListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

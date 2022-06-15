@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".home.commodityManager.allCommodity.commodityProperty.CommodityPropertyActivity"></activity>
+        <activity android:name=".home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity"></activity>
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityActivity" />

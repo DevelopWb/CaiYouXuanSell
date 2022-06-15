@@ -145,7 +145,7 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
                 break;
             case 2:
                 // TODO: 2022/6/15 规格
-                getBaseAppActivity().startCommodityPropertyActivity();
+                getBaseAppActivity().startCommodityPropertyActivity(item.getId());
                 break;
             default:
                 break;
