@@ -30,6 +30,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+import com.juntai.project.sell.mall.base.web.BaseWebviewFragment;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.RadioBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.BaseNormalRecyclerviewBean;
@@ -95,6 +96,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         addItemType(MultipleItem.ITEM_FRAGMENT, R.layout.item_pic_fragment);
         addItemType(MultipleItem.ITEM_FRAGMENT2, R.layout.item_pic_fragment2);
         addItemType(MultipleItem.ITEM_FRAGMENT_VIDEO, R.layout.item_pic_fragment3);
+        addItemType(MultipleItem.ITEM_RICH_TEXT, R.layout.item_rich_text);
         this.isDetail = isDetail;
         this.mFragmentManager = mFragmentManager;
         this.onPicVideoLoadSuccessCallBack = onPicVideoLoadSuccessCallBack;
@@ -106,6 +108,11 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         baseActivity = (BaseActivity) mContext;
         switch (item.getItemType()) {
 
+            case MultipleItem.ITEM_RICH_TEXT:
+                String richText = (String) item.getObject();
+                BaseWebviewFragment webviewFragment = (BaseWebviewFragment) mFragmentManager.findFragmentById(R.id.base_webview_fg);
+                webviewFragment.setWebData(richText);
+                break;
             case MultipleItem.ITEM_RADIO:
                 RadioBean radioBean = (RadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);

@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.home.commodityManager.allCommodity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
 import java.util.List;
@@ -56,8 +58,8 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
 
     @Override
     protected void lazyLoad() {
-        super.lazyLoad();
         status = getArguments().getInt(BASE_ID,0);
+        super.lazyLoad();
     }
 
     @Override
@@ -115,6 +117,18 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ShopCommodityListBean.DataBean.ListBean listBean = (ShopCommodityListBean.DataBean.ListBean) adapter.getItem(position);
+                startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(BASE_ID,listBean.getId()));
+            }
+        });
     }
 
     /**

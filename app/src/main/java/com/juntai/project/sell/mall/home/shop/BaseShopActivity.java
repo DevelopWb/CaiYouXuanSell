@@ -368,6 +368,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                                 imagesBeans.add(new CommodityDetailBean.ImagesBean(photo));
                             }
                             commodityDetailBean.setImages(imagesBeans);
+                            commodityDetailBean.setCommodityImg(imagesBeans);
 
                             break;
                         default:

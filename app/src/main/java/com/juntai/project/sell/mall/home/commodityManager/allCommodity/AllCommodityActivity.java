@@ -67,6 +67,12 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        hideKeyboard(mBaseRootCol);
+    }
+
+    @Override
     protected SparseArray<Fragment> getFragments() {
         SparseArray<Fragment> arrays = new SparseArray<>();
         arrays.append(0, ShopCommodityFragment.getInstance(0));

@@ -41,6 +41,18 @@ public class CommodityDetailBean implements Parcelable {
     private String result;
     private String value;
     private List<ImagesBean> images;
+    private List<ImagesBean> commodityImg;
+
+    public List<ImagesBean> getCommodityImg() {
+        if (commodityImg == null) {
+            return new ArrayList<>();
+        }
+        return commodityImg;
+    }
+
+    public void setCommodityImg(List<ImagesBean> commodityImg) {
+        this.commodityImg = commodityImg;
+    }
 
     public String getAccount() {
         return account == null ? "" : account;
@@ -374,6 +386,7 @@ public class CommodityDetailBean implements Parcelable {
         dest.writeString(this.result);
         dest.writeString(this.value);
         dest.writeTypedList(this.images);
+        dest.writeTypedList(this.commodityImg);
     }
 
     protected CommodityDetailBean(Parcel in) {
@@ -403,6 +416,7 @@ public class CommodityDetailBean implements Parcelable {
         this.result = in.readString();
         this.value = in.readString();
         this.images = in.createTypedArrayList(ImagesBean.CREATOR);
+        this.commodityImg = in.createTypedArrayList(ImagesBean.CREATOR);
     }
 
     public static final Creator<CommodityDetailBean> CREATOR = new Creator<CommodityDetailBean>() {

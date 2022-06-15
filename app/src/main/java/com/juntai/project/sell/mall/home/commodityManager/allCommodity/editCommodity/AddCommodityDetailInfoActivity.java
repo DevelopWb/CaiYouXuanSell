@@ -217,6 +217,7 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
                 commodityDetailBean.setDescription(des);
                 commodityDetailBean.setAccount(UserInfoManagerMall.getAccount());
                 commodityDetailBean.setToken(UserInfoManagerMall.getUserToken());
+                commodityDetailBean.setShopId(UserInfoManagerMall.getShopId());
                 commodityDetailBean.setTypeEnd("app_seller");
                 mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
                 break;
@@ -233,6 +234,7 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         destroyWebView();
     }
 

@@ -26,6 +26,7 @@ import com.juntai.project.sell.mall.beans.order.OrderPayWxBean;
 import com.juntai.project.sell.mall.beans.order.OrderPayZfbBean;
 import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
+import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
@@ -374,6 +375,8 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.GET_ALL_COMMODITY)
     Observable<ShopCommodityListBean> getAllCommodity(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.GET_COMMODITY_DETAIL)
+    Observable<CommodityDetailDataBean> getCommodityDetail(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ADD_COMMODITY_BASE_INFO)
     Observable<BaseResult> addCommodityBaseInfo(@Body RequestBody requestBody);

@@ -25,18 +25,18 @@ public class AddCommodityActivity extends BaseShopActivity {
     @Override
     public void initData() {
         super.initData();
-        baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(null, false));
+        baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(null, false,false));
         if (Hawk.contains(HawkProperty.COMMODITY_DETAIL)) {
             detailBean = Hawk.get(HawkProperty.COMMODITY_DETAIL);
             showAlertDialog("您上次还有未提交的草稿,是否进入草稿？", "进入", "取消", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean, false));
+                    baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean, false,true));
                 }
             });
         }else {
             detailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-            baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean, false));
+            baseQuickAdapter.setNewData(mPresenter.getCommodityBaseInfoData(detailBean, false,false));
         }
 
 

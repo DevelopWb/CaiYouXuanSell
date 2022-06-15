@@ -30,11 +30,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity"></activity>
+        <activity android:name=".home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity"></activity>
+        <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityActivity" />
         <activity android:name=".home.commodityManager.allCommodity.TestActivity" />
-        <activity android:name=".home.commodityManager.allCommodity.AllCommodityActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".home.commodityManager.allCommodity.AllCommodityActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".home.commodityManager.commodityCategory.CommodityCategoryActivity" />
         <activity android:name=".home.shop.shopCategory.ChoseCategoryActivity" />
         <activity android:name=".home.shop.ShopManagerActivity" />

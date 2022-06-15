@@ -95,10 +95,10 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean
         List<EditShopCommodityBean> arrays = new ArrayList<>();
         arrays.add(new EditShopCommodityBean("修改", item));
         arrays.add(new EditShopCommodityBean("删除", item));
-        arrays.add(new EditShopCommodityBean("规格", item));
         if (item.getPutAwayStatus() == 0) {
             arrays.add(new EditShopCommodityBean("下架", item));
         } else {
+            arrays.add(new EditShopCommodityBean("规格", item));
             arrays.add(new EditShopCommodityBean("上架", item));
         }
 
