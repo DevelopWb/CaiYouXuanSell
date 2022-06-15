@@ -45,8 +45,7 @@ public class AddCommodityActivity extends BaseShopActivity {
     @Override
     protected View getFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
-        view.findViewById(R.id.shop_protocal_rb).setVisibility(View.GONE);
-        TextView commitTv = view.findViewById(R.id.commit_business_form_tv);
+        TextView commitTv = view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

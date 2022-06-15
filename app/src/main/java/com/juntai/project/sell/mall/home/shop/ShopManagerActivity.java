@@ -58,8 +58,9 @@ public class ShopManagerActivity extends BaseShopActivity {
     @Override
     protected View getFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
-        TextView commitTv = view.findViewById(R.id.commit_business_form_tv);
+        TextView commitTv = view.findViewById(R.id.commit_tv);
         mShopProtocalRb = view.findViewById(R.id.shop_protocal_rb);
+        mShopProtocalRb.setVisibility(View.VISIBLE);
         commitTv.setOnClickListener(this);
         if (dataBean != null) {
             commitTv.setText("提交店铺修改");
@@ -81,7 +82,7 @@ public class ShopManagerActivity extends BaseShopActivity {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.commit_business_form_tv:
+            case R.id.commit_tv:
                 // : 2022/6/9 提交店铺申请
                 BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
                 if (baseAdapterDataBean == null) {

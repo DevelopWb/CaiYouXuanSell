@@ -143,6 +143,10 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
                 // TODO: 2022/6/13 修改商品
                 
                 break;
+            case 2:
+                // TODO: 2022/6/15 规格
+                getBaseAppActivity().startCommodityPropertyActivity();
+                break;
             default:
                 break;
         }

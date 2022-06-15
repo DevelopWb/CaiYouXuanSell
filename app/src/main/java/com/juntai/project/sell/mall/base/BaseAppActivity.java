@@ -36,6 +36,7 @@ import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityPropertyActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.project.sell.mall.mine.address.AddressListActivity;
@@ -519,6 +520,12 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      */
     public void startAllCommodityActivity() {
         startActivity(new Intent(mContext, AllCommodityActivity.class));
+    }
+    /**
+     * 进入商品规格
+     */
+    public void startCommodityPropertyActivity() {
+        startActivity(new Intent(mContext, CommodityPropertyActivity.class));
     }
 
     /**
