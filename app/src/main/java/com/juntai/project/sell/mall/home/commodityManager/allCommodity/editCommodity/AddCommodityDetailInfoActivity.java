@@ -3,6 +3,7 @@ package com.juntai.project.sell.mall.home.commodityManager.allCommodity.editComm
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v4.widget.ImageViewCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -10,11 +11,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
+import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
+import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
 
@@ -112,12 +121,21 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
                 List<String> richImages = (List<String>) o;
                 if (richImages != null && !richImages.isEmpty()) {
                     for (String richImage : richImages) {
-                        re.insertImage(richImage,"image");
+                        re.insertImage(richImage, "image");
                         re.moveToEndEdit();
                     }
                 }
                 break;
+
             default:
+                break;
+            case AppHttpPathMall.ADD_COMMODITY_BASE_INFO:
+                ToastUtils.toast(mContext, "添加成功");
+                // TODO: 2022/6/15 后期放开
+                startAllCommodityActivity();
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
+//                Hawk.delete(HawkProperty.COMMODITY_DETAIL);
+
                 break;
         }
     }
@@ -188,6 +206,19 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
                 break;
             case R.id.action_redo:
                 re.redo();
+                break;
+            case R.id.commit_tv:
+                String des = re.getHtml().replaceAll("\n", "</br>");
+                if (TextUtils.isEmpty(des)) {
+                    ToastUtils.toast(mContext, "请输入商品详情");
+                    return;
+                }
+                CommodityDetailBean commodityDetailBean = Hawk.get(HawkProperty.COMMODITY_DETAIL);
+                commodityDetailBean.setDescription(des);
+                commodityDetailBean.setAccount(UserInfoManagerMall.getAccount());
+                commodityDetailBean.setToken(UserInfoManagerMall.getUserToken());
+                commodityDetailBean.setTypeEnd("app_seller");
+                mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
                 break;
         }
     }

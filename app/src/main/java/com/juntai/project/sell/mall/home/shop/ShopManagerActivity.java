@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
+import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
@@ -81,11 +82,13 @@ public class ShopManagerActivity extends BaseShopActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.commit_business_form_tv:
-                // TODO: 2022/6/9 提交店铺申请
-                FormBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
+                // : 2022/6/9 提交店铺申请
+                BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
+                if (baseAdapterDataBean == null) {
                     return;
                 }
+                FormBody.Builder builder = baseAdapterDataBean.getBuilder();
+
                 if (!isAgree) {
                     ToastUtils.toast(mContext, "请同意开店协议之后再提交");
                     return;

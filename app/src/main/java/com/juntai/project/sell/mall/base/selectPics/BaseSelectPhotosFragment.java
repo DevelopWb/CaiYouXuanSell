@@ -224,7 +224,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
      * @param arrays
      */
     public void setIcons(List<String> arrays) {
-        this.icons = arrays;
+        icons.clear();
         if (selectedPicsAdapter != null) {
             selectedPicsAdapter.setNewData(icons);
             if (arrays != null && arrays.size() > 0) {
@@ -242,7 +242,6 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                 selectedPicsAdapter.setNewData(icons);
             }
         }
-
     }
 
     /**
@@ -279,7 +278,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                 if (onPicLoadSuccessCallBack != null) {
                     onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
                 }
-            }else {
+            } else {
                 imageCompress(Matisse.obtainPathResult(data));
             }
 
@@ -412,7 +411,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                         int count = mMaxCount - (icons.size() - 1);
                         if (HomePageContract.COMMODITY_VIDEO.equals(itemFragmentBean.getKey())) {
                             choseVideoFromFragment(BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
-                        }else {
+                        } else {
                             choseImageFromFragment(type, BaseSelectPhotosFragment.this, count, SELECT_PIC_RESULT);
                         }
                     } else {
@@ -578,6 +577,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
             }
         });
     }
+
     /**
      * 图片选择
      *
@@ -585,18 +585,18 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
      * @param maxSelectable 最大图片选择数
      * @param requestCode   请求得code
      */
-    public void choseVideoFromFragment( Fragment fragment, int maxSelectable, int requestCode) {
+    public void choseVideoFromFragment(Fragment fragment, int maxSelectable, int requestCode) {
         new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if (aBoolean) {
-                        Matisse.from(fragment).choose(MimeType.ofVideo()).showSingleMediaType(true)
-                                //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
-                                .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
-                                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(requestCode);
-                        //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
+                    Matisse.from(fragment).choose(MimeType.ofVideo()).showSingleMediaType(true)
+                            //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                            .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
+                            //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(requestCode);
+                    //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
                 } else {
                     Toasty.info(mContext, "请给与相应权限").show();
                 }

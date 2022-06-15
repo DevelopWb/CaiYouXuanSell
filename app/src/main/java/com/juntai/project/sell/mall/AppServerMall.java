@@ -137,7 +137,6 @@ public interface AppServerMall {
     Observable<IdNameBean> getAllCategory(@Body RequestBody requestBody);
 
 
-
     @POST(AppHttpPathMall.SHOP_COLLECT)
     Observable<BaseResult> collectShop(@Body RequestBody requestBody);
 
@@ -371,9 +370,12 @@ public interface AppServerMall {
 
 
 
-        /*====================================================    商品管理   ==============================================================*/
+    /*====================================================    商品管理   ==============================================================*/
 
     @POST(AppHttpPathMall.GET_ALL_COMMODITY)
     Observable<ShopCommodityListBean> getAllCommodity(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.ADD_COMMODITY_BASE_INFO)
+    Observable<BaseResult> addCommodityBaseInfo(@Body RequestBody requestBody);
 
 }

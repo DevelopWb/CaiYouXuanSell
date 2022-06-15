@@ -35,6 +35,7 @@ import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.project.sell.mall.mine.address.AddressListActivity;
@@ -50,6 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * @aouther tobato
@@ -210,7 +213,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         }
         return content;
     }
-
+    public RequestBody getJsonRequestBody(String jsonStr){
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        return RequestBody.create(JSON,jsonStr);
+    }
 
     @Override
     protected boolean canCancelLoadingDialog() {
@@ -507,6 +513,12 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     public void startToChatActivity(ContactBean contactBean) {
         startActivity(new Intent(mContext, ChatActivity.class)
                 .putExtra(BASE_PARCELABLE, contactBean));
+    }
+    /**
+     * 进入商品管理列表
+     */
+    public void startAllCommodityActivity() {
+        startActivity(new Intent(mContext, AllCommodityActivity.class));
     }
 
     /**

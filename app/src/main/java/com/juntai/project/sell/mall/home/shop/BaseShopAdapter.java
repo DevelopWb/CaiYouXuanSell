@@ -249,13 +249,16 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                         break;
                     case HomePageContract.COMMODITY_VIDEO:
                         fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg3);
-
                         break;
                     default:
                         break;
                 }
 
-                fragment.setObject(itemFragmentBean);
+                fragment.setMaxCount(itemFragmentBean.getmMaxCount()).setObject(itemFragmentBean);
+                List<String> pics = itemFragmentBean.getFragmentPics();
+                if (pics.size()>0) {
+                    fragment.setIcons(pics);
+                }
                 if (isDetail) {
                     fragment.setPhotoDelateable(false).setMaxCount(itemFragmentBean.getFragmentPics().size());
                     if (!itemFragmentBean.getFragmentPics().isEmpty()) {

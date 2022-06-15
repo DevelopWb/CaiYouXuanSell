@@ -9,26 +9,6 @@ package com.juntai.disabled.basecomponent.utils.eventbus;
  */
 public class EventBusObject {
 
-    /**
-     * 更改购物车商品属性  数量或者规格
-     */
-    public final static String CHANGE_SHOP_CART_PROPERTY_AMOUNT = "change_cart_property_amount";
-    /**
-     * 获取商品详情接口
-     */
-    public final static String GET_COMMODITY_DETAIL_INFO = "GET_COMMODITY_DETAIL_INFO";
-    /**
-     * 购物车 全选按钮的状态
-     */
-    public final static String CHANGE_SELECT_ALL_BUTTON_STATUS = "CHANGE_SELECT_ALL_BUTTON_STATUS";
-    /**
-     * 更改商品排列方式
-     */
-    public final static String CHANGE_COMMODITY_ARRAY_TYPE = "CHANGE_COMMODITY_ARRAY_TYPE";
-    /**
-     * 首页切换module
-     */
-    public final static String HOME_PAGE_DISPLAY_MODE = "HOME_PAGE_DISPLAY_MODE";
 
 
     /**
@@ -44,14 +24,6 @@ public class EventBusObject {
      */
     public final static String REFRESH_ORDER_LIST = "REFRESH_ORDER_LIST";
 
-    /**
-     * 搜索 商品刷新
-     */
-    public final static String REFRESH_SEARCH_COMMODITY_LIST = "REFRESH_SEARCH_COMMODITY_LIST";
-    /**
-     * 首页商品列表刷新
-     */
-    public final static String REFRESH_HOMEPAGE_COMMODITY_LIST = "REFRESH_HOMEPAGE_COMMODITY_LIST";
     public final static String REFRESH_SEARCH_SHOP_LIST = "REFRESH_SEARCH_SHOP_LIST";
 
     /**
@@ -69,10 +41,10 @@ public class EventBusObject {
      * 聊天内容
      */
     public final static String MESSAGE_BODY = "MESSAGE_BODY";
-//    /**
-//     * 进入订单详情
-//     */
-//    public final static  String START_TO_ORDER_INFO = "START_TO_ORDER_INFO";
+    /**
+     * 刷新商品列表
+     */
+    public final static String REFRESH_COMMODITY_LIST = "REFRESH_COMMODITY_LIST";
 
 
     private String eventKey;

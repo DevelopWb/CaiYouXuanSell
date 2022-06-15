@@ -9,7 +9,6 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
-import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.commodityCategory.CommodityCategoryActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
@@ -86,7 +85,7 @@ public class CommodityManagerActivity extends BaseRecyclerviewActivity<ShopPrese
                         break;
                     case HomePageContract.COMMODITY_MANAGER_TOTAL:
                         //todo : 2022/6/7 商品管理
-                        startActivity(new Intent(mContext, AllCommodityActivity.class));
+                        startAllCommodityActivity();
 //                        startActivity(new Intent(mContext, TestActivity.class));
 
 

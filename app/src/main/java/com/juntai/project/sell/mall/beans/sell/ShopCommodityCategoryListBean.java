@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.beans.sell;
 
+import com.contrarywind.interfaces.IPickerViewData;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ShopCommodityCategoryListBean extends BaseResult {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean  implements IPickerViewData {
         /**
          * id : 52
          * shopId : 1
@@ -57,6 +58,11 @@ public class ShopCommodityCategoryListBean extends BaseResult {
 
         public void setShopClassifyName(String shopClassifyName) {
             this.shopClassifyName = shopClassifyName;
+        }
+
+        @Override
+        public String getPickerViewText() {
+            return shopClassifyName;
         }
     }
 }

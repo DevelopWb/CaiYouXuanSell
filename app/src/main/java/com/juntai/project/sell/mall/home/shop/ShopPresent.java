@@ -80,9 +80,20 @@ public class ShopPresent extends BaseAppMallPresent {
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
                 (HomePageContract.COMMODITY_VIDEO, true)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
-                1, false,
-                new ArrayList<>())));
+        if (bean!=null) {
+            List<String> videoPaht = new ArrayList<>();
+            if (!TextUtils.isEmpty(bean.getVideoUrl())) {
+                videoPaht.add(bean.getVideoUrl());
+            }
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
+                    1, false,
+                    videoPaht)));
+        }else {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
+                    1, false,
+                    new ArrayList<>())));
+        }
+
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.COMMODITY_PRICE, bean == null ? "" :
                         String.valueOf(bean.getPrice())
                 , true, 0, isDetail);
@@ -296,6 +307,27 @@ public class ShopPresent extends BaseAppMallPresent {
                 .subscribe(new BaseObserver<ShopCommodityListBean>(null) {
                     @Override
                     public void onSuccess(ShopCommodityListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void addCommodityBaseInfo(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .addCommodityBaseInfo(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

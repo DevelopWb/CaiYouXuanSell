@@ -24,6 +24,7 @@ public class HawkProperty {
     public static String ALL_PROVINCE_KEY = "ALL_PROVINCE_KEY";
     public static String DEFAULT_ADDR = "DEFAULT_ADDR";
     public static String UNREAD = "unreadCount";
+    public static String COMMODITY_DETAIL = "COMMODITY_DETAIL";
 
 
     /**

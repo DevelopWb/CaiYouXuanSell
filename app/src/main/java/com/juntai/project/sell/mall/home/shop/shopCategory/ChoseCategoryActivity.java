@@ -23,7 +23,11 @@ import java.util.List;
  */
 public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent> implements HomePageContract.IHomePageView {
 
-    public static int  ACTIVITY_RESULT = 10900;
+    public static int ACTIVITY_RESULT = 10900;
+    /**
+     * 0是单选 1是多选
+     */
+    private int selectType;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -49,6 +53,7 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
     @Override
     public void initData() {
         super.initData();
+        selectType = getIntent().getIntExtra(BASE_ID, 0);
         setTitleName("主营类目");
         getTitleRightTv().setText("确定");
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
@@ -62,9 +67,9 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
                     return;
                 }
                 Intent intent = new Intent();
-                intent.putExtra(BASE_STRING,categorys);
-                intent.putExtra(BASE_STRING2,categoryNames);
-                setResult(ACTIVITY_RESULT,intent);
+                intent.putExtra(BASE_STRING, categorys);
+                intent.putExtra(BASE_STRING2, categoryNames);
+                setResult(ACTIVITY_RESULT, intent);
                 finish();
             }
         });
@@ -72,12 +77,27 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 IdNameBean.DataBean dataBean = (IdNameBean.DataBean) adapter.getItem(position);
-                if (dataBean.isSelected()) {
-                    dataBean.setSelected(false);
+                if (0 == selectType) {
+                    List<IdNameBean.DataBean> dataBeans = adapter.getData();
+                    for (int i = 0; i < dataBeans.size(); i++) {
+                        IdNameBean.DataBean bean = dataBeans.get(i);
+                        if (i == position) {
+                            bean.setSelected(true);
+                        } else {
+                            bean.setSelected(false);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
                 } else {
-                    dataBean.setSelected(true);
+                    if (dataBean.isSelected()) {
+                        dataBean.setSelected(false);
+                    } else {
+                        dataBean.setSelected(true);
+                    }
+                    adapter.notifyItemChanged(position);
+
                 }
-                adapter.notifyItemChanged(position);
+
 
             }
         });
@@ -137,6 +157,7 @@ public class ChoseCategoryActivity extends BaseRecyclerviewActivity<ShopPresent>
         }
         return str;
     }
+
     private String getSelectedCategoryNames() {
         StringBuffer sb = new StringBuffer();
         List<IdNameBean.DataBean> arrays = baseQuickAdapter.getData();

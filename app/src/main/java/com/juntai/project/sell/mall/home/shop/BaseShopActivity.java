@@ -12,6 +12,7 @@ import com.example.chat.bean.UploadFileBean;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
+import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
 import com.juntai.project.sell.mall.AppHttpPathMall;
@@ -19,7 +20,11 @@ import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
+import com.juntai.project.sell.mall.beans.RadioBean;
+import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.PicBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
@@ -31,6 +36,7 @@ import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -89,33 +95,44 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     @Override
     public void uploadPicVideo(ItemFragmentBean itemFragmentBean, List<String> icons) {
         if (icons.size() > 0) {
-            MultipartBody.Builder builder = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM);
-            for (String filePath : icons) {
-                try {
-                    builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+            List<String> pics = new ArrayList<>();
+            for (String icon : icons) {
+                if (!icon.contains("www.juntaikeji")) {
+                    pics.add(icon);
                 }
             }
-            AppNetModuleMall.createrRetrofit()
-                    .uploadFiles(builder.build())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BaseObserver<UploadFileBean>(this) {
-                        @Override
-                        public void onSuccess(UploadFileBean o) {
-                            itemFragmentBean.setFragmentPics(o.getFilePaths());
-                        }
+            if (pics.size() > 0) {
 
-                        @Override
-                        public void onError(String msg) {
-                            ToastUtils.toast(mContext, msg);
-                        }
-                    });
-        } else {
-            // : 2022/6/10 删没了
-            itemFragmentBean.setFragmentPics(null);
+                MultipartBody.Builder builder = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM);
+
+                for (String filePath : pics) {
+
+                    try {
+                        builder.addFormDataPart("file", URLEncoder.encode(filePath, "utf-8"), RequestBody.create(MediaType.parse("file"), new File(filePath)));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                AppNetModuleMall.createrRetrofit()
+                        .uploadFiles(builder.build())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseObserver<UploadFileBean>(this) {
+                            @Override
+                            public void onSuccess(UploadFileBean o) {
+                                itemFragmentBean.setFragmentPics(o.getFilePaths());
+                            }
+
+                            @Override
+                            public void onError(String msg) {
+                                ToastUtils.toast(mContext, msg);
+                            }
+                        });
+            } else {
+                // : 2022/6/10 删没了
+                itemFragmentBean.setFragmentPics(null);
+            }
         }
     }
 
@@ -159,8 +176,17 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         selectBean = (TextKeyValueBean) multipleItem.getObject();
                         switch (selectBean.getKey()) {
                             case HomePageContract.SHOP_CATEGORY:
+                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
+                                        .putExtra(BASE_ID, 1), ChoseCategoryActivity.ACTIVITY_RESULT);
+                                break;
+                            case HomePageContract.COMMODITY_CATEGORY_NAME:
                                 // : 2022/6/10 选择店铺主营类目
-                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class), ChoseCategoryActivity.ACTIVITY_RESULT);
+                                startActivityForResult(new Intent(mContext, ChoseCategoryActivity.class)
+                                        .putExtra(BASE_ID, 0), ChoseCategoryActivity.ACTIVITY_RESULT);
+                                break;
+                            case HomePageContract.COMMODITY_SORT:
+                                // : 2022/6/10 选择商品类目
+                                mPresenter.getCommodityCategorys(getBaseBuilder().build(), AppHttpPathMall.ALL_COMMODITY_CATEGORY);
                                 break;
                         }
                         break;
@@ -278,12 +304,25 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
      *
      * @return
      */
-    protected FormBody.Builder getBuilderOfAdapterData() {
+    protected BaseAdapterDataBean getBaseOfAdapterData() {
+        BaseAdapterDataBean baseAdapterDataBean = new BaseAdapterDataBean();
+        CommodityDetailBean commodityDetailBean = new CommodityDetailBean();
         FormBody.Builder builder = getBaseBuilder();
         builder.add("userAccount", UserInfoManagerMall.getAccount());
         List<MultipleItem> arrays = baseQuickAdapter.getData();
         for (MultipleItem array : arrays) {
             switch (array.getItemType()) {
+                case MultipleItem.ITEM_RADIO:
+                    //户口类别 家庭经济状况 项目级别 这几个上传的字段对应的是从1开始的 所以需要从默认的索引+1  相反的 获取到详情展示的时候 就需要-1了
+                    RadioBean radioBean = (RadioBean) array.getObject();
+                    switch (radioBean.getKey()) {
+                        case HomePageContract.COMMODITY_POST_FREE:
+                            commodityDetailBean.setIsPostage(radioBean.getDefaultSelectedIndex());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 case MultipleItem.ITEM_HEAD_PIC:
                     PicBean headPicBean = (PicBean) array.getObject();
                     if (TextUtils.isEmpty(headPicBean.getPicPath())) {
@@ -301,15 +340,38 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     break;
 
                 case MultipleItem.ITEM_FRAGMENT:
+                case MultipleItem.ITEM_FRAGMENT2:
+                case MultipleItem.ITEM_FRAGMENT_VIDEO:
                     //多选图片
-                    PicBean fragmentPicBean = (PicBean) array.getObject();
+                    ItemFragmentBean fragmentPicBean = (ItemFragmentBean) array.getObject();
                     List<String> photos = fragmentPicBean.getFragmentPics();
-
-                    String name = fragmentPicBean.getPicName();
+                    String name = fragmentPicBean.getKey();
                     String msg = String.format("请选择%s", name);
                     if (photos == null || photos.isEmpty()) {
                         ToastUtils.toast(mContext, msg);
                         return null;
+                    }
+
+                    String path = photos.get(0);
+                    switch (name) {
+                        case HomePageContract.COMMODITY_PRIMARY_PIC:
+                            commodityDetailBean.setCoverImg(path);
+
+                            break;
+                        case HomePageContract.COMMODITY_VIDEO:
+                            commodityDetailBean.setVideoUrl(path);
+                            break;
+                        case HomePageContract.COMMODITY_BANNER_PICS:
+                            List<CommodityDetailBean.ImagesBean> imagesBeans = new ArrayList<>();
+
+                            for (String photo : photos) {
+                                imagesBeans.add(new CommodityDetailBean.ImagesBean(photo));
+                            }
+                            commodityDetailBean.setImages(imagesBeans);
+
+                            break;
+                        default:
+                            break;
                     }
 
                     break;
@@ -369,6 +431,18 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.SHOP_TEL:
                             builder.add("phoneNumber", textValue);
                             break;
+                        case HomePageContract.COMMODITY_NAME:
+                            commodityDetailBean.setName(textValue);
+                            break;
+                        case HomePageContract.COMMODITY_PRICE:
+                            commodityDetailBean.setPrice(Double.parseDouble(textValue));
+                            break;
+                        case HomePageContract.COMMODITY_STOCK:
+                            commodityDetailBean.setStock(Integer.parseInt(textValue));
+                            break;
+                        case HomePageContract.COMMODITY_POSTAGE:
+                            commodityDetailBean.setTransportCharges(Double.parseDouble(textValue));
+                            break;
                     }
                     break;
 
@@ -383,15 +457,23 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     switch (textValueSelectBean.getKey()) {
                         case HomePageContract.SHOP_CATEGORY:
                             builder.add("category", textSelectValue);
-
+                            break;
+                        case HomePageContract.COMMODITY_CATEGORY_NAME:
+                            commodityDetailBean.setCategoryId(Integer.parseInt(textValueSelectBean.getIds()));
+                            commodityDetailBean.setCategoryName(textSelectValue);
+                            break;
+                        case HomePageContract.COMMODITY_SORT:
+                            commodityDetailBean.setShopClassifyId(Integer.parseInt(textValueSelectBean.getIds()));
+                            commodityDetailBean.setShopClassifyName(textSelectValue);
                             break;
                     }
                     break;
 
             }
         }
-
-        return builder;
+        baseAdapterDataBean.setBuilder(builder);
+        baseAdapterDataBean.setCommodityDetailBean(commodityDetailBean);
+        return baseAdapterDataBean;
     }
 
     /**
@@ -431,7 +513,23 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     }
                 }
                 break;
+            case AppHttpPathMall.ALL_COMMODITY_CATEGORY:
+                ShopCommodityCategoryListBean categoryListBean = (ShopCommodityCategoryListBean) o;
+                if (categoryListBean != null) {
+                    List<ShopCommodityCategoryListBean.DataBean> arrays = categoryListBean.getData();
+                    PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
+                        @Override
+                        public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                            String name = arrays.get(options1).getShopClassifyName();
+                            selectBean.setValue(name);
+                            selectBean.setIds(String.valueOf(arrays.get(options1).getId()));
+                            mSelectTv.setText(name);
+                        }
+                    });
 
+                }
+
+                break;
             default:
                 break;
         }

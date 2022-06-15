@@ -415,6 +415,10 @@ public class AppHttpPathMall {
      * 商品详情
      */
     public static final String GET_COMMODITY_DETAIL = BASE + "/seller/selectCommodityInfo";
+    /**
+     * 添加商品基础信息
+     */
+    public static final String ADD_COMMODITY_BASE_INFO = BASE + "/seller/addCommodity";
 
 
 }

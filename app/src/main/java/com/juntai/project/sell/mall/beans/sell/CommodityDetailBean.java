@@ -15,6 +15,9 @@ import java.util.List;
  */
 public class CommodityDetailBean implements Parcelable {
 
+    private String account;
+    private String token;
+    private String typeEnd;
     private int id;
     private int shopId;
     private int userId;
@@ -38,6 +41,30 @@ public class CommodityDetailBean implements Parcelable {
     private String result;
     private String value;
     private List<ImagesBean> images;
+
+    public String getAccount() {
+        return account == null ? "" : account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account == null ? "" : account;
+    }
+
+    public String getToken() {
+        return token == null ? "" : token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? "" : token;
+    }
+
+    public String getTypeEnd() {
+        return typeEnd == null ? "" : typeEnd;
+    }
+
+    public void setTypeEnd(String typeEnd) {
+        this.typeEnd = typeEnd == null ? "" : typeEnd;
+    }
 
     public int getId() {
         return id;
@@ -227,6 +254,10 @@ public class CommodityDetailBean implements Parcelable {
     }
 
     public static class ImagesBean implements Parcelable {
+        public ImagesBean(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
         /**
          * id : 243
          * commodityId : 5
@@ -307,6 +338,9 @@ public class CommodityDetailBean implements Parcelable {
         };
     }
 
+    public CommodityDetailBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -314,6 +348,9 @@ public class CommodityDetailBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.account);
+        dest.writeString(this.token);
+        dest.writeString(this.typeEnd);
         dest.writeInt(this.id);
         dest.writeInt(this.shopId);
         dest.writeInt(this.userId);
@@ -336,13 +373,13 @@ public class CommodityDetailBean implements Parcelable {
         dest.writeString(this.isCollect);
         dest.writeString(this.result);
         dest.writeString(this.value);
-        dest.writeList(this.images);
-    }
-
-    public CommodityDetailBean() {
+        dest.writeTypedList(this.images);
     }
 
     protected CommodityDetailBean(Parcel in) {
+        this.account = in.readString();
+        this.token = in.readString();
+        this.typeEnd = in.readString();
         this.id = in.readInt();
         this.shopId = in.readInt();
         this.userId = in.readInt();
@@ -365,11 +402,10 @@ public class CommodityDetailBean implements Parcelable {
         this.isCollect = in.readString();
         this.result = in.readString();
         this.value = in.readString();
-        this.images = new ArrayList<ImagesBean>();
-        in.readList(this.images, ImagesBean.class.getClassLoader());
+        this.images = in.createTypedArrayList(ImagesBean.CREATOR);
     }
 
-    public static final Parcelable.Creator<CommodityDetailBean> CREATOR = new Parcelable.Creator<CommodityDetailBean>() {
+    public static final Creator<CommodityDetailBean> CREATOR = new Creator<CommodityDetailBean>() {
         @Override
         public CommodityDetailBean createFromParcel(Parcel source) {
             return new CommodityDetailBean(source);

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
@@ -57,6 +58,18 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
     protected void lazyLoad() {
         super.lazyLoad();
         status = getArguments().getInt(BASE_ID,0);
+    }
+
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+        super.onEvent(eventBusObject);
+        switch (eventBusObject.getEventKey()) {
+            case EventBusObject.REFRESH_COMMODITY_LIST:
+                lazyLoad();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
