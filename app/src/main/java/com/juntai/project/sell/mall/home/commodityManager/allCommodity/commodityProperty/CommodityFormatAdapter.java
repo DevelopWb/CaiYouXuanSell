@@ -30,6 +30,7 @@ public class CommodityFormatAdapter extends BaseQuickAdapter<CommodityFormatBean
     protected void convert(BaseViewHolder helper, CommodityFormatBean.ResultBean item) {
         TextView addPropertyTv = helper.getView(R.id.add_property_tv);
         EditText formatEt = helper.getView(R.id.commodity_format_name_et);
+        helper.setText(R.id.commodity_format_name_et,item.getValue());
         formatEt.setTag(R.id.tag_first,item);
         formatEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -40,7 +41,6 @@ public class CommodityFormatAdapter extends BaseQuickAdapter<CommodityFormatBean
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 CommodityFormatBean.ResultBean item = (CommodityFormatBean.ResultBean) formatEt.getTag(R.id.tag_first);
-                CommodityPropertyAdapter propertyAdapter = (CommodityPropertyAdapter) formatEt.getTag(R.id.tag_second);
                 item.setValue(formatEt.getText().toString());
 
             }

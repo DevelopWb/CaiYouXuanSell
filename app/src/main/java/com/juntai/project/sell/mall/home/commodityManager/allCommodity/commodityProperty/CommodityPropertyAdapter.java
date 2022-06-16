@@ -24,6 +24,7 @@ public class CommodityPropertyAdapter extends BaseQuickAdapter<StringBean, BaseV
     @Override
     protected void convert(BaseViewHolder helper, StringBean item) {
         EditText mPropertyEt = helper.getView(R.id.commodity_property_name_et);
+        helper.setText(R.id.commodity_property_name_et,item.getContent());
         mPropertyEt.setTag(item);
         mPropertyEt.addTextChangedListener(new TextWatcher() {
             @Override

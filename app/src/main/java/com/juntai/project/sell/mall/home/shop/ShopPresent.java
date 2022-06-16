@@ -89,10 +89,15 @@ public class ShopPresent extends BaseAppMallPresent {
             List<String> videoPaht = new ArrayList<>();
             if (!TextUtils.isEmpty(bean.getVideoUrl())) {
                 arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                        (HomePageContract.COMMODITY_VIDEO, true)));
+                        (HomePageContract.COMMODITY_VIDEO, false)));
                 videoPaht.add(bean.getVideoUrl());
+                arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
+                        1, false,
+                        videoPaht)));
             }else {
                 if (!isDetail) {
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                            (HomePageContract.COMMODITY_VIDEO, false)));
                     arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
                             1, false,
                             videoPaht)));
@@ -101,7 +106,7 @@ public class ShopPresent extends BaseAppMallPresent {
 
         }else {
             arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                    (HomePageContract.COMMODITY_VIDEO, true)));
+                    (HomePageContract.COMMODITY_VIDEO, false)));
             arrays.add(new MultipleItem(MultipleItem.ITEM_FRAGMENT_VIDEO, new ItemFragmentBean(HomePageContract.COMMODITY_VIDEO, 4, 1,
                     1, false,
                     new ArrayList<>())));
@@ -363,6 +368,90 @@ public class ShopPresent extends BaseAppMallPresent {
     public void addCommodityBaseInfo(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .addCommodityBaseInfo(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void updateCommodityBaseInfo(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .updateCommodityBaseInfo(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void deleteCommodity(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .deleteCommodity(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void editCommodityProperty(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .editCommodityProperty(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void onSaleCommodity(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .onSaleCommodity(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override

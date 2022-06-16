@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.beans;
 
+import com.google.gson.JsonObject;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class CommodityFormatListBean extends BaseResult {
         private double price;
         private int stock;
         private String image;
-        private Object detail;
+        private JsonObject detail;
 
         public String getCommodityName() {
             return commodityName;
@@ -78,11 +79,11 @@ public class CommodityFormatListBean extends BaseResult {
             this.image = image;
         }
 
-        public Object getDetail() {
+        public JsonObject getDetail() {
             return detail;
         }
 
-        public void setDetail(Object detail) {
+        public void setDetail(JsonObject detail) {
             this.detail = detail;
         }
 

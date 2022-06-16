@@ -55,7 +55,8 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
 
     private RichEditor mEditor;//
     public RE re;
-
+    private CommodityDetailBean commodityDetailBean;
+private boolean  isEdit = false;
     @Override
     protected ShopPresent createPresenter() {
         return new ShopPresent();
@@ -68,6 +69,7 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
 
     @Override
     public void initView() {
+        commodityDetailBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
         setTitleName("添加商品详情");
         mActionImg = (ImageView) findViewById(R.id.action_img);
         mActionImg.setOnClickListener(this);
@@ -106,6 +108,12 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
         re = RE.getInstance(mEditor);
         re.setPlaceHolder("请输入商品详情");
         re.setPadding(20, 10, 20, 10);
+        if (!TextUtils.isEmpty(commodityDetailBean.getDescription())) {
+            isEdit = true;
+            re.setHtml(commodityDetailBean.getDescription());
+        }else {
+            isEdit = false;
+        }
     }
 
     // 改变底部图标颜色
@@ -134,7 +142,16 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
                 // TODO: 2022/6/15 后期放开
                 startAllCommodityActivity();
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
-//                Hawk.delete(HawkProperty.COMMODITY_DETAIL);
+                if (Hawk.contains(HawkProperty.COMMODITY_DETAIL)) {
+                    Hawk.delete(HawkProperty.COMMODITY_DETAIL);
+
+                }
+
+                break;
+            case AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO:
+                ToastUtils.toast(mContext, "修改成功");
+                startAllCommodityActivity();
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
 
                 break;
         }
@@ -213,13 +230,19 @@ public class AddCommodityDetailInfoActivity extends BaseAppActivity<ShopPresent>
                     ToastUtils.toast(mContext, "请输入商品详情");
                     return;
                 }
-                CommodityDetailBean commodityDetailBean = Hawk.get(HawkProperty.COMMODITY_DETAIL);
+
                 commodityDetailBean.setDescription(des);
                 commodityDetailBean.setAccount(UserInfoManagerMall.getAccount());
                 commodityDetailBean.setToken(UserInfoManagerMall.getUserToken());
                 commodityDetailBean.setShopId(UserInfoManagerMall.getShopId());
                 commodityDetailBean.setTypeEnd("app_seller");
-                mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
+                if (isEdit) {
+                    mPresenter.updateCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO);
+
+                }else {
+                    mPresenter.addCommodityBaseInfo(getJsonRequestBody(GsonTools.createGsonString(commodityDetailBean)), AppHttpPathMall.ADD_COMMODITY_BASE_INFO);
+
+                }
                 break;
         }
     }

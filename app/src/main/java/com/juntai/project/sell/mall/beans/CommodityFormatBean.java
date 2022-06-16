@@ -11,6 +11,18 @@ import java.util.List;
 public class CommodityFormatBean {
 
     private List<ResultBean> items;
+    private List<CommodityFormatListBean.DataBean> attrs;
+
+    public List<CommodityFormatListBean.DataBean> getAttrs() {
+        if (attrs == null) {
+            return new ArrayList<>();
+        }
+        return attrs;
+    }
+
+    public void setAttrs(List<CommodityFormatListBean.DataBean> attrs) {
+        this.attrs = attrs;
+    }
 
     public List<ResultBean> getItems() {
         if (items == null) {
@@ -24,6 +36,7 @@ public class CommodityFormatBean {
     }
 
     public static class ResultBean {
+
         /**
          * detail : ["红色","黑色"]
          * value : 颜色

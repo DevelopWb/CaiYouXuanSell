@@ -1,11 +1,13 @@
 package com.juntai.project.sell.mall.home.commodityManager.allCommodity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
@@ -13,6 +15,7 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
 
 import java.util.List;
@@ -24,7 +27,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/13 9:58
  */
-public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView,ShopCommodityAdapter.OnChildClickCallBack {
+public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView, ShopCommodityAdapter.OnChildClickCallBack {
 
     private int status;
 
@@ -58,7 +61,7 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
 
     @Override
     protected void lazyLoad() {
-        status = getArguments().getInt(BASE_ID,0);
+        status = getArguments().getInt(BASE_ID, 0);
         super.lazyLoad();
     }
 
@@ -91,7 +94,7 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
 
     @Override
     protected BaseQuickAdapter getBaseQuickAdapter() {
-        return new ShopCommodityAdapter(R.layout.shop_commodity_item,this);
+        return new ShopCommodityAdapter(R.layout.shop_commodity_item, this);
     }
 
     @Override
@@ -107,12 +110,25 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
             case AppHttpPathMall.GET_ALL_COMMODITY:
                 ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
                 if (shopCommodityListBean != null) {
-                    ShopCommodityListBean.DataBean dataBean =  shopCommodityListBean.getData();
+                    ShopCommodityListBean.DataBean dataBean = shopCommodityListBean.getData();
                     if (dataBean != null) {
                         List<ShopCommodityListBean.DataBean.ListBean> arrays = dataBean.getList();
-                        setData(arrays,dataBean.getTotalCount());
+                        setData(arrays, dataBean.getTotalCount());
                     }
                 }
+                break;
+
+            case AppHttpPathMall.COMMODITY_ON_SALE:
+                ToastUtils.toast(mContext, "上架成功");
+                getRvAdapterData();
+                break;
+            case AppHttpPathMall.DELETE_COMMODITY:
+                ToastUtils.toast(mContext, "删除成功");
+                getRvAdapterData();
+                break;
+            case AppHttpPathMall.COMMODITY_ON_SALE_:
+                ToastUtils.toast(mContext, "已下架");
+                getRvAdapterData();
                 break;
             default:
                 break;
@@ -126,26 +142,64 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ShopCommodityListBean.DataBean.ListBean listBean = (ShopCommodityListBean.DataBean.ListBean) adapter.getItem(position);
-                startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(BASE_ID,listBean.getId()));
+                startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(BASE_ID, listBean.getId()));
             }
         });
     }
 
     /**
-     *
-     * @param editType  0 修改 1 删除 2规格 3上架 4下架
+     * @param editType 0 修改 1 删除 2规格 3上架 4下架
      * @param item
      */
     @Override
     public void onChildClick(int editType, ShopCommodityListBean.DataBean.ListBean item) {
         switch (editType) {
             case 0:
-                // TODO: 2022/6/13 修改商品
-                
+                // : 2022/6/13 修改商品
+                getBaseAppActivity().showAlertDialog("是否修改当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(mContext, EditCommodityActivity.class).putExtra(BASE_ID, item.getId()));
+
+
+                    }
+                });
+                break;
+            case 1:
+                // : 2022/6/13 删除商品
+                getBaseAppActivity().showAlertDialog("是否删除当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.deleteCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId())).build(), AppHttpPathMall.DELETE_COMMODITY
+                        );
+                    }
+                });
                 break;
             case 2:
-                // TODO: 2022/6/15 规格
+                // : 2022/6/15 规格
                 getBaseAppActivity().startCommodityPropertyActivity(item.getId());
+                break;
+            case 3:
+                // : 2022/6/15 上架
+                getBaseAppActivity().showAlertDialog("是否上架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.onSaleCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId()))
+                                .add("status", "0").build(), AppHttpPathMall.COMMODITY_ON_SALE
+                        );
+                    }
+                });
+                break;
+            case 4:
+                // : 2022/6/15 下架
+                getBaseAppActivity().showAlertDialog("是否下架当前商品?", "确定", "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.onSaleCommodity(getBaseAppActivity().getBaseBuilder().add("id", String.valueOf(item.getId()))
+                                .add("status", "1").build(), AppHttpPathMall.COMMODITY_ON_SALE_
+                        );
+                    }
+                });
                 break;
             default:
                 break;

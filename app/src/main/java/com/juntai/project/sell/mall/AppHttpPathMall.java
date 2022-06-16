@@ -3,9 +3,9 @@ package com.juntai.project.sell.mall;
 public class AppHttpPathMall {
 
 
-//    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-            public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
-//    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
+    //    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
+    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
+    //    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
     public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/buyersSocket/";
     //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
     public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
@@ -25,8 +25,8 @@ public class AppHttpPathMall {
      * 上传图片或视频
      */
     public static final String UPLOAD_FILES = BASE + "/uploadFile/upload";
-    public static final String UPLOAD_ONE_PIC =  "/uploadFile/uploadonepic";
-    public static final String UPLOAD_MORE_PIC =  "/uploadFile/uploadmorepic";
+    public static final String UPLOAD_ONE_PIC = "/uploadFile/uploadonepic";
+    public static final String UPLOAD_MORE_PIC = "/uploadFile/uploadmorepic";
     /**
      * 登录
      */
@@ -94,7 +94,7 @@ public class AppHttpPathMall {
     /**
      * 用户实名认证
      */
-    public static final String USER_AUTH ="https://www.dgjpcs.cn/server/dongGuanPoliceStation/u/webConnector/realNameAuthentication.shtml";
+    public static final String USER_AUTH = "https://www.dgjpcs.cn/server/dongGuanPoliceStation/u/webConnector/realNameAuthentication.shtml";
 
 
     /*====================================================    天气   ==============================================================*/
@@ -295,7 +295,7 @@ public class AppHttpPathMall {
 
 
 
-        /*====================================================    消息   ==============================================================*/
+    /*====================================================    消息   ==============================================================*/
 
 
     /**
@@ -308,7 +308,7 @@ public class AppHttpPathMall {
     public static final String MESSAGE_READ = BASE + "/msg/updateMsgRead";
     /**
      * 未读消息详情
-     * */
+     */
     public static final String UNREAD_CONTACT_MSG = BASE + "/msg/selectMsgInfo";
     /**
      * 消息列表
@@ -332,7 +332,7 @@ public class AppHttpPathMall {
 
 
 
-        /*====================================================    卖家端   ==============================================================*/
+    /*====================================================    卖家端   ==============================================================*/
 
 
     /**
@@ -341,26 +341,22 @@ public class AppHttpPathMall {
     public static final String SHOP_HOME_INFO = BASE + "/seller/selectShopHome";
     /**
      * 系统公告和通知
-     *
      */
     public static final String GET_SYSTEM_NOTICE = BASE + "/seller/getSysNoticeList";
 
     /**
      * 系统公告和通知
-     *
      */
     public static final String GET_SYSTEM_NOTICE_DETAIL = BASE + "/seller/getSysNoticeInfo";
     /**
      * 消息已读
-     *
      */
     public static final String NOTICE_READ = BASE + "/msg/updateMsgRead";
 
 
 
 
-        /*====================================================    卖家店铺   ==============================================================*/
-
+    /*====================================================    卖家店铺   ==============================================================*/
 
 
     /**
@@ -384,7 +380,7 @@ public class AppHttpPathMall {
 
 
 
-        /*====================================================    商品类目   ==============================================================*/
+    /*====================================================    商品类目   ==============================================================*/
     /**
      * 商品类目
      */
@@ -405,7 +401,7 @@ public class AppHttpPathMall {
 
 
 
-        /*====================================================    商品管理   ==============================================================*/
+    /*====================================================    商品管理   ==============================================================*/
 
     /**
      * 商品列表
@@ -420,9 +416,26 @@ public class AppHttpPathMall {
      */
     public static final String ADD_COMMODITY_BASE_INFO = BASE + "/seller/addCommodity";
     /**
+     * 更新商品基础信息
+     */
+    public static final String UPDATE_COMMODITY_BASE_INFO = BASE + "/seller/updateCommodity";
+    /**
+     * 删除商品基础信息
+     */
+    public static final String DELETE_COMMODITY = BASE + "/seller/deleteCommodity";
+    /**
      * 生成商品属性
      */
     public static final String CREATE_COMMODITY_FORMAT = BASE + "/seller/isFormatAttr";
+    /**
+     * 添加修改 商品属性
+     */
+    public static final String EDIT_COMMODITY_FORMAT = BASE + "/seller/addCommodityAttr";
+    /**
+     * 上架
+     */
+    public static final String COMMODITY_ON_SALE = BASE + "/seller/onSale";
+    public static final String COMMODITY_ON_SALE_ = BASE + "/seller/onSale_";
 
 
 }

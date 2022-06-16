@@ -383,6 +383,16 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.ADD_COMMODITY_BASE_INFO)
     Observable<BaseResult> addCommodityBaseInfo(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.UPDATE_COMMODITY_BASE_INFO)
+    Observable<BaseResult> updateCommodityBaseInfo(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.DELETE_COMMODITY)
+    Observable<BaseResult> deleteCommodity(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.EDIT_COMMODITY_FORMAT)
+    Observable<BaseResult> editCommodityProperty(@Body RequestBody requestBody);
+    @POST(AppHttpPathMall.COMMODITY_ON_SALE)
+    Observable<BaseResult> onSaleCommodity(@Body RequestBody requestBody);
+
     @POST(AppHttpPathMall.CREATE_COMMODITY_FORMAT)
     Observable<CommodityFormatListBean> createCommodityFormatList(@Body RequestBody requestBody);
 

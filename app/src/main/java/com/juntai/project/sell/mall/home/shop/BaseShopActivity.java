@@ -347,33 +347,37 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     List<String> photos = fragmentPicBean.getFragmentPics();
                     String name = fragmentPicBean.getKey();
                     String msg = String.format("请选择%s", name);
-                    if (photos == null || photos.isEmpty()) {
-                        ToastUtils.toast(mContext, msg);
-                        return null;
+                    if (!HomePageContract.COMMODITY_VIDEO.equals(name)) {
+                        if (photos == null || photos.isEmpty()) {
+                            ToastUtils.toast(mContext, msg);
+                            return null;
+                        }
+                    }
+                    if (photos != null&&photos.size()>0) {
+                        String path = photos.get(0);
+                        switch (name) {
+                            case HomePageContract.COMMODITY_PRIMARY_PIC:
+                                commodityDetailBean.setCoverImg(path);
+
+                                break;
+                            case HomePageContract.COMMODITY_VIDEO:
+                                commodityDetailBean.setVideoUrl(path);
+                                break;
+                            case HomePageContract.COMMODITY_BANNER_PICS:
+                                List<CommodityDetailBean.ImagesBean> imagesBeans = new ArrayList<>();
+
+                                for (String photo : photos) {
+                                    imagesBeans.add(new CommodityDetailBean.ImagesBean(photo));
+                                }
+                                commodityDetailBean.setImages(imagesBeans);
+                                commodityDetailBean.setCommodityImg(imagesBeans);
+
+                                break;
+                            default:
+                                break;
+                        }
                     }
 
-                    String path = photos.get(0);
-                    switch (name) {
-                        case HomePageContract.COMMODITY_PRIMARY_PIC:
-                            commodityDetailBean.setCoverImg(path);
-
-                            break;
-                        case HomePageContract.COMMODITY_VIDEO:
-                            commodityDetailBean.setVideoUrl(path);
-                            break;
-                        case HomePageContract.COMMODITY_BANNER_PICS:
-                            List<CommodityDetailBean.ImagesBean> imagesBeans = new ArrayList<>();
-
-                            for (String photo : photos) {
-                                imagesBeans.add(new CommodityDetailBean.ImagesBean(photo));
-                            }
-                            commodityDetailBean.setImages(imagesBeans);
-                            commodityDetailBean.setCommodityImg(imagesBeans);
-
-                            break;
-                        default:
-                            break;
-                    }
 
                     break;
                 case MultipleItem.ITEM_PIC:
