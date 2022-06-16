@@ -428,6 +428,10 @@ public class AppHttpPathMall {
      */
     public static final String CREATE_COMMODITY_FORMAT = BASE + "/seller/isFormatAttr";
     /**
+     * 获取商品属性
+     */
+    public static final String GET_COMMODITY_FORMAT = BASE + "/seller/getCommodityAttr";
+    /**
      * 添加修改 商品属性
      */
     public static final String EDIT_COMMODITY_FORMAT = BASE + "/seller/addCommodityAttr";

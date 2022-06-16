@@ -16,6 +16,9 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.CommodityFormatBean;
 import com.juntai.project.sell.mall.beans.StringBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -59,6 +62,14 @@ public class CommodityFormatAdapter extends BaseQuickAdapter<CommodityFormatBean
         propertyRv.setLayoutManager(gridLayoutManager);
         addPropertyTv.setTag(propertyAdapter);
         formatEt.setTag(R.id.tag_second,propertyAdapter);
+        List<String> values = item.getDetail();
+        List<StringBean> datas = new ArrayList<>();
+        if (values != null&&values.size()>0) {
+            for (String value : values) {
+                datas.add(new StringBean(value,helper.getAdapterPosition()));
+            }
+            propertyAdapter.setNewData(datas);
+        }
         propertyAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

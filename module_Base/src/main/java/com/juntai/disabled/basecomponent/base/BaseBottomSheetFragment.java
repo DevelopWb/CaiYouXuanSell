@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.R;
@@ -28,6 +29,7 @@ public abstract  class BaseBottomSheetFragment extends BottomSheetDialogFragment
     protected SmartRefreshLayout mSmartrefreshlayout;
     protected BaseQuickAdapter baseQuickAdapter;
     protected LinearLayoutManager linearLayoutManager;
+    protected TextView mTitleTv;
 
     @NonNull
     @Override
@@ -50,6 +52,8 @@ public abstract  class BaseBottomSheetFragment extends BottomSheetDialogFragment
 
     }
     public void initView(View view) {
+        mTitleTv = (TextView) view.findViewById(R.id.selector_title);
+
         mRecyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) view.findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableRefresh(false);

@@ -1,9 +1,9 @@
 package com.juntai.project.sell.mall.beans;
 
-import com.google.gson.JsonObject;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: tobato
@@ -37,7 +37,7 @@ public class CommodityFormatListBean extends BaseResult {
         private double price;
         private int stock;
         private String image;
-        private JsonObject detail;
+        private Map<String,String> detail;
 
         public String getCommodityName() {
             return commodityName;
@@ -79,11 +79,11 @@ public class CommodityFormatListBean extends BaseResult {
             this.image = image;
         }
 
-        public JsonObject getDetail() {
+        public Map<String,String> getDetail() {
             return detail;
         }
 
-        public void setDetail(JsonObject detail) {
+        public void setDetail(Map<String,String> detail) {
             this.detail = detail;
         }
 

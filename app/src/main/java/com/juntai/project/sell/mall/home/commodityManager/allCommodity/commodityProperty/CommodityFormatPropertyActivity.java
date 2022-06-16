@@ -15,6 +15,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.beans.CommodityFormatBean;
+import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.StringBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
@@ -41,6 +42,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
     private CommodityFormatPropertyAdapter formatPropertyAdapter;
     private CommodityFormatBean commodityFormatBean;
     private int commodityId;
+    private TextView mSetPriceStockTv;
 
     @Override
     protected ShopPresent createPresenter() {
@@ -67,6 +69,8 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
         super.initData();
         baseQuickAdapter.setHeaderFooterEmpty(true, false);
         commodityId = getIntent().getIntExtra(BASE_ID, 0);
+        // : 2022/6/16 获取商品规格属性
+        mPresenter.getCommodityFormat(getBaseBuilder().add("id", String.valueOf(commodityId)).build(), AppHttpPathMall.GET_COMMODITY_FORMAT);
         setTitleName("商品规格属性");
         getTitleRightTv().setText("生成");
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
@@ -76,7 +80,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 commodityFormatBean = null;
                 if (formatPropertyAdapter != null) {
                     formatPropertyAdapter.setNewData(null);
-                    baseQuickAdapter.removeAllFooterView();
+                    mSetPriceStockTv.setVisibility(View.GONE);
                 }
                 List<CommodityFormatBean.ResultBean> data = baseQuickAdapter.getData();
                 if (data.size() > 0) {
@@ -88,7 +92,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                     }
                     if (arrays.size() > 0) {
                         commodityFormatBean = new CommodityFormatBean();
-                        commodityFormatBean.setItems(data);
+                        commodityFormatBean.setAttr(data);
                         mPresenter.createCommodityFormatList(getBaseBuilder().add("id", String.valueOf(commodityId)
                                 ).add("json", GsonTools.createGsonString(commodityFormatBean)).build()
                                 , AppHttpPathMall.CREATE_COMMODITY_FORMAT);
@@ -161,7 +165,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 break;
             case R.id.commit_tv:
                 // TODO: 2022/6/15 提交更改
-                if (commodityFormatBean == null || commodityFormatBean.getAttrs() == null) {
+                if (commodityFormatBean == null || commodityFormatBean.getValue() == null) {
                     ToastUtils.toast(mContext, "请先生成规则属性");
                     return;
                 }
@@ -202,6 +206,11 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 }
             }
         });
+
+
+//
+//        ModifyPriceStockFragment modifyPriceStockFragment = new ModifyPriceStockFragment();
+//        modifyPriceStockFragment.show(getSupportFragmentManager(), "modifyPriceStockFragment");
     }
 
     @Override
@@ -213,25 +222,9 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 CommodityFormatListBean listBean = (CommodityFormatListBean) o;
                 if (listBean != null) {
                     List<CommodityFormatListBean.DataBean> formatList = listBean.getData();
-                    commodityFormatBean.setAttrs(formatList);
+                    commodityFormatBean.setValue(formatList);
                     if (formatList != null) {
-                        // : 2022/6/15 加载尾布局
-                        View view = LayoutInflater.from(mContext).inflate(R.layout.set_format_layout, null);
-                        TextView tv = view.findViewById(R.id.item_small_title_tv);
-                        tv.setText("设置价格库存");
-                        RecyclerView mCommodityFormatRv = view.findViewById(R.id.commodity_format_rv);
-                        formatPropertyAdapter = new CommodityFormatPropertyAdapter(R.layout.format_property_item);
-                        initRecyclerview(mCommodityFormatRv, formatPropertyAdapter, LinearLayoutManager.VERTICAL);
-                        baseQuickAdapter.addFooterView(view);
-                        formatPropertyAdapter.setNewData(formatList);
-                        formatPropertyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) adapter.getItem(position);
-
-                                // TODO: 2022/6/16 修改库存和价格
-                            }
-                        });
+                        loadFootView(formatList);
                     }
                 }
 
@@ -240,8 +233,52 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 ToastUtils.toast(mContext, "提交成功");
                 finish();
                 break;
+            case AppHttpPathMall.GET_COMMODITY_FORMAT:
+                CommodityFormatDataBean formatDataBean = (CommodityFormatDataBean) o;
+                if (formatDataBean != null) {
+                    CommodityFormatBean formatBean = formatDataBean.getData();
+                    if (formatBean != null) {
+                        commodityFormatBean = formatBean;
+                        List<CommodityFormatListBean.DataBean> value = formatBean.getValue();
+                        List<CommodityFormatBean.ResultBean> attr = formatBean.getAttr();
+                        if (attr != null) {
+                            baseQuickAdapter.setNewData(attr);
+                        }
+                        if (value != null) {
+                            loadFootView(value);
+
+                        }
+                    }
+
+                }
+
+                break;
             default:
                 break;
         }
+    }
+
+    private void loadFootView(List<CommodityFormatListBean.DataBean> formatList) {
+        if (formatPropertyAdapter == null) {
+            // : 2022/6/15 加载尾布局
+            View view = LayoutInflater.from(mContext).inflate(R.layout.set_format_layout, null);
+            mSetPriceStockTv = view.findViewById(R.id.item_small_title_tv);
+            view.findViewById(R.id.important_tag_tv).setVisibility(View.GONE);
+            mSetPriceStockTv.setText("设置价格库存");
+            RecyclerView mCommodityFormatRv = view.findViewById(R.id.commodity_format_rv);
+            formatPropertyAdapter = new CommodityFormatPropertyAdapter(R.layout.format_property_item);
+            initRecyclerview(mCommodityFormatRv, formatPropertyAdapter, LinearLayoutManager.VERTICAL);
+            baseQuickAdapter.addFooterView(view);
+        }
+        mSetPriceStockTv.setVisibility(View.VISIBLE);
+        formatPropertyAdapter.setNewData(formatList);
+        formatPropertyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) adapter.getItem(position);
+
+                // TODO: 2022/6/16 修改库存和价格
+            }
+        });
     }
 }

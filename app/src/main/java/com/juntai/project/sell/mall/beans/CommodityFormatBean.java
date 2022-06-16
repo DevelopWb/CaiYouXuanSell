@@ -10,29 +10,29 @@ import java.util.List;
  */
 public class CommodityFormatBean {
 
-    private List<ResultBean> items;
-    private List<CommodityFormatListBean.DataBean> attrs;
+    private List<ResultBean> attr;
+    private List<CommodityFormatListBean.DataBean> value;
 
-    public List<CommodityFormatListBean.DataBean> getAttrs() {
-        if (attrs == null) {
+    public List<ResultBean> getAttr() {
+        if (attr == null) {
             return new ArrayList<>();
         }
-        return attrs;
+        return attr;
     }
 
-    public void setAttrs(List<CommodityFormatListBean.DataBean> attrs) {
-        this.attrs = attrs;
+    public void setAttr(List<ResultBean> attr) {
+        this.attr = attr;
     }
 
-    public List<ResultBean> getItems() {
-        if (items == null) {
+    public List<CommodityFormatListBean.DataBean> getValue() {
+        if (value == null) {
             return new ArrayList<>();
         }
-        return items;
+        return value;
     }
 
-    public void setItems(List<ResultBean> items) {
-        this.items = items;
+    public void setValue(List<CommodityFormatListBean.DataBean> value) {
+        this.value = value;
     }
 
     public static class ResultBean {
