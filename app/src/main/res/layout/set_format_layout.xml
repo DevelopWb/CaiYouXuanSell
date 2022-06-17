@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/item_layout_type_title_small" />
+    <TextView
+        android:id="@+id/item_small_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:paddingLeft="15dp"
+        android:textColor="@color/text_title"
+        android:gravity="center_vertical"
+        android:textSize="16dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/commodity_format_rv"

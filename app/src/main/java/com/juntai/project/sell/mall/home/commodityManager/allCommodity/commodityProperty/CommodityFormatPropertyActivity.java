@@ -164,21 +164,25 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 baseQuickAdapter.addData(new CommodityFormatBean.ResultBean());
                 break;
             case R.id.commit_tv:
-                // TODO: 2022/6/15 提交更改
-                if (commodityFormatBean == null || commodityFormatBean.getValue() == null) {
-                    ToastUtils.toast(mContext, "请先生成规则属性");
-                    return;
-                }
-                mPresenter.editCommodityProperty(getBaseBuilder()
-                        .add("id", String.valueOf(commodityId))
-                        .add("json", GsonTools.createGsonString(commodityFormatBean)).build(), AppHttpPathMall.EDIT_COMMODITY_FORMAT
-                );
+                // : 2022/6/15 提交更改
+                commit(AppHttpPathMall.EDIT_COMMODITY_FORMAT);
 
 
                 break;
             default:
                 break;
         }
+    }
+
+    private void commit(String tag) {
+        if (commodityFormatBean == null || commodityFormatBean.getValue() == null) {
+            ToastUtils.toast(mContext, "请先生成规则属性");
+            return;
+        }
+        mPresenter.editCommodityProperty(getBaseBuilder()
+                .add("id", String.valueOf(commodityId))
+                .add("json", GsonTools.createGsonString(commodityFormatBean)).build(), tag
+        );
     }
 
 
@@ -208,9 +212,6 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
         });
 
 
-//
-//        ModifyPriceStockFragment modifyPriceStockFragment = new ModifyPriceStockFragment();
-//        modifyPriceStockFragment.show(getSupportFragmentManager(), "modifyPriceStockFragment");
     }
 
     @Override
@@ -232,6 +233,9 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
             case AppHttpPathMall.EDIT_COMMODITY_FORMAT:
                 ToastUtils.toast(mContext, "提交成功");
                 finish();
+                break;
+            case AppHttpPathMall.MODIFY_COMMODITY_PRICE_STOCK:
+                ToastUtils.toast(mContext, "修改成功");
                 break;
             case AppHttpPathMall.GET_COMMODITY_FORMAT:
                 CommodityFormatDataBean formatDataBean = (CommodityFormatDataBean) o;
@@ -263,7 +267,6 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
             // : 2022/6/15 加载尾布局
             View view = LayoutInflater.from(mContext).inflate(R.layout.set_format_layout, null);
             mSetPriceStockTv = view.findViewById(R.id.item_small_title_tv);
-            view.findViewById(R.id.important_tag_tv).setVisibility(View.GONE);
             mSetPriceStockTv.setText("设置价格库存");
             RecyclerView mCommodityFormatRv = view.findViewById(R.id.commodity_format_rv);
             formatPropertyAdapter = new CommodityFormatPropertyAdapter(R.layout.format_property_item);
@@ -278,6 +281,20 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) adapter.getItem(position);
 
                 // TODO: 2022/6/16 修改库存和价格
+                ModifyPriceStockFragment modifyPriceStockFragment = new ModifyPriceStockFragment();
+                modifyPriceStockFragment.show(getSupportFragmentManager(), "modifyPriceStockFragment");
+                modifyPriceStockFragment.setDataBean(dataBean, position);
+                modifyPriceStockFragment.setOnConfirmCallBack(new ModifyPriceStockFragment.OnConfirmCallBack() {
+                    @Override
+                    public void confirm(double price, int stock, int positon) {
+                        // : 2022/6/17 更改适配器数据  调用更改接口
+                        CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) formatPropertyAdapter.getItem(position);
+                        dataBean.setPrice(price);
+                        dataBean.setStock(stock);
+                        formatPropertyAdapter.notifyItemChanged(position);
+                        commit(AppHttpPathMall.MODIFY_COMMODITY_PRICE_STOCK);
+                    }
+                });
             }
         });
     }

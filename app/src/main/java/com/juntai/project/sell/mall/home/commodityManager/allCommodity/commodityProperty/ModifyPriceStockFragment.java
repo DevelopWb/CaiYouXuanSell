@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,14 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseBottomSheetFragment;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.CommodityPropertyBean;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.R;
+import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: tobato
@@ -23,7 +30,13 @@ import com.juntai.project.sell.mall.R;
  */
 public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements View.OnClickListener {
     private OnConfirmCallBack onConfirmCallBack;
+    private CommodityFormatListBean.DataBean dataBean;
+    private int position;
 
+    public void setDataBean(CommodityFormatListBean.DataBean dataBean, int position) {
+        this.dataBean = dataBean;
+        this.position = position;
+    }
 
     public void setOnConfirmCallBack(OnConfirmCallBack onConfirmCallBack) {
         this.onConfirmCallBack = onConfirmCallBack;
@@ -56,8 +69,25 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel_tv:
+            case R.id.selector_close:
+                dismiss();
                 break;
             case R.id.confirm_tv:
+                String price = mCommodityPriceEt.getText().toString().trim();
+                if (TextUtils.isEmpty(price)) {
+                    ToastUtils.toast(getContext(), "请输入价格");
+                    return;
+                }
+                String stock = mCommodityStockEt.getText().toString().trim();
+                if (TextUtils.isEmpty(stock)) {
+                    ToastUtils.toast(getContext(), "请输入库存");
+                    return;
+                }
+                if (onConfirmCallBack != null) {
+                    onConfirmCallBack.confirm(Double.parseDouble(price), Integer.parseInt(stock), position);
+                    dismiss();
+                }
+
                 break;
             default:
                 break;
@@ -98,10 +128,19 @@ public class ModifyPriceStockFragment extends BaseBottomSheetFragment implements
         mCancelTv.setOnClickListener(this);
         mConfirmTv = (TextView) view.findViewById(R.id.confirm_tv);
         mConfirmTv.setOnClickListener(this);
+        ImageLoadUtil.loadSquareImage(getContext(), dataBean.getImage(), mCommodityPicIv);
+        Map<String, String> map = dataBean.getDetail();
+        List<String> detail = new ArrayList<>();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            detail.add(entry.getKey() + ":" + entry.getValue());
+        }
+        mFormatTv.setText(TextUtils.join("\n", detail));
+        mCommodityPriceEt.setText(String.valueOf(dataBean.getPrice()));
+        mCommodityStockEt.setText(String.valueOf(dataBean.getStock()));
     }
 
     public interface OnConfirmCallBack {
 
-        void confirm(CommodityPropertyBean commodityPropertyBean, int amount);
+        void confirm(double price, int stock, int positon);
     }
 }

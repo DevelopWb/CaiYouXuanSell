@@ -83,6 +83,7 @@
         android:background="@drawable/sp_filled_gray_lighter"
         android:gravity="center_vertical"
         android:hint="请输入价格"
+        android:inputType="numberDecimal"
         android:maxLength="15"
         android:padding="10dp"
         android:textColor="@color/black"
@@ -95,6 +96,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
+        android:inputType="numberDecimal"
+
         android:background="@drawable/sp_filled_gray_lighter"
         android:gravity="center_vertical"
         android:hint="请输入库存"
