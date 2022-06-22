@@ -7,6 +7,7 @@ import com.orhanobut.hawk.Hawk;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
+
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -17,7 +18,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 public class HawkProperty {
     public final static String SP_KEY_USER = "SP_KEY_USER";
     public final static String SP_KEY_TOKEN = "token";
-    public final static String LOCAL_LABEL = "localLabel";
+    public final static String SHOP_NAME = "SHOP_NAME";
     public final static String SHOP_DETAIL = "shopDetail";
     public final static String HOME_SEARCH = "home_search";
     public static String DEV_REGID = "dev_regid";

@@ -80,19 +80,20 @@ public class MyWsManager {
     }
 
     public void startConnect() {
-        try {
-            if (myWsManager == null) {
-                myWsManager = builder.build();
-                myWsManager.setWsStatusListener(wsStatusListener);
-            }
-            if (!myWsManager.isWsConnected()) {
-                myWsManager.startConnect();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d(TAG, "myWsManager-----Exception");
-        }
+        // TODO: 2022/6/21 暂时关闭
+//        try {
+//            if (myWsManager == null) {
+//                myWsManager = builder.build();
+//                myWsManager.setWsStatusListener(wsStatusListener);
+//            }
+//            if (!myWsManager.isWsConnected()) {
+//                myWsManager.startConnect();
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.d(TAG, "myWsManager-----Exception");
+//        }
     }
 
     private WsStatusListener wsStatusListener = new WsStatusListener() {

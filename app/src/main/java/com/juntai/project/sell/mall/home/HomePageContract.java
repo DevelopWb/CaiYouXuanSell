@@ -44,15 +44,10 @@ public interface HomePageContract {
 
 
     String ORDER_CANCEL = "取消订单";
-    String ORDER_PAY = "立即付款";
-    String ORDER_REFUND = "申请退款";
-    String ORDER_SEND = "提醒发货";
-    String ORDER_RECEIVE = "确认收货";
-    String ORDER_PROGRESS = "查看进度";
+    String ORDER_SEND = "立即发货";
+    String ORDER_AGREE = "同意";
+    String ORDER_REJECT = "拒绝";
     String ORDER_DELETE = "删除订单";
-    String ORDER_REBUY = "再来一单";
-    String ORDER_REFUND_AGREE = "商家已同意";
-    String ORDER_REFUND_UNAGREE = "商家不同意";
 
 
     String SHOP_FLOW_ORDER = "今日订单量";
@@ -83,6 +78,11 @@ public interface HomePageContract {
     String ID_CARD_FRONT = "法人身份证正面";
     String ID_CARD_BACK = "法人身份证反面";
     String SHOP_INNER_PICS = "店铺实景相片";
+
+
+    String SEND_COMPANY = "快递公司";
+    String SEND_NO = "快递单号";
+    String SEND_LINK = "链接地址";
 
 
 

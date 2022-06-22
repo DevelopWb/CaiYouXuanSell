@@ -140,9 +140,6 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     public void initData() {
         super.initData();
         setTitleName(getTitleName());
-        if (getFootView() != null) {
-            baseQuickAdapter.setFooterView(getFootView());
-        }
         initAdapterClick();
 
     }
@@ -290,7 +287,6 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     }
 
-    protected abstract View getFootView();
 
     protected abstract String getTitleName();
 
@@ -429,6 +425,15 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                     switch (textValueEditBean.getKey()) {
                         case HomePageContract.SHOP_NAME:
                             builder.add("name", textValue);
+                            break;
+                        case HomePageContract.SEND_COMPANY:
+                            builder.add("logisticsName", textValue);
+                            break;
+                        case HomePageContract.SEND_NO:
+                            builder.add("logisticsNumber", textValue);
+                            break;
+                        case HomePageContract.SEND_LINK:
+                            builder.add("logisticsLink", textValue);
                             break;
                         case HomePageContract.SHOP_INTRODUCTION:
                             builder.add("introduction", textValue);

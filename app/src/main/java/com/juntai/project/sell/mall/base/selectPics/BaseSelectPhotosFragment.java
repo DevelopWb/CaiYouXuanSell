@@ -241,6 +241,8 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
                 }
                 selectedPicsAdapter.setNewData(icons);
             }
+        }else {
+            icons.addAll(arrays);
         }
     }
 

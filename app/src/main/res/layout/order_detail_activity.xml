@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray_lighter">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_cl"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -23,81 +23,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></FrameLayout>
 
-            <TextView
-                android:id="@+id/order_shop_name_tv"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="商铺名称"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/sp_filled_white_5dp"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/order_shop_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="商铺名称"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/order_detail_commodity_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/final_payment_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="right"
+                    android:text="实付款:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/order_detail_commodity_rv"
+                android:id="@+id/order_info_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/final_payment_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="right"
-                android:text="实付款:"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/order_detail_info_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/bottom_cl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-
-        <TextView
-            android:id="@+id/order_left_tv"
-            style="@style/shop_normal_bt"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/app_bt_bg_white"
-            android:text="配送服务"
-            android:visibility="gone"
-            android:textColor="@color/text_gray"
-            app:layout_constraintRight_toLeftOf="@+id/order_right_tv"
-            app:layout_constraintTop_toTopOf="@+id/order_right_tv" />
-
-        <TextView
-            android:id="@+id/order_right_tv"
-            style="@style/shop_normal_bt"
-            android:layout_marginTop="10dp"
-            android:text="快递包邮"
-            android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/custom_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="联系官方客服介入：110119120"
-            android:visibility="gone"
-            tools:ignore="MissingConstraints" />
-
-    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

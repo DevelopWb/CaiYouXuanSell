@@ -1,15 +1,18 @@
 package com.juntai.project.sell.mall.order.orderDetail;
 
 
-import android.graphics.drawable.Drawable;
-import android.view.Gravity;
-import android.widget.TextView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
-import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.project.sell.mall.R;
+import com.juntai.project.sell.mall.base.OrderDetailItemBean;
+import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+
+import java.util.List;
 
 
 /**
@@ -17,30 +20,42 @@ import com.juntai.project.sell.mall.R;
  * @description 描述  我的信息
  * @date 2021/6/1 16:48
  */
-public class OrderBaseInfoAdapter extends BaseQuickAdapter<TextKeyValueBean, BaseViewHolder> {
+public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, BaseViewHolder> {
+    private FragmentManager fragmentManager;
 
-    public OrderBaseInfoAdapter(int layoutResId) {
+    public OrderBaseInfoAdapter(int layoutResId, FragmentManager fragmentManager) {
         super(layoutResId);
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TextKeyValueBean item) {
-        helper.setText(R.id.item_myinfo_name, item.getKey());
-        TextView  valueTv = helper.getView(R.id.item_myinfo_value);
-        valueTv.setText(item.getValue());
-        valueTv.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);
+    protected void convert(BaseViewHolder helper, OrderDetailItemBean orderDetailBean) {
 
-    }
+        helper.setText(R.id.order_info_title_tv, orderDetailBean.getTitle());
 
-    /**
-     * 设置左边图标
-     * @param textView
-     * @param drawableId
-     */
-    public void initViewLeftDrawable(TextView textView, int drawableId, int width, int height) {
-        Drawable drawable = mContext.getResources().getDrawable(drawableId);
-        drawable.setBounds(0, 0, DisplayUtil.dp2px(mContext, width), DisplayUtil.dp2px(mContext, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
-        textView.setCompoundDrawables(null, null, drawable, null);//放左边
+        RecyclerView  recyclerView = helper.getView(R.id.order_detail_info_rv);
+        OrderBaseInfoChildAdapter childAdapter = new OrderBaseInfoChildAdapter(R.layout.mall_order_baseinfo_child_item);
+        recyclerView.setAdapter(childAdapter);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(manager);
+        childAdapter.setNewData(orderDetailBean.getArrays());
+
+        List<String> pics = orderDetailBean.getImages();
+        if (pics != null&&pics.size()>0) {
+            helper.setGone(R.id.order_pics_fl,true);
+            SelectPhotosFragment selectPhotosFragment = SelectPhotosFragment.newInstance(String.valueOf(orderDetailBean.getTitle()));
+            FragmentTransaction transaction =  fragmentManager.beginTransaction();
+            transaction.replace(R.id.order_pics_fl,selectPhotosFragment);
+            transaction.commit();
+            selectPhotosFragment.setMaxCount(pics.size());
+            selectPhotosFragment
+                    .setPhotoDelateable(false).setIcons(pics);
+
+        }else {
+            helper.setGone(R.id.order_pics_fl,false);
+
+        }
+
     }
 
 }

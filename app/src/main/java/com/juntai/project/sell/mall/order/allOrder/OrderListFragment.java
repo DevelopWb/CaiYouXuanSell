@@ -18,8 +18,9 @@ import com.juntai.project.sell.mall.beans.order.OrderListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.order.OrderPresent;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.FormBody;
 
 /**
  * @Author: tobato
@@ -67,7 +68,14 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void initView() {
         super.initView();
+        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderDetailBean orderDetailBean = (OrderDetailBean) adapter.getItem(position);
+                getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
 
+            }
+        });
         baseQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -87,6 +95,24 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
 
                     case R.id.order_left_tv:
                         switch (orderLeftTv.getText().toString().trim()) {
+                            case HomePageContract.ORDER_REJECT:
+                                // : 2022/6/21 不同意退货
+                                getBaseAppActivity(). showAlertDialog("确定不同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mPresenter.handlerRefundRequest(getBaseAppActivity().getBaseBuilder()
+                                                .add("type", "1")
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
+                                    }
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+                    case R.id.order_right_tv:
+                        switch (orderRightTv.getText().toString().trim()) {
                             case HomePageContract.ORDER_CANCEL:
                                 // : 2022/5/12 取消订单
                                 getBaseAppActivity().showAlertDialog("是否取消当前订单?", "确定", "取消", new DialogInterface.OnClickListener() {
@@ -98,52 +124,20 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                                 });
 
                                 break;
-                            case HomePageContract.ORDER_REFUND:
-                                // : 2022/5/12 申请退款
-                                getBaseAppActivity().startToOrderRefundRequestActivity(orderDetailBean);
-                                break;
-                            default:
-                                break;
-                        }
-
-                        break;
-                    case R.id.order_right_tv:
-                        switch (orderRightTv.getText().toString().trim()) {
-                            case HomePageContract.ORDER_PAY:
-                                // : 2022/5/12 立即付款
-                                OrderListBean orderListBean = new OrderListBean();
-                                OrderListBean.DataBean dataBean = new OrderListBean.DataBean();
-                                List<OrderDetailBean> orderDetailBeans = new ArrayList<>();
-                                orderDetailBeans.add(orderDetailBean);
-                                dataBean.setList(orderDetailBeans);
-                                orderListBean.setTotalPrice(orderDetailBean.getPayPrice());
-                                orderListBean.setData(dataBean);
-                                getBaseAppActivity().startToOrderPayActivity(orderListBean, 2);
-
-                                break;
                             case HomePageContract.ORDER_SEND:
-                                // : 2022/5/12 提醒发货
-                                mPresenter.noticeSend(getBaseAppActivity().getBaseBuilder().add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.NOTICE_SEND);
-
+                                // :  立即发货
+                                getBaseAppActivity().startSendActivity(orderDetailBean.getId());
                                 break;
-                            case HomePageContract.ORDER_RECEIVE:
-                                // : 2022/5/12 确认收货
-                                getBaseActivity().showAlertDialog("确定收到货物了吗?", "确定", "取消", new DialogInterface.OnClickListener() {
+                            case HomePageContract.ORDER_AGREE:
+                                // :   同意退货
+                                getBaseAppActivity().showAlertDialog("确定同意退货申请吗?", "确定", "取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        mPresenter.confirmReceived(getBaseAppActivity().getBaseBuilder()
-                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.CONFIRM_RECEIVED);
+                                        mPresenter.handlerRefundRequest(getBaseAppActivity().getBaseBuilder()
+                                                .add("type", "0")
+                                                .add("orderId", String.valueOf(orderDetailBean.getId())).build(), AppHttpPathMall.REFUND_REQUEST);
                                     }
                                 });
-                                break;
-                            case HomePageContract.ORDER_REFUND_AGREE:
-                                // : 2022/5/12 商家已同意
-                            case HomePageContract.ORDER_PROGRESS:
-                                // : 2022/5/12 查看进度
-                            case HomePageContract.ORDER_REFUND_UNAGREE:
-                                // : 2022/5/12 商家不同意
-                                getBaseAppActivity().startToOrderDetailActivity(orderDetailBean.getId(), orderDetailBean.getState());
-
                                 break;
                             case HomePageContract.ORDER_DELETE:
                                 // : 2022/5/12 删除订单
@@ -188,7 +182,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
             case EventBusObject.REFRESH_ORDER_LIST:
                 String key = (String) eventBusObject.getEventObj();
                 page = 1;
-               getList(key);
+                getList(key);
                 break;
             default:
                 break;
@@ -203,17 +197,32 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
     @Override
     protected void getRvAdapterData() {
         // : 2022/5/12 获取订单列表
-        getList(((AllOrderActivity)getActivity()).mSearchContentSv.getQuery().toString().trim());
+        getList(((OrderManagerActivity) getActivity()).mSearchContentSv.getQuery().toString().trim());
 
     }
 
     private void getList(String key) {
-        mPresenter.getOrderList(getBaseAppActivity().getBaseBuilder()
+        FormBody.Builder builder = getBaseAppActivity().getBaseBuilder()
                 .add("page", String.valueOf(page))
-                .add("key",key)
-                .add("limit", String.valueOf(limit))
-                .add("type", String.valueOf(labelId)).build(), AppHttpPathMall.ORDER_LIST
+                .add("keyword", key)
+                .add("payType", getPayType())
+                .add("limit", String.valueOf(limit));
+        if (-1 != labelId) {
+            builder.add("state", String.valueOf(labelId));
+        }
+        mPresenter.getOrderList(builder
+                .build(), AppHttpPathMall.ORDER_LIST
         );
+    }
+
+    private String getPayType() {
+        String type = ((OrderManagerActivity) getActivity()).orderTypeTv.getText().toString();
+        if ("全部订单".equals(type)) {
+            return "0";
+        } else if ("商城订单".equals(type)) {
+            return "1";
+        }
+        return "4";
     }
 
     @Override
@@ -232,7 +241,7 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                     OrderListBean.DataBean dataBean = orderListBean.getData();
                     if (dataBean != null) {
                         List<OrderDetailBean> arrays = dataBean.getList();
-                        setData(arrays,dataBean.getTotalCount());
+                        setData(arrays, dataBean.getTotalCount());
                     }
                 }
 
@@ -240,6 +249,10 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                 break;
             case AppHttpPathMall.CANCEL_ORDER:
                 ToastUtils.toast(mContext, "已取消订单");
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
+                break;
+            case AppHttpPathMall.REFUND_REQUEST:
+                ToastUtils.toast(mContext, "已处理");
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_ORDER_LIST, ""));
                 break;
             case AppHttpPathMall.NOTICE_SEND:

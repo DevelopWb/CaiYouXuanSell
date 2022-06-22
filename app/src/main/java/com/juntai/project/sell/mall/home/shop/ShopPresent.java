@@ -145,6 +145,19 @@ public class ShopPresent extends BaseAppMallPresent {
     }
 
     /**
+     *发送货物
+     * @return
+     */
+    public List<MultipleItem> sendGoods( ) {
+        List<MultipleItem> arrays = new ArrayList<>();
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SEND_COMPANY, ""
+                , true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SEND_NO, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.SEND_LINK, "", true, 0, false);
+
+        return arrays;
+    }
+    /**
      * 店铺管理
      *
      * @return
@@ -471,6 +484,28 @@ public class ShopPresent extends BaseAppMallPresent {
                     }
                 });
     }
+    public void sendGoods(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .sendGoods(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(null) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
     public void createCommodityFormatList(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .createCommodityFormatList(requestBody)

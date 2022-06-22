@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/key_value_ll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
 
-
-    <TextView
-        android:id="@+id/item_myinfo_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="dfasdf"
-        android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/sp_filled_white_5dp"
+        android:orientation="vertical"
+        android:padding="15dp">
 
-    <TextView
-        android:id="@+id/item_myinfo_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="dfasdfasd"
-        android:textSize="14dp" />
+        <TextView
+            android:id="@+id/order_info_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="交易信息"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/order_detail_info_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:id="@+id/order_pics_fl"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

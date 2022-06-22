@@ -10,10 +10,6 @@ import com.juntai.project.sell.mall.home.shop.BaseShopActivity;
 public class CommodityDetailActivity extends BaseShopActivity {
 
     @Override
-    protected View getFootView() {
-        return null;
-    }
-    @Override
     public void initData() {
         super.initData();
       int  commodityId = getIntent().getIntExtra(BASE_ID,0);

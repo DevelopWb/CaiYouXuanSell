@@ -40,23 +40,6 @@ public class ShopManagerActivity extends BaseShopActivity {
 
     @Override
     protected View getAdapterFootView() {
-        return null;
-    }
-
-    @Override
-    public void initData() {
-        super.initData();
-        dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-
-        baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, false));
-
-    }
-    @Override
-    public boolean requestLocation() {
-        return dataBean==null;
-    }
-    @Override
-    protected View getFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
         TextView commitTv = view.findViewById(R.id.commit_tv);
         mShopProtocalRb = view.findViewById(R.id.shop_protocal_rb);
@@ -70,6 +53,19 @@ public class ShopManagerActivity extends BaseShopActivity {
         }
         mShopProtocalRb.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+
+        baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, false));
+
+    }
+    @Override
+    public boolean requestLocation() {
+        return dataBean==null;
     }
 
     @Override

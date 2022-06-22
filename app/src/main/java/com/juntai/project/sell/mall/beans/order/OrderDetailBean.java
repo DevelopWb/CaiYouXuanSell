@@ -57,6 +57,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private String totalOrderFormNumber;
     private int userId;
     private String name;
+    private String nickname;
     private String phone;
     private String address;
     private int shopId;
@@ -84,7 +85,16 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     private String logisticsNumber;
     private String logisticsLink;
     private ReturnOrderFormInfoBean returnOrderFormInfo;
+    private CommodityEvaluateBean commodityEvaluateVo;
     private List<CommodityListBean> commodityList;
+
+    public CommodityEvaluateBean getCommodityEvaluateVo() {
+        return commodityEvaluateVo;
+    }
+
+    public void setCommodityEvaluateVo(CommodityEvaluateBean commodityEvaluateVo) {
+        this.commodityEvaluateVo = commodityEvaluateVo;
+    }
 
     public int getId() {
         return id;
@@ -96,6 +106,14 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
 
     public void setTotalOrderFormNumber(String totalOrderFormNumber) {
         this.totalOrderFormNumber = totalOrderFormNumber == null ? "" : totalOrderFormNumber;
+    }
+
+    public String getNickname() {
+        return nickname == null ? "" : nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? "" : nickname;
     }
 
     public void setId(int id) {
@@ -816,6 +834,100 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
     public OrderDetailBean() {
     }
 
+
+    public static class CommodityEvaluateBean implements Parcelable {
+        /**
+         * evaluate : 很好
+         * createTime : 2022-06-20 14:30:55
+         * imgUrl : https://www.juntaikeji.com:21900/2022-06-20/1655706641700572.jpeg
+         * videoCover : https://www.juntaikeji.com:21900/2022-06-20/1655706643609.jpg
+         * videoUrl : https://www.juntaikeji.com:21900/2022-06-20/1655706643609.mp4
+         */
+
+        private String evaluate;
+        private String createTime;
+        private String imgUrl;
+        private String videoCover;
+        private String videoUrl;
+
+        public CommodityEvaluateBean() {
+        }
+
+        public String getEvaluate() {
+            return evaluate;
+        }
+
+        public void setEvaluate(String evaluate) {
+            this.evaluate = evaluate;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
+        public String getVideoCover() {
+            return videoCover;
+        }
+
+        public void setVideoCover(String videoCover) {
+            this.videoCover = videoCover;
+        }
+
+        public String getVideoUrl() {
+            return videoUrl;
+        }
+
+        public void setVideoUrl(String videoUrl) {
+            this.videoUrl = videoUrl;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.evaluate);
+            dest.writeString(this.createTime);
+            dest.writeString(this.imgUrl);
+            dest.writeString(this.videoCover);
+            dest.writeString(this.videoUrl);
+        }
+
+        protected CommodityEvaluateBean(Parcel in) {
+            this.evaluate = in.readString();
+            this.createTime = in.readString();
+            this.imgUrl = in.readString();
+            this.videoCover = in.readString();
+            this.videoUrl = in.readString();
+        }
+
+        public static final Creator<CommodityEvaluateBean> CREATOR = new Creator<CommodityEvaluateBean>() {
+            @Override
+            public CommodityEvaluateBean createFromParcel(Parcel source) {
+                return new CommodityEvaluateBean(source);
+            }
+
+            @Override
+            public CommodityEvaluateBean[] newArray(int size) {
+                return new CommodityEvaluateBean[size];
+            }
+        };
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -829,6 +941,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeString(this.totalOrderFormNumber);
         dest.writeInt(this.userId);
         dest.writeString(this.name);
+        dest.writeString(this.nickname);
         dest.writeString(this.phone);
         dest.writeString(this.address);
         dest.writeInt(this.shopId);
@@ -853,6 +966,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         dest.writeString(this.logisticsNumber);
         dest.writeString(this.logisticsLink);
         dest.writeParcelable(this.returnOrderFormInfo, flags);
+        dest.writeParcelable(this.commodityEvaluateVo, flags);
         dest.writeTypedList(this.commodityList);
     }
 
@@ -863,6 +977,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.totalOrderFormNumber = in.readString();
         this.userId = in.readInt();
         this.name = in.readString();
+        this.nickname = in.readString();
         this.phone = in.readString();
         this.address = in.readString();
         this.shopId = in.readInt();
@@ -887,6 +1002,7 @@ public class OrderDetailBean extends BaseResult implements Parcelable {
         this.logisticsNumber = in.readString();
         this.logisticsLink = in.readString();
         this.returnOrderFormInfo = in.readParcelable(ReturnOrderFormInfoBean.class.getClassLoader());
+        this.commodityEvaluateVo = in.readParcelable(CommodityEvaluateBean.class.getClassLoader());
         this.commodityList = in.createTypedArrayList(CommodityListBean.CREATOR);
     }
 

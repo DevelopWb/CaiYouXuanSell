@@ -42,27 +42,6 @@ public class AddCommodityActivity extends BaseShopActivity {
 
     }
 
-    @Override
-    protected View getFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
-        TextView commitTv = view.findViewById(R.id.commit_tv);
-        commitTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
-                if (baseAdapterDataBean != null) {
-                    CommodityDetailBean commodityDetailBean = baseAdapterDataBean.getCommodityDetailBean();
-                    Hawk.put(HawkProperty.COMMODITY_DETAIL,commodityDetailBean);
-                    startActivity(new Intent(mContext, AddCommodityDetailInfoActivity.class)
-                            .putExtra(BASE_PARCELABLE, commodityDetailBean));
-                }
-
-
-            }
-        });
-        commitTv.setText("下一步");
-        return view;
-    }
 
     @Override
     protected String getTitleName() {
@@ -81,7 +60,24 @@ public class AddCommodityActivity extends BaseShopActivity {
 
     @Override
     protected View getAdapterFootView() {
-        return null;
+        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
+        TextView commitTv = view.findViewById(R.id.commit_tv);
+        commitTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseAdapterDataBean baseAdapterDataBean = getBaseOfAdapterData();
+                if (baseAdapterDataBean != null) {
+                    CommodityDetailBean commodityDetailBean = baseAdapterDataBean.getCommodityDetailBean();
+                    Hawk.put(HawkProperty.COMMODITY_DETAIL,commodityDetailBean);
+                    startActivity(new Intent(mContext, AddCommodityDetailInfoActivity.class)
+                            .putExtra(BASE_PARCELABLE, commodityDetailBean));
+                }
+
+
+            }
+        });
+        commitTv.setText("下一步");
+        return view;
     }
 
 

@@ -351,8 +351,6 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.GET_SYSTEM_NOTICE_DETAIL)
     Observable<SystemNoticeBean> getSystemNoticeDetail(@Body RequestBody requestBody);
 
-    @POST(AppHttpPathMall.NOTICE_READ)
-    Observable<BaseResult> readNotice(@Body RequestBody requestBody);
 
 
 
@@ -395,6 +393,12 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.COMMODITY_ON_SALE)
     Observable<BaseResult> onSaleCommodity(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.SEND_GOODS)
+    Observable<BaseResult> sendGoods(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.REFUND_REQUEST)
+    Observable<BaseResult> handlerRefundRequest(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.CREATE_COMMODITY_FORMAT)
     Observable<CommodityFormatListBean> createCommodityFormatList(@Body RequestBody requestBody);

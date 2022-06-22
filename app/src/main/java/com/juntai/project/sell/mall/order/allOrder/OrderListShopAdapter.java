@@ -11,6 +11,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.order.OrderDetailBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.List;
 
@@ -29,14 +30,13 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
     @Override
     protected void convert(BaseViewHolder helper, OrderDetailBean item) {
 
-        helper.setText(R.id.order_shop_name_tv, item.getShopName());
-        helper.addOnClickListener(R.id.order_shop_name_tv);
+        helper.setText(R.id.order_shop_name_tv, UserInfoManagerMall.getShopName());
         helper.addOnClickListener(R.id.shop_bottom_cl);
         helper.setGone(R.id.order_paytype_tv, item.getPayType() == 4);
         helper.setGone(R.id.order_status_tv,true);
         helper.setText(R.id.order_status_tv, getOrderStatus(item.getState()));
         helper.setGone(R.id.final_payment_tv, item.getPayType() != 4);
-        helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("需付款:%s", item.getPayPrice()) : String.format("实付款:%s", item.getPayPrice()));
+        helper.setText(R.id.final_payment_tv, 0 == item.getState() ? String.format("金额:%s", item.getPayPrice()) : String.format("金额:%s", item.getPayPrice()));
         initBottomButton(helper,item);
         RecyclerView recyclerView = helper.getView(R.id.order_commodities_rv);
         OrderCommodityAdapter orderCommodityAdapter = new OrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
@@ -74,49 +74,48 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         helper.setBackgroundRes(R.id.order_right_tv,R.drawable.app_bt_bg_accent);
         switch (item.getState()) {
             case 0:
-                helper.setGone(R.id.order_left_tv,true);
+                //待付款
+                helper.setGone(R.id.order_left_tv,false);
                 helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_left_tv, HomePageContract.ORDER_CANCEL);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_PAY);
+                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_CANCEL);
                 break;
             case 1:
-                helper.setGone(R.id.order_left_tv,true);
+                helper.setGone(R.id.order_left_tv,false);
                 helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_left_tv, HomePageContract.ORDER_REFUND);
                 helper.setText(R.id.order_right_tv, HomePageContract.ORDER_SEND);
                 break;
             case 2:
-                helper.setGone(R.id.order_left_tv,true);
-                helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_left_tv, HomePageContract.ORDER_REFUND);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_RECEIVE);
-                break;
             case 3:
+            case 7:
+            case 8:
                 helper.setGone(R.id.order_left_tv,false);
                 helper.setGone(R.id.order_right_tv,false);
 //                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND);
                 break;
             case 4:
-                helper.setGone(R.id.order_left_tv,false);
+                // : 2022/6/21 退款待处理
+                helper.setGone(R.id.order_left_tv,true);
                 helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_PROGRESS);
+                helper.setText(R.id.order_left_tv, HomePageContract.ORDER_REJECT);
+                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_AGREE);
                 break;
             case 6:
                 helper.setGone(R.id.order_left_tv,false);
-                helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_DELETE);
+                helper.setGone(R.id.order_right_tv,false);
+//                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_DELETE);
                 break;
-            case 7:
-                helper.setGone(R.id.order_left_tv,false);
-                helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND_AGREE);
-                break;
-            case 8:
-                helper.setGone(R.id.order_left_tv,false);
-                helper.setGone(R.id.order_right_tv,true);
-                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND_UNAGREE);
-                helper.setBackgroundRes(R.id.order_right_tv,R.drawable.app_bt_bg_red);
-                break;
+//            case 7:
+//                // : 2022/6/21 退款完成
+//                helper.setGone(R.id.order_left_tv,false);
+//                helper.setGone(R.id.order_right_tv,false);
+////                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND_AGREE);
+//                break;
+//            case 8:
+//                helper.setGone(R.id.order_left_tv,false);
+//                helper.setGone(R.id.order_right_tv,true);
+//                helper.setText(R.id.order_right_tv, HomePageContract.ORDER_REFUND_UNAGREE);
+//                helper.setBackgroundRes(R.id.order_right_tv,R.drawable.app_bt_bg_red);
+//                break;
             default:
                 break;
         }
@@ -133,16 +132,16 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
         String status = null;
         switch (state) {
             case 0:
-                status = "待付款";
+                status = "等待买家付款";
                 break;
             case 1:
                 status = "待发货";
                 break;
             case 2:
-                status = "待收货";
+                status = "等待买家收货";
                 break;
             case 3:
-                status = "待评价";
+                status = "等待买家评价";
                 break;
             case 4:
                 status = "退款中";
@@ -155,6 +154,9 @@ public class OrderListShopAdapter extends BaseQuickAdapter<OrderDetailBean, Base
                 break;
             case 7:
                 status = "退款完成";
+                break;
+            case 8:
+                status = "退款申请已拒绝";
                 break;
             default:
                 break;

@@ -35,7 +35,22 @@ public class EditCommodityActivity extends BaseShopActivity {
     }
 
     @Override
-    protected View getFootView() {
+    protected String getTitleName() {
+        return "修改商品";
+    }
+
+    @Override
+    protected boolean isDetail() {
+        return false;
+    }
+
+    @Override
+    protected View getAdapterHeadView() {
+        return null;
+    }
+
+    @Override
+    protected View getAdapterFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
         TextView commitTv = view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
@@ -55,26 +70,6 @@ public class EditCommodityActivity extends BaseShopActivity {
         });
         commitTv.setText("下一步");
         return view;
-    }
-
-    @Override
-    protected String getTitleName() {
-        return "修改商品";
-    }
-
-    @Override
-    protected boolean isDetail() {
-        return false;
-    }
-
-    @Override
-    protected View getAdapterHeadView() {
-        return null;
-    }
-
-    @Override
-    protected View getAdapterFootView() {
-        return null;
     }
     @Override
     public void onSuccess(String tag, Object o) {

@@ -8,11 +8,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.PopupWindow;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
 import com.example.chat.bean.ContactBean;
@@ -22,6 +28,7 @@ import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
+import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
@@ -41,11 +48,12 @@ import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.project.sell.mall.mine.address.AddressListActivity;
 import com.juntai.project.sell.mall.news.ChatActivity;
-import com.juntai.project.sell.mall.order.allOrder.AllOrderActivity;
+import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
 import com.juntai.project.sell.mall.order.evaluate.EvaluateActivity;
 import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.project.sell.mall.order.refund.RefundActivity;
 import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
+import com.juntai.project.sell.mall.order.send.SendActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
@@ -70,7 +78,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NotificationTool.SHOW_NOTIFICATION = true;
-        getToolbar().setBackgroundResource(R.drawable.sp_filled_gray_lighter);
         initUploadUtil();
     }
 
@@ -441,7 +448,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * enterType  0代表支付成功之后  1代表个人中心进入
      */
     public void startToAllOrderActivity(int enterType, int tabPosition) {
-        startActivity(new Intent(mContext, AllOrderActivity.class)
+        startActivity(new Intent(mContext, OrderManagerActivity.class)
                 .putExtra(BASE_ID2, tabPosition)
                 .putExtra(BASE_ID, enterType));
     }
@@ -471,7 +478,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         super.onEvent(eventBusObject);
         switch (eventBusObject.getEventKey()) {
             case EventBusObject.EVALUATE:
-                if (this instanceof AllOrderActivity) {
+                if (this instanceof OrderManagerActivity) {
                     OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
                     startToEvaluateActivity(commodityBean);
                 }
@@ -522,6 +529,12 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         startActivity(new Intent(mContext, AllCommodityActivity.class));
     }
     /**
+     * 进入商品管理列表
+     */
+    public void startSendActivity(int orderId) {
+        startActivity(new Intent(mContext, SendActivity.class).putExtra(BASE_ID,orderId));
+    }
+    /**
      * 进入商品规格
      */
     public void startCommodityPropertyActivity(int commodityId) {
@@ -535,6 +548,29 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         // : 2022/6/8 进入到店铺认证界面
         startActivity(new Intent(mContext, ShopManagerActivity.class)
         .putExtra(BASE_PARCELABLE,dataBean));
+    }
+    private void showListPopwindow(View v) {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("全部订单");
+        arrays.add("商城订单");
+        arrays.add("公户订单");
+        View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
+        PopupWindow popupWindow = new PopupWindow(popView, DisplayUtil.dp2px(mContext, 70), DisplayUtil.dp2px(mContext, 90),
+                false);
+        popupWindow.setOutsideTouchable(true);
+        SingleTextAdapter singleTextAdapter = new SingleTextAdapter(R.layout.single_text_layout);
+
+        RecyclerView mRecyclerview = (RecyclerView) popView.findViewById(R.id.pop_rv);
+        mRecyclerview.setAdapter(singleTextAdapter);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        mRecyclerview.setLayoutManager(manager);
+        singleTextAdapter.setNewData(arrays);
+        singleTextAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            }
+        });
+        popupWindow.showAsDropDown(v);
     }
 
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/default_addr_cl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sp_filled_white_5dp"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:text="订单状态:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/order_status_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:text="描述"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/order_status"
+        app:layout_constraintLeft_toRightOf="@+id/order_status"
+        app:layout_constraintTop_toTopOf="@+id/order_status" />
+
+
+    <TextView
+        android:id="@+id/order_negative_tv"
+        style="@style/shop_normal_bt"
+        android:layout_marginRight="10dp"
+        android:text="消极的"
+        android:textSize="12dp"
+        app:layout_constraintRight_toLeftOf="@+id/order_positive_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/order_positive_tv" />
+
+    <TextView
+        android:id="@+id/order_positive_tv"
+        style="@style/shop_normal_bt"
+        android:text="关闭原因"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

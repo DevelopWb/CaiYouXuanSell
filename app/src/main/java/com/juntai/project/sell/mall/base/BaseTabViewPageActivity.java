@@ -23,14 +23,13 @@ import com.juntai.project.sell.mall.utils.StringTools;
  * @date 2021/6/1 15:52
  */
 public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends BaseAppActivity<P> {
-
-    public static final String ORDER_TOTAL = "全部";
+    public static final String ORDER_ALL= "全部";
     public static final String ORDER_PAY = "待付款";
     public static final String ORDER_SEND = "待发货";
-    public static final String ORDER_RECEIVE = "待收货";
+    public static final String ORDER_IS_SEND = "已发货";
     public static final String ORDER_EVALUATE = "待评价";
-    public static final String COMMODITY = "商品";
-    public static final String SHOP = "店铺";
+    public static final String ORDER_FINISHED = "已完成";
+    public static final String ORDER_REFUND = "退款订单";
     public SearchView mSearchContentSv;
 
 

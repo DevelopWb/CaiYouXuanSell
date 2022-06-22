@@ -13,20 +13,23 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
+import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.PicTextBean;
-import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
 import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
+import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;
 
 import java.util.ArrayList;
@@ -106,6 +109,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         break;
                     case HomePageContract.SHOP_MANAGER_ORDER:
                         // TODO: 2022/6/7 订单管理
+                        startActivity(new Intent(mContext, OrderManagerActivity.class));
                         break;
                     case HomePageContract.SHOP_MANAGER_LIVE:
                         // : 2022/6/7 直播
@@ -245,6 +249,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                     ShopHomeInfoBean.DataBean dataBean = infoBean.getData();
                     if (dataBean != null) {
                         mShopNameTv.setText(dataBean.getName());
+                        Hawk.put(HawkProperty.SHOP_NAME,dataBean.getName());
                         mShopCreatTimeTv.setText(String.format("开店时间：%s",dataBean.getCreateTime()));
                         mShopDesTv.setText(String.format("店铺简介：%s",dataBean.getIntroduction()));
                         mShopScoreTv.setText(String.format("店铺得分：%s",dataBean.getShopFraction()));

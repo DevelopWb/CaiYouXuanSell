@@ -33,7 +33,15 @@ public class GsonTools {
         String gsonString = gson.toJson(object);
         return gsonString;
     }
-
+    /**
+     * @param json list的序列化字符串
+     * @param <T>  T类型
+     * @return List<T>
+     */
+    public static <T> List<T> changeGsonToList(String json, Class<T> clazz) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, TypeToken.getParameterized(List.class, clazz).getType());
+    }
     public static <T> T changeGsonToBean(String gsonString, Class<T> cls) {
         try {
             Gson gson = buildGson();

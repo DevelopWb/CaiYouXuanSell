@@ -30,7 +30,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity"></activity>
+        <activity android:name=".order.send.SendActivity"></activity>
+        <activity android:name=".home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityActivity" />
@@ -86,7 +87,7 @@
             android:name=".order.orderDetail.OrderDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".order.allOrder.AllOrderActivity"
+            android:name=".order.allOrder.OrderManagerActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".mine.modifyPwd.BackPwdActivity"
