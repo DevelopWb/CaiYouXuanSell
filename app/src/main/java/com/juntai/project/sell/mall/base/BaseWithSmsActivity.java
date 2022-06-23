@@ -68,9 +68,12 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
         mRegistSendCheckCodeTv.setOnClickListener(this);
         mPasswordEt = (EditText) findViewById(R.id.password_et);
         mPasswordEt.setHint(getPwdHint());
+        mRegistPhoneEt.setHint(TextUtils.isEmpty(getPhoneHint())?"请输入你的手机号":getPhoneHint());
         mHideShowIv = (ImageView) findViewById(R.id.hide_show_iv);
         mHideShowIv.setOnClickListener(this);
     }
+
+    protected abstract String getPhoneHint();
 
     protected abstract String getPwdHint();
 
@@ -168,6 +171,7 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
         super.onSuccess(tag,o);
         switch (tag) {
             case AppHttpPathMall.MODIFY_PWD:
+            case AppHttpPathMall.MODIFY_PHONE:
                 ToastUtils.toast(mContext,"修改成功");
                 reLogin(getTextViewValue(mRegistPhoneEt));
                 break;

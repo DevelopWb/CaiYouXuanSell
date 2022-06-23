@@ -10,14 +10,11 @@ import com.juntai.disabled.basecomponent.mvp.IView;
  */
 public interface HomePageContract {
 
-    String GET_WEATHER_REAL_TIME = "get_real_time";//实时数据
-    String GET_FORCAST_WEATHER = "get_forcast";//预报
 
-    String GET_PRIVINCE = "get_privince";//省份
-    String GET_CITY = "get_city";//市
-    String GET_TOWN = "get_town";//县
-    String GET_STREET = "get_street";//街道
 
+    String  GUIDE_MENU_ADD_COMMODITY = "商品添加操作";
+    String  GUIDE_MENU_SHOP_FURNISH = "店铺装修操作";
+    String  GUIDE_MENU_FINANCE_MANAGER = "财务管理操作";
 
     String MENUE_MAP_TYPE = "地图";//地图类型
     String MENUE_WEATHER = "天气";//天气
@@ -32,10 +29,6 @@ public interface HomePageContract {
 
 
     String SHOP = "店铺";
-    String CUSTOMER = "客服";
-    String COLLECT = "收藏";
-    String COLLECT_COMMODITY_SHOP = "COLLECT_COMMODITY";
-    String UN_COLLECT_COMMODITY_SHOP = "UN_COLLECT_COMMODITY";
 
 
 
@@ -60,7 +53,6 @@ public interface HomePageContract {
     String SHOP_MANAGER_ASSENT = "收入资产";
     String SHOP_MANAGER_FURNISH = "店铺装修";
     String SHOP_MANAGER_SHOP = "店铺管理";
-    String SHOP_MANAGER_GUIDE = "新手教程";
 
 
     String COMMODITY_MANAGER_CATEGORY = "商品类目管理";

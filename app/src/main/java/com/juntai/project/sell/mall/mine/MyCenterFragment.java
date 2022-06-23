@@ -16,16 +16,14 @@ import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
-import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppFragment;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
+import com.juntai.project.sell.mall.mine.guide.NewHandGuideActivity;
 import com.juntai.project.sell.mall.mine.modifyPwd.ModifyPwdActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
@@ -86,9 +84,12 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         MyMenuBean myMenuBean = (MyMenuBean) multipleItem.getObject();
                         switch (myMenuBean.getName()) {
                             case MyCenterContract.MENU_MODIFY_PHONE:
-                                // TODO: 2022/6/12 修改手机号
+                                // : 2022/6/12 修改手机号
+
+                                startActivity(new Intent(mContext, ModifyPhoneActivity.class));
+
                                 break;
-                            case MyCenterContract.MODIFY_PWD:
+                            case MyCenterContract.MENU_MODIFY_PWD:
                                 startActivity(new Intent(mContext, ModifyPwdActivity.class));
                                 break;
                             case MyCenterContract.MENU_MODIFY_AUTH:
@@ -102,36 +103,9 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                                 // TODO: 2022/6/12 绑定第三方
                                 break;
                             case MyCenterContract.MENU_MODIFY_GUIDE:
-                                // TODO: 2022/6/12 新手教程
-                                break;
-                            case MyCenterContract.SET_ABOUT_TAG:
-                                // 关于我们
-                                startActivity(new Intent(mContext, AboutActivity.class));
-                                break;
-                            case MyCenterContract.SET_CLEAR_TAG:
-                                // 清理缓存
-                                getBaseActivity().setAlertDialogHeightWidth(DialogUtil.getMessageDialog(mContext, "将清理掉应用本地的图片和视频缓存文件",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                RxScheduler.doTask(getBaseAppActivity(), new RxTask<String>() {
-                                                    @Override
-                                                    public String doOnIoThread() {
-                                                        FileCacheUtils.clearAll(mContext.getApplicationContext());
-                                                        return "清理成功";
-                                                    }
+                                // : 2022/6/12 新手教程
+                                startActivity(new Intent(mContext, NewHandGuideActivity.class));
 
-                                                    @Override
-                                                    public void doOnUIThread(String s) {
-                                                        ToastUtils.success(mContext.getApplicationContext(), s);
-                                                    }
-                                                });
-                                            }
-                                        }).show(), -1, 0);
-                                break;
-                            case MyCenterContract.SET_UPDATE_TAG:
-                                //检查更新
-                                getBaseAppActivity().update(true);
                                 break;
                             case MyCenterContract.MENU_NEWS:
                                 //我的消息

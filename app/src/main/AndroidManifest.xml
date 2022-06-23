@@ -30,7 +30,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".order.send.SendActivity"></activity>
+        <activity android:name=".mine.ModifyPhoneActivity"></activity>
+        <activity android:name=".mine.guide.GuideDetailActivity" />
+        <activity android:name=".mine.guide.NewHandGuideActivity" />
+        <activity android:name=".order.send.SendActivity" />
         <activity android:name=".home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity" />

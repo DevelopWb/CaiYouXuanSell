@@ -201,6 +201,9 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.MODIFY_PWD)
     Observable<BaseResult> modifyPwd(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.MODIFY_PHONE)
+    Observable<BaseResult> modifyPhone(@Body RequestBody requestBody);
+
     /**
      * account  手机号
      *

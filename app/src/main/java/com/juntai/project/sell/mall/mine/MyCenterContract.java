@@ -12,11 +12,6 @@ import java.util.List;
  * email:954101549@qq.com
  */
 public interface MyCenterContract {
-    String SET_UPDATE_TAG = "setUpdateTag";
-    String SET_CLEAR_TAG ="setClearTag";
-    //设置相关
-    String MODIFY_PWD = "setUpdatePsdTag";
-    String SET_ABOUT_TAG ="setAboutTag";
     //我的消息
     String MENU_NEWS ="centerSettingTag";
     String MENU_MODIFY_PHONE ="修改手机号";

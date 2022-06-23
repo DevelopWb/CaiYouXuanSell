@@ -282,7 +282,7 @@
         <item name="android:textColorHint">@color/gray</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:textCursorDrawable">@null</item>
-        <item name="android:background">@drawable/stroke_gray_square_bg</item>
+        <item name="android:background">@drawable/bg_white_only_bottom_gray_shape_1px</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16dp</item>

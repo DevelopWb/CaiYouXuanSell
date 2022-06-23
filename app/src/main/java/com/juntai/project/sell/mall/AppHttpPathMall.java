@@ -81,6 +81,10 @@ public class AppHttpPathMall {
      */
     public static final String MODIFY_PWD = BASE + "/member/updateMemberPwd";
     /**
+     * 修改手机号
+     */
+    public static final String MODIFY_PHONE = BASE + "/member/updateMemberPhone";
+    /**
      * 修改个人信息
      */
     public static final String MODIFY_USER_INFO = BASE + "/member/updateMember";

@@ -14,6 +14,11 @@ import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 public class ModifyPwdActivity extends BaseWithSmsActivity {
 
     @Override
+    protected String getPhoneHint() {
+        return null;
+    }
+
+    @Override
     protected String getPwdHint() {
         return "请输入新密码";
     }
