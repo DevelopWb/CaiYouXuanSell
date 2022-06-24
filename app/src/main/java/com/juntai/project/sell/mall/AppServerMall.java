@@ -10,14 +10,13 @@ import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
 import com.juntai.project.sell.mall.beans.AroundShopBean;
-import com.juntai.project.sell.mall.beans.CartListBean;
 import com.juntai.project.sell.mall.beans.CitysBean;
-import com.juntai.project.sell.mall.beans.CollectDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.beans.PlayUrlBean;
+import com.juntai.project.sell.mall.beans.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.ShopListDataBean;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
@@ -30,7 +29,7 @@ import com.juntai.project.sell.mall.beans.order.OrderStatusAmountBean;
 import com.juntai.project.sell.mall.beans.order.RefundReasonBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
-import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
@@ -130,6 +129,9 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.EDIT_SHOP_APPLY)
     Observable<BaseResult> eidtShopApply(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.SHOP_COMMODITY_LIST)
+    Observable<ShopCommodityListBean> getShopCommodityList(@Body RequestBody requestBody);
+
     /**
      * 获取所有的类目
      *
@@ -148,25 +150,8 @@ public interface AppServerMall {
     Observable<BaseResult> collectCommodity(@Body RequestBody requestBody);
 
 
-    @POST(AppHttpPathMall.SHOP_COLLECT_LIST)
-    Observable<CollectDataBean> getShopCollectList(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.COMMODITY_COLLECT_LIST)
-    Observable<CollectDataBean> getCommodityCollectList(@Body RequestBody requestBody);
 
 
-
-    /*====================================================    购物车   ==============================================================*/
-
-
-    @POST(AppHttpPathMall.EDIT_CART)
-    Observable<BaseResult> editCart(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.CART_LIST)
-    Observable<CartListBean> getCartList(@Body RequestBody requestBody);
-
-    @POST(AppHttpPathMall.DELETE_CART_COMMODITY)
-    Observable<BaseResult> deleteCartCommodity(@Query("account") String account, @Query("token") String token, @Query("typeEnd") String typeEnd, @Query("id") List<Integer> ids);
 
 
     @GET(AppHttpPathMall.ALL_CITYS)
@@ -377,7 +362,7 @@ public interface AppServerMall {
     /*====================================================    商品管理   ==============================================================*/
 
     @POST(AppHttpPathMall.GET_ALL_COMMODITY)
-    Observable<ShopCommodityListBean> getAllCommodity(@Body RequestBody requestBody);
+    Observable<ShopCommodityManagerListBean> getAllCommodity(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.GET_COMMODITY_DETAIL)
     Observable<CommodityDetailDataBean> getCommodityDetail(@Body RequestBody requestBody);
@@ -408,5 +393,8 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.GET_COMMODITY_FORMAT)
     Observable<CommodityFormatDataBean> getCommodityFormat(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.ADD_SHOP_BANNERS)
+    Observable<CommodityFormatDataBean> addShopBannerPics(@Body RequestBody requestBody,@Query("bannerPhoto")List<String> pics);
 
 }

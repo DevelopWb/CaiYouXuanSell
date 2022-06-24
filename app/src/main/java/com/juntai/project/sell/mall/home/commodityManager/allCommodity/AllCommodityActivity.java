@@ -75,8 +75,8 @@ public class AllCommodityActivity extends BaseTabViewPageActivity<ShopPresent> i
     @Override
     protected SparseArray<Fragment> getFragments() {
         SparseArray<Fragment> arrays = new SparseArray<>();
-        arrays.append(0, ShopCommodityFragment.getInstance(0));
-        arrays.append(1, ShopCommodityFragment.getInstance(1));
+        arrays.append(0, ShopManagerCommodityFragment.getInstance(0));
+        arrays.append(1, ShopManagerCommodityFragment.getInstance(1));
         return arrays;
     }
 

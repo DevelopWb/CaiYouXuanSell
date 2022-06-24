@@ -21,14 +21,26 @@ public class SystemNoticeAdapter extends BaseQuickAdapter<SystemNoticeListBean.D
 
     @Override
     protected void convert(BaseViewHolder helper, SystemNoticeListBean.DataBean.ListBean item) {
-        if (0 == item.getIsRead()) {
-            //未读
-            helper.setGone(R.id.unread_tag_tv, true);
-            helper.setTextColor(R.id.title_tv, ContextCompat.getColor(mContext, R.color.black));
-        } else {
+        if (1== item.getType()) {
+            //系统消息 默认都是已读
             helper.setGone(R.id.unread_tag_tv, false);
-            helper.setTextColor(R.id.title_tv, ContextCompat.getColor(mContext, R.color.gray));
+            helper.setGone(R.id.content_tv, false);
+        }else {
+            helper.setGone(R.id.content_tv, true);
+
+            if (1 == item.getIsRead()) {
+                //未读
+                helper.setGone(R.id.unread_tag_tv, true);
+                helper.setTextColor(R.id.title_tv, ContextCompat.getColor(mContext, R.color.black));
+                helper.setTextColor(R.id.content_tv, ContextCompat.getColor(mContext, R.color.black));
+            } else {
+                helper.setGone(R.id.unread_tag_tv, false);
+                helper.setTextColor(R.id.title_tv, ContextCompat.getColor(mContext, R.color.gray));
+                helper.setTextColor(R.id.content_tv, ContextCompat.getColor(mContext, R.color.gray));
+            }
         }
+
         helper.setText(R.id.title_tv, item.getTitle());
+        helper.setText(R.id.content_tv, item.getContent());
     }
 }

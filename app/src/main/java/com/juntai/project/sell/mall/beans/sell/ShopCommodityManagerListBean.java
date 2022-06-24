@@ -11,7 +11,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/5/8 14:04
  */
-public class ShopCommodityListBean extends BaseResult {
+public class ShopCommodityManagerListBean extends BaseResult {
 
 
     /**

@@ -18,7 +18,7 @@ public class ShopDetailBean extends BaseResult {
 
 
     /**
-     * data : {"id":1,"userId":101,"userAccount":"18669505929","name":"测试小店","headPortrait":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","introduction":"店铺简介","phoneNumber":"18669505929","backImg":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","cameraUrl":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","shopImg":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","shopImgList":["https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"],"commodityStyle":1,"category":"1,2,3","categoryList":[1,2,3],"gpsAddress":"山东临沂","longitude":"118.365616","latitude":"35.1511631","businessLicense":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","idPositive":"https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","idSide":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","shopRealScene":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","isAgreement":1,"state":2,"createTime":"2022-04-24 12:03:01"}
+     * data : {"id":1,"userId":101,"userAccount":"18669505929","name":"临沂市河东区粮油食品有限公司","headPortrait":"https://www.juntaikeji.com:21900/2022-05-23/1653289817732.png","introduction":"店铺简介","shopFraction":0,"phoneNumber":"18669505929","backImg":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","cameraUrl":null,"shopImg":"https://www.juntaikeji.com:21900/2022-04-26/1111.jpg,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png","shopImgList":["https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"],"commodityStyle":1,"category":"蔬菜类,水果类,粮食类","categoryList":[1,2,3],"classifyList":[{"id":52,"shopId":1,"shopClassifyName":"大米","status":0,"createTime":"2022-05-10 09:29:21","addTime":null},{"id":53,"shopId":1,"shopClassifyName":"面","status":0,"createTime":"2022-05-10 09:29:23","addTime":null},{"id":54,"shopId":1,"shopClassifyName":"油","status":0,"createTime":"2022-05-10 09:29:26","addTime":null},{"id":61,"shopId":1,"shopClassifyName":"佐料","status":0,"createTime":"2022-05-10 10:20:20","addTime":null}],"gpsAddress":"山东省临沂市兰山区南坊北京路","longitude":"118.378125","latitude":"35.101104","businessLicense":"https://www.juntaikeji.com:21900/2022-05-23/1653289817739.png","idPositive":"https://www.juntaikeji.com:21900/2022-05-23/1653289817747.png","idSide":"https://www.juntaikeji.com:21900/2022-05-23/1653289817752.png","shopRealScene":"https://www.juntaikeji.com:21900/2022-05-23/1653289817761.png","isAgreement":1,"state":1,"createTime":"2022-04-24 12:03:01"}
      */
 
     private DataBean data;
@@ -36,26 +36,28 @@ public class ShopDetailBean extends BaseResult {
          * id : 1
          * userId : 101
          * userAccount : 18669505929
-         * name : 测试小店
-         * headPortrait : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * name : 临沂市河东区粮油食品有限公司
+         * headPortrait : https://www.juntaikeji.com:21900/2022-05-23/1653289817732.png
          * introduction : 店铺简介
+         * shopFraction : 0.0
          * phoneNumber : 18669505929
          * backImg : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
-         * cameraUrl : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
+         * cameraUrl : null
          * shopImg : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg,https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
          * shopImgList : ["https://www.juntaikeji.com:21900/2022-04-26/1111.jpg","https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png"]
          * commodityStyle : 1
-         * category : 1,2,3
+         * category : 蔬菜类,水果类,粮食类
          * categoryList : [1,2,3]
-         * gpsAddress : 山东临沂
-         * longitude : 118.365616
-         * latitude : 35.1511631
-         * businessLicense : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
-         * idPositive : https://www.juntaikeji.com:21900/2022-04-26/1650947938399.png
-         * idSide : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
-         * shopRealScene : https://www.juntaikeji.com:21900/2022-04-26/1111.jpg
+         * classifyList : [{"id":52,"shopId":1,"shopClassifyName":"大米","status":0,"createTime":"2022-05-10 09:29:21","addTime":null},{"id":53,"shopId":1,"shopClassifyName":"面","status":0,"createTime":"2022-05-10 09:29:23","addTime":null},{"id":54,"shopId":1,"shopClassifyName":"油","status":0,"createTime":"2022-05-10 09:29:26","addTime":null},{"id":61,"shopId":1,"shopClassifyName":"佐料","status":0,"createTime":"2022-05-10 10:20:20","addTime":null}]
+         * gpsAddress : 山东省临沂市兰山区南坊北京路
+         * longitude : 118.378125
+         * latitude : 35.101104
+         * businessLicense : https://www.juntaikeji.com:21900/2022-05-23/1653289817739.png
+         * idPositive : https://www.juntaikeji.com:21900/2022-05-23/1653289817747.png
+         * idSide : https://www.juntaikeji.com:21900/2022-05-23/1653289817752.png
+         * shopRealScene : https://www.juntaikeji.com:21900/2022-05-23/1653289817761.png
          * isAgreement : 1
-         * state : 2
+         * state : 1
          * createTime : 2022-04-24 12:03:01
          */
 
@@ -65,6 +67,7 @@ public class ShopDetailBean extends BaseResult {
         private String name;
         private String headPortrait;
         private String introduction;
+        private double shopFraction;
         private String phoneNumber;
         private String backImg;
         private String cameraUrl;
@@ -83,6 +86,7 @@ public class ShopDetailBean extends BaseResult {
         private String createTime;
         private List<String> shopImgList;
         private List<Integer> categoryList;
+        private List<ClassifyListBean> classifyList;
 
         public int getId() {
             return id;
@@ -132,6 +136,14 @@ public class ShopDetailBean extends BaseResult {
             this.introduction = introduction;
         }
 
+        public double getShopFraction() {
+            return shopFraction;
+        }
+
+        public void setShopFraction(double shopFraction) {
+            this.shopFraction = shopFraction;
+        }
+
         public String getPhoneNumber() {
             return phoneNumber;
         }
@@ -149,11 +161,11 @@ public class ShopDetailBean extends BaseResult {
         }
 
         public String getCameraUrl() {
-            return cameraUrl;
+            return cameraUrl == null ? "" : cameraUrl;
         }
 
         public void setCameraUrl(String cameraUrl) {
-            this.cameraUrl = cameraUrl;
+            this.cameraUrl = cameraUrl == null ? "" : cameraUrl;
         }
 
         public String getShopImg() {
@@ -276,6 +288,122 @@ public class ShopDetailBean extends BaseResult {
             this.categoryList = categoryList;
         }
 
+        public List<ClassifyListBean> getClassifyList() {
+            return classifyList;
+        }
+
+        public void setClassifyList(List<ClassifyListBean> classifyList) {
+            this.classifyList = classifyList;
+        }
+
+        public static class ClassifyListBean implements android.os.Parcelable {
+            /**
+             * id : 52
+             * shopId : 1
+             * shopClassifyName : 大米
+             * status : 0
+             * createTime : 2022-05-10 09:29:21
+             * addTime : null
+             */
+
+            private int id;
+            private int shopId;
+            private String shopClassifyName;
+            private int status;
+            private String createTime;
+            private String addTime;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getShopId() {
+                return shopId;
+            }
+
+            public void setShopId(int shopId) {
+                this.shopId = shopId;
+            }
+
+            public String getShopClassifyName() {
+                return shopClassifyName;
+            }
+
+            public void setShopClassifyName(String shopClassifyName) {
+                this.shopClassifyName = shopClassifyName;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getAddTime() {
+                return addTime == null ? "" : addTime;
+            }
+
+            public void setAddTime(String addTime) {
+                this.addTime = addTime == null ? "" : addTime;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.id);
+                dest.writeInt(this.shopId);
+                dest.writeString(this.shopClassifyName);
+                dest.writeInt(this.status);
+                dest.writeString(this.createTime);
+                dest.writeString(this.addTime);
+            }
+
+            public ClassifyListBean() {
+            }
+
+            protected ClassifyListBean(Parcel in) {
+                this.id = in.readInt();
+                this.shopId = in.readInt();
+                this.shopClassifyName = in.readString();
+                this.status = in.readInt();
+                this.createTime = in.readString();
+                this.addTime = in.readString();
+            }
+
+            public static final Creator<ClassifyListBean> CREATOR = new Creator<ClassifyListBean>() {
+                @Override
+                public ClassifyListBean createFromParcel(Parcel source) {
+                    return new ClassifyListBean(source);
+                }
+
+                @Override
+                public ClassifyListBean[] newArray(int size) {
+                    return new ClassifyListBean[size];
+                }
+            };
+        }
+
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -289,6 +417,7 @@ public class ShopDetailBean extends BaseResult {
             dest.writeString(this.name);
             dest.writeString(this.headPortrait);
             dest.writeString(this.introduction);
+            dest.writeDouble(this.shopFraction);
             dest.writeString(this.phoneNumber);
             dest.writeString(this.backImg);
             dest.writeString(this.cameraUrl);
@@ -307,9 +436,7 @@ public class ShopDetailBean extends BaseResult {
             dest.writeString(this.createTime);
             dest.writeStringList(this.shopImgList);
             dest.writeList(this.categoryList);
-        }
-
-        public DataBean() {
+            dest.writeList(this.classifyList);
         }
 
         protected DataBean(Parcel in) {
@@ -319,6 +446,7 @@ public class ShopDetailBean extends BaseResult {
             this.name = in.readString();
             this.headPortrait = in.readString();
             this.introduction = in.readString();
+            this.shopFraction = in.readDouble();
             this.phoneNumber = in.readString();
             this.backImg = in.readString();
             this.cameraUrl = in.readString();
@@ -338,6 +466,8 @@ public class ShopDetailBean extends BaseResult {
             this.shopImgList = in.createStringArrayList();
             this.categoryList = new ArrayList<Integer>();
             in.readList(this.categoryList, Integer.class.getClassLoader());
+            this.classifyList = new ArrayList<ClassifyListBean>();
+            in.readList(this.classifyList, ClassifyListBean.class.getClassLoader());
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
@@ -352,4 +482,35 @@ public class ShopDetailBean extends BaseResult {
             }
         };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeParcelable(this.data, flags);
+    }
+
+    public ShopDetailBean() {
+    }
+
+    protected ShopDetailBean(Parcel in) {
+        super(in);
+        this.data = in.readParcelable(DataBean.class.getClassLoader());
+    }
+
+    public static final Creator<ShopDetailBean> CREATOR = new Creator<ShopDetailBean>() {
+        @Override
+        public ShopDetailBean createFromParcel(Parcel source) {
+            return new ShopDetailBean(source);
+        }
+
+        @Override
+        public ShopDetailBean[] newArray(int size) {
+            return new ShopDetailBean[size];
+        }
+    };
 }

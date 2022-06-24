@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:gravity="center"
     android:layout_height="wrap_content"
-    android:background="@drawable/sp_filled_gray_lighter"
+    android:background="@drawable/stroke_gray_square_bg"
     android:elevation="10dp"
     >
     <android.support.v7.widget.RecyclerView

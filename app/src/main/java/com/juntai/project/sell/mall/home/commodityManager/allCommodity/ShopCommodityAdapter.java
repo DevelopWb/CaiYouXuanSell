@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.sell.EditShopCommodityBean;
-import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/12 14:17
  */
-public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean.DataBean.ListBean, BaseViewHolder> {
+public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityManagerListBean.DataBean.ListBean, BaseViewHolder> {
 
   private  OnChildClickCallBack childClickCallBack;
 
@@ -31,7 +31,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ShopCommodityListBean.DataBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, ShopCommodityManagerListBean.DataBean.ListBean item) {
         ImageLoadUtil.loadSquareImage(mContext, item.getCoverImg(), helper.getView(R.id.commodity_cover_iv));
         helper.setText(R.id.commodity_name_tv, item.getName());
         helper.setText(R.id.commodity_resove_tv, String.format("库存量 %s", item.getStock()));
@@ -91,7 +91,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean
         });
     }
 
-    private List<EditShopCommodityBean> getEditMenus(ShopCommodityListBean.DataBean.ListBean item) {
+    private List<EditShopCommodityBean> getEditMenus(ShopCommodityManagerListBean.DataBean.ListBean item) {
         List<EditShopCommodityBean> arrays = new ArrayList<>();
         arrays.add(new EditShopCommodityBean("修改", item));
         arrays.add(new EditShopCommodityBean("删除", item));
@@ -111,7 +111,7 @@ public class ShopCommodityAdapter extends BaseQuickAdapter<ShopCommodityListBean
          * @param editType  0 修改 1 删除 2规格 3上架 4下架
          * @param item
          */
-        void onChildClick(int editType,ShopCommodityListBean.DataBean.ListBean item);
+        void onChildClick(int editType, ShopCommodityManagerListBean.DataBean.ListBean item);
     }
 
 }

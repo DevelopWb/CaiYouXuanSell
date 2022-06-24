@@ -149,7 +149,7 @@ public class AppHttpPathMall {
     /**
      * 店铺商品列表
      */
-    public static final String SHOP_COMMODITY_LIST = BASE + "/seller/selectShopCommodityList";
+    public static final String SHOP_COMMODITY_LIST = BASE + "/buyers/selectShopCommodityList";
     /**
      * 店铺收藏或取消
      */
@@ -452,6 +452,16 @@ public class AppHttpPathMall {
      * 是否同意退货
      */
     public static final String REFUND_REQUEST = BASE + "/seller/orderRefund";
+
+
+
+
+        /*====================================================    店铺装修   ==============================================================*/
+
+    /**
+     * 上传店铺背景图及形象图片
+     */
+    public static final String ADD_SHOP_BANNERS = BASE + "/seller/addShopPhoto";
 
 
 }

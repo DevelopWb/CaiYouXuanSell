@@ -7,11 +7,18 @@
 
     <TextView
         android:id="@+id/single_text_tv"
-        android:background="@drawable/bg_gray_only_bottom_black_shape_1px"
         android:layout_width="wrap_content"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@color/text_gray"/>
+
+    <View
+        android:id="@+id/divider_v"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray"
+        android:layout_height="1px" />
 </LinearLayout>

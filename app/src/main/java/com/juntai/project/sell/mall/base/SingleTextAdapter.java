@@ -21,9 +21,9 @@ public class SingleTextAdapter extends BaseQuickAdapter<String, BaseViewHolder> 
     protected void convert(BaseViewHolder helper, String item) {
         helper.setText(R.id.single_text_tv, item);
         if (helper.getAdapterPosition()==getData().size()-1) {
-            helper.setBackgroundRes(R.id.single_text_tv,0);
+           helper.setGone(R.id.divider_v,false);
         }else {
-            helper.setBackgroundRes(R.id.single_text_tv,R.drawable.bg_gray_only_bottom_black_shape_1px);
+            helper.setGone(R.id.divider_v,true);
 
         }
     }

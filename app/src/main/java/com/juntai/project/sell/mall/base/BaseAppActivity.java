@@ -44,6 +44,7 @@ import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.entrance.LoginActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.AllCommodityActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.commodityProperty.CommodityFormatPropertyActivity;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.shop.ShopManagerActivity;
 import com.juntai.project.sell.mall.mine.address.AddOrEditAddressActivity;
 import com.juntai.project.sell.mall.mine.address.AddressListActivity;
@@ -401,7 +402,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * @param shopId
      */
     public void startToShop(int shopId) {
-//        startActivityForResult(new Intent(mContext, ShopActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
+//        startActivityForResult(new Intent(mContext, ShopFurnishActivity.class).putExtra(BASE_ID, shopId), BASE_REQUEST_RESULT);
 
     }
 
@@ -540,7 +541,15 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     public void startCommodityPropertyActivity(int commodityId) {
         startActivity(new Intent(mContext, CommodityFormatPropertyActivity.class).putExtra(BASE_ID,commodityId));
     }
-
+    /**
+     * 跳转到商品详情
+     *
+     * @param commodityId
+     */
+    public void startToCommodityDetail(int commodityId) {
+        startActivityForResult(new Intent(mContext, CommodityDetailActivity.class)
+                .putExtra(BASE_ID, commodityId), BASE_REQUEST_RESULT);
+    }
     /**
      * 进入店铺认证
      */

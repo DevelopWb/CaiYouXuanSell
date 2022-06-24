@@ -19,6 +19,18 @@ public class BaseResult implements Parcelable {
 
     private ErrorDataBean errorData;
 
+    public static final Creator<BaseResult> CREATOR = new Creator<BaseResult>() {
+        @Override
+        public BaseResult createFromParcel(Parcel in) {
+            return new BaseResult(in);
+        }
+
+        @Override
+        public BaseResult[] newArray(int size) {
+            return new BaseResult[size];
+        }
+    };
+
     public List<String> getFilePaths() {
         if (filePaths == null) {
             return new ArrayList<>();

@@ -30,7 +30,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".mine.ModifyPhoneActivity"></activity>
+        <activity android:name=".home.shopFurnish.ShopFurnishActivity"></activity>
+        <activity android:name=".home.assets.AssetsActivity" />
+        <activity android:name=".mine.ModifyPhoneActivity" />
         <activity android:name=".mine.guide.GuideDetailActivity" />
         <activity android:name=".mine.guide.NewHandGuideActivity" />
         <activity android:name=".order.send.SendActivity" />

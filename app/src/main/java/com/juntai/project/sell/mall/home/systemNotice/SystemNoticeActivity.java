@@ -17,19 +17,24 @@ import java.util.List;
 /**
  * @aouther tobato
  * @description 描述  系统消息
+ * <p>
+ * type  1是系统公告 2是通知消息
  * @date 2022/6/8 14:31
  */
 public class SystemNoticeActivity extends BaseRecyclerviewActivity<HomePagePresent> implements HomePageContract.IHomePageView {
+
+    private int noticeType;
 
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
         return null;
     }
 
+
     @Override
     protected void getRvAdapterData() {
         mPresenter.getSystemNotice(getBaseBuilder()
-                .add("type", "1")
+                .add("type", String.valueOf(noticeType))
                 .add("page", String.valueOf(page))
                 .add("limit", String.valueOf(limit))
                 .build(), AppHttpPathMall.GET_SYSTEM_NOTICE
@@ -53,16 +58,28 @@ public class SystemNoticeActivity extends BaseRecyclerviewActivity<HomePagePrese
     }
 
     @Override
+    public void initView() {
+        noticeType = getIntent().getIntExtra(BASE_ID, 1);
+        super.initView();
+        mRecyclerview.setBackgroundResource(R.drawable.sp_filled_gray_lighter);
+    }
+
+    @Override
     public void initData() {
+
         super.initData();
-        setTitleName("系统公告");
+        if (1 == noticeType) {
+            setTitleName("系统公告");
+        } else {
+            setTitleName("通知消息");
+        }
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SystemNoticeListBean.DataBean.ListBean bean = (SystemNoticeListBean.DataBean.ListBean) adapter.getItem(position);
 // : 2022/6/8 跳转到系统公告详情
-                startActivityForResult(new Intent(mContext,PicTextActivity.class)
-                .putExtra(BASE_ID,bean.getId()),BASE_REQUEST_RESULT
+                startActivityForResult(new Intent(mContext, PicTextActivity.class)
+                        .putExtra(BASE_ID, bean.getId()), BASE_REQUEST_RESULT
                 );
             }
         });
@@ -72,10 +89,10 @@ public class SystemNoticeActivity extends BaseRecyclerviewActivity<HomePagePrese
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (BASE_REQUEST_RESULT==requestCode) {
+        if (BASE_REQUEST_RESULT == requestCode) {
             page = 1;
             mPresenter.getSystemNotice(getBaseBuilder()
-                    .add("type", "1")
+                    .add("type", String.valueOf(noticeType))
                     .add("page", String.valueOf(page))
                     .add("limit", String.valueOf(limit))
                     .build(), AppHttpPathMall.GET_SYSTEM_NOTICE

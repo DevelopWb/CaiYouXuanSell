@@ -22,9 +22,11 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
+import com.juntai.project.sell.mall.home.assets.AssetsActivity;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
 import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
+import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
@@ -43,7 +45,7 @@ import java.util.List;
  * @UpdateDate: 2022/5/9 17:26
  */
 public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener {
-    private LinearLayout mSearchLl,mSystemNoticeLl;
+    private LinearLayout mSearchLl, mSystemNoticeLl;
     private ImageView mSwitchModeIv;
     private ImageView mShopOwnerHeadIv;
     /**
@@ -87,7 +89,6 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                 .add("shopId", String.valueOf(UserInfoManagerMall.getShopId())).build(), AppHttpPathMall.SHOP_HOME_INFO);
 
 
-
     }
 
     @Override
@@ -96,7 +97,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (UserInfoManagerMall.getShopStatus()==1) {
+                if (UserInfoManagerMall.getShopStatus() == 1) {
                     // : 2022/6/8 审核中
                     getBaseAppActivity().showAlertDialogOfKnown("店铺认证审核中,请耐心等待");
                     return;
@@ -136,10 +137,14 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         }
                         break;
                     case HomePageContract.SHOP_MANAGER_ASSENT:
-                        // TODO: 2022/6/7 收入资产
+                        // : 2022/6/7 收入资产
+                        startActivity(new Intent(mContext, AssetsActivity.class));
+
                         break;
                     case HomePageContract.SHOP_MANAGER_FURNISH:
-                        // TODO: 2022/6/7 店铺装修
+                        // : 2022/6/7 店铺装修
+                        startActivity(new Intent(mContext, ShopFurnishActivity.class));
+
                         break;
                     case HomePageContract.SHOP_MANAGER_SHOP:
                         // : 2022/6/7 店铺管理
@@ -172,7 +177,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
             @Override
             public void onItemClick(int position, TextView textView) {
                 // : 2022/6/8 跳转到系统消息界面
-                startActivity(new Intent(mContext, SystemNoticeActivity.class));
+                startActivity(new Intent(mContext, SystemNoticeActivity.class).putExtra(BASE_ID, 1));
             }
         });
         mShopTypeTv = (TextView) view.findViewById(R.id.shop_type_tv);
@@ -249,11 +254,11 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                     ShopHomeInfoBean.DataBean dataBean = infoBean.getData();
                     if (dataBean != null) {
                         mShopNameTv.setText(dataBean.getName());
-                        Hawk.put(HawkProperty.SHOP_NAME,dataBean.getName());
-                        mShopCreatTimeTv.setText(String.format("开店时间：%s",dataBean.getCreateTime()));
-                        mShopDesTv.setText(String.format("店铺简介：%s",dataBean.getIntroduction()));
-                        mShopScoreTv.setText(String.format("店铺得分：%s",dataBean.getShopFraction()));
-                        ImageLoadUtil.loadHeadCirclePic(mContext,dataBean.getHeadPortrait(),mShopOwnerHeadIv);
+                        Hawk.put(HawkProperty.SHOP_NAME, dataBean.getName());
+                        mShopCreatTimeTv.setText(String.format("开店时间：%s", dataBean.getCreateTime()));
+                        mShopDesTv.setText(String.format("店铺简介：%s", dataBean.getIntroduction()));
+                        mShopScoreTv.setText(String.format("店铺得分：%s", dataBean.getShopFraction()));
+                        ImageLoadUtil.loadHeadCirclePic(mContext, dataBean.getHeadPortrait(), mShopOwnerHeadIv);
                         List<ShopHomeInfoBean.DataBean.CategoryListBean> categoryListBeans = dataBean.getCategoryList();
                         if (categoryListBeans == null || categoryListBeans.isEmpty()) {
                             mShopTypeTv.setVisibility(View.GONE);
@@ -290,10 +295,10 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         }
                         shopFlowAdapter.notifyDataSetChanged();
 
-                        List<ShopHomeInfoBean.DataBean.SysNoticeListBean>  noticeListBeans = dataBean.getSysNoticeList();
-                        if (noticeListBeans == null||noticeListBeans.isEmpty()) {
+                        List<ShopHomeInfoBean.DataBean.SysNoticeListBean> noticeListBeans = dataBean.getSysNoticeList();
+                        if (noticeListBeans == null || noticeListBeans.isEmpty()) {
                             mSystemNoticeLl.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             mSystemNoticeLl.setVisibility(View.VISIBLE);
                             mMarqueeView.startWithList(noticeListBeans);
                         }

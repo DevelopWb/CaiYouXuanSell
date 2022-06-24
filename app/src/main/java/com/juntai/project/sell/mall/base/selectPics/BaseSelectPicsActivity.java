@@ -236,6 +236,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
      * 图片压缩
      */
     private void imageCompress(List<String> paths) {
+        icons.clear();
         compressedSize = 0;
         showLoadingDialog(mContext, false);
         Luban.with(mContext).load(paths).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
@@ -254,10 +255,9 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
             public void onSuccess(File file) {
                 compressedSize++;
                 //  压缩成功后调用，返回压缩后的图片文件
-                icons.clear();
                 icons.add(file.getPath());
-                selectedPicsAndEmpressed(icons);
                 if (compressedSize == paths.size()) {
+                    selectedPicsAndEmpressed(icons);
                     stopLoadingDialog();
                 }
 
@@ -285,17 +285,14 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
         List<String> pics = new ArrayList<>();
         for (String path : paths) {
             if (1 == FileCacheUtils.getFileType(path)) {
-                imageCompress(path);
+                pics.add(path);
             } else if (2 == FileCacheUtils.getFileType(path)) {
                 stopLoadingDialog();
                 pics.add(path);
                 selectedPicsAndEmpressed(pics);
-
-            } else {
-
             }
-
         }
+        imageCompress(pics);
     }
 
     /**

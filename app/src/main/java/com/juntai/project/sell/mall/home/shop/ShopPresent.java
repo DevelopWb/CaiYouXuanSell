@@ -13,10 +13,11 @@ import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
 import com.juntai.project.sell.mall.beans.RadioBean;
+import com.juntai.project.sell.mall.beans.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailBean;
 import com.juntai.project.sell.mall.beans.sell.CommodityDetailDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityCategoryListBean;
-import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
 import com.juntai.project.sell.mall.beans.sell.adapterbean.LocationBean;
@@ -36,7 +37,27 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2022/5/8 8:50
  */
 public class ShopPresent extends BaseAppMallPresent {
+    public void getShopCommodityList(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getShopCommodityList(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ShopCommodityListBean>(getView()) {
+                    @Override
+                    public void onSuccess(ShopCommodityListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
 
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     /**
      * 店铺商品信息
@@ -341,9 +362,9 @@ public class ShopPresent extends BaseAppMallPresent {
         AppNetModuleMall.createrRetrofit()
                 .getAllCommodity(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ShopCommodityListBean>(null) {
+                .subscribe(new BaseObserver<ShopCommodityManagerListBean>(null) {
                     @Override
-                    public void onSuccess(ShopCommodityListBean o) {
+                    public void onSuccess(ShopCommodityManagerListBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -530,6 +551,27 @@ public class ShopPresent extends BaseAppMallPresent {
     public void getCommodityFormat(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .getCommodityFormat(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CommodityFormatDataBean>(null) {
+                    @Override
+                    public void onSuccess(CommodityFormatDataBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void addShopBannerPics(RequestBody requestBody,List<String> pics, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .addShopBannerPics(requestBody,pics)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<CommodityFormatDataBean>(null) {
                     @Override

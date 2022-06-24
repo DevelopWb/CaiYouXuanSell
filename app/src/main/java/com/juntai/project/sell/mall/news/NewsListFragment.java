@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.news;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -13,6 +14,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +44,19 @@ public class NewsListFragment extends BaseRecyclerviewFragment<NewsPresent> impl
                 switch (multipleItem.getItemType()) {
                     case MultipleItem.ITEM_CHAT_LIST_CONTACT:
                         NewsListBean.DataBean dataBean = (NewsListBean.DataBean) multipleItem.getObject();
-                        ContactBean contactBean = new ContactBean();
-                        contactBean.setNickname(dataBean.getFromNickname());
-                        contactBean.setHeadPortrait(dataBean.getFromHead());
-                        contactBean.setUserId(dataBean.getFromUserId());
-                        getBaseAppActivity().startToChatActivity(contactBean);
+                        int fromUserId = dataBean.getFromUserId();
+                        if (-1==fromUserId) {
+                            //通知消息
+                            startActivity(new Intent(mContext, SystemNoticeActivity.class).putExtra(BASE_ID,2));
+
+                        }else {
+                            ContactBean contactBean = new ContactBean();
+                            contactBean.setNickname(dataBean.getFromNickname());
+                            contactBean.setHeadPortrait(dataBean.getFromHead());
+                            contactBean.setUserId(dataBean.getFromUserId());
+                            getBaseAppActivity().startToChatActivity(contactBean);
+                        }
+
 
 
                         break;

@@ -12,7 +12,7 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
-import com.juntai.project.sell.mall.beans.sell.ShopCommodityListBean;
+import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
@@ -27,7 +27,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/13 9:58
  */
-public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView, ShopCommodityAdapter.OnChildClickCallBack {
+public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView, ShopCommodityAdapter.OnChildClickCallBack {
 
     private int status;
 
@@ -35,10 +35,10 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
      * @param onStatus 上架状态
      * @return
      */
-    public static ShopCommodityFragment getInstance(int onStatus) {
+    public static ShopManagerCommodityFragment getInstance(int onStatus) {
         Bundle bundle = new Bundle();
         bundle.putInt(BASE_ID, onStatus);
-        ShopCommodityFragment shopCommodityFragment = new ShopCommodityFragment();
+        ShopManagerCommodityFragment shopCommodityFragment = new ShopManagerCommodityFragment();
         shopCommodityFragment.setArguments(bundle);
         return shopCommodityFragment;
     }
@@ -108,11 +108,11 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
 
         switch (tag) {
             case AppHttpPathMall.GET_ALL_COMMODITY:
-                ShopCommodityListBean shopCommodityListBean = (ShopCommodityListBean) o;
+                ShopCommodityManagerListBean shopCommodityListBean = (ShopCommodityManagerListBean) o;
                 if (shopCommodityListBean != null) {
-                    ShopCommodityListBean.DataBean dataBean = shopCommodityListBean.getData();
+                    ShopCommodityManagerListBean.DataBean dataBean = shopCommodityListBean.getData();
                     if (dataBean != null) {
-                        List<ShopCommodityListBean.DataBean.ListBean> arrays = dataBean.getList();
+                        List<ShopCommodityManagerListBean.DataBean.ListBean> arrays = dataBean.getList();
                         setData(arrays, dataBean.getTotalCount());
                     }
                 }
@@ -141,7 +141,7 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ShopCommodityListBean.DataBean.ListBean listBean = (ShopCommodityListBean.DataBean.ListBean) adapter.getItem(position);
+                ShopCommodityManagerListBean.DataBean.ListBean listBean = (ShopCommodityManagerListBean.DataBean.ListBean) adapter.getItem(position);
                 startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(BASE_ID, listBean.getId()));
             }
         });
@@ -152,7 +152,7 @@ public class ShopCommodityFragment extends BaseRecyclerviewFragment<ShopPresent>
      * @param item
      */
     @Override
-    public void onChildClick(int editType, ShopCommodityListBean.DataBean.ListBean item) {
+    public void onChildClick(int editType, ShopCommodityManagerListBean.DataBean.ListBean item) {
         switch (editType) {
             case 0:
                 // : 2022/6/13 修改商品
