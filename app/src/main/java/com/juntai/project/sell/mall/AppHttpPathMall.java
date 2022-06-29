@@ -464,4 +464,21 @@ public class AppHttpPathMall {
     public static final String ADD_SHOP_BANNERS = BASE + "/seller/addShopPhoto";
 
 
+
+
+
+        /*====================================================    财务管理   ==============================================================*/
+
+
+    /**
+     * 账单明细列表
+     */
+    public static final String BILL_LIST = BASE + "/seller/getBillList";
+
+    /**
+     * bill基础信息
+     */
+    public static final String BILL_BASE_INFO = BASE + "/seller/getFinanceInfo";
+
+
 }

@@ -10,6 +10,8 @@ import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppPresent;
 import com.juntai.project.sell.mall.beans.AroundShopBean;
+import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
+import com.juntai.project.sell.mall.beans.BillListBean;
 import com.juntai.project.sell.mall.beans.PicTextBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
@@ -234,6 +236,46 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
                 .subscribe(new BaseObserver<SystemNoticeBean>(getView()) {
                     @Override
                     public void onSuccess(SystemNoticeBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getBillList(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getBillList(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BillListBean>(getView()) {
+                    @Override
+                    public void onSuccess(BillListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getBillBaseInfo(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getBillBaseInfo(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BillBaseInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(BillBaseInfoBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

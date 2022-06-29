@@ -12,6 +12,7 @@ public class AssetsMenuBean {
     private String buttonName;
     private boolean selected;
 
+
     public AssetsMenuBean(String menuName, String amount, String buttonName, boolean selected) {
         this.menuName = menuName;
         this.amount = amount;

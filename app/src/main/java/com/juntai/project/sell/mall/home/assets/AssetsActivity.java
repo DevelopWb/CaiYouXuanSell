@@ -1,5 +1,6 @@
 package com.juntai.project.sell.mall.home.assets;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
+import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.base.SingleTextAdapter;
 import com.juntai.project.sell.mall.beans.AssetsMenuBean;
+import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
+import com.juntai.project.sell.mall.home.assets.assetsDetail.AssetsDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
     private RecyclerView mAssetsMenuRv;
     private TextView mItemBigTitleTv;
     private PopupWindow popupWindow;
+    private AssetsAdapter assetsAdapter;
 
     @Override
     protected HomePagePresent createPresenter() {
@@ -54,18 +59,33 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
         mAssetsMenuRv = (RecyclerView) findViewById(R.id.assets_menu_rv);
         mItemBigTitleTv = (TextView) findViewById(R.id.item_big_title_tv);
         mItemBigTitleTv.setText("月收入金额统计");
-        AssetsAdapter assetsAdapter = new AssetsAdapter(R.layout.assets_item);
+        assetsAdapter = new AssetsAdapter(R.layout.assets_item);
         mAssetsMenuRv.setAdapter(assetsAdapter);
         GridLayoutManager manager = new GridLayoutManager(mContext, 3);
         mAssetsMenuRv.setLayoutManager(manager);
-        assetsAdapter.setNewData(getAdapterData());
+        assetsAdapter.setNewData(getAdapterData(null));
+
+        assetsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (position) {
+                    case 0:
+                        startActivity(new Intent(mContext, AssetsDetailActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        mPresenter.getBillBaseInfo(getBaseBuilder().add("type","0").build(), AppHttpPathMall.BILL_BASE_INFO);
     }
 
-    private List<AssetsMenuBean> getAdapterData() {
+    private List<AssetsMenuBean> getAdapterData(BillBaseInfoBean.DataBean dataBean) {
         List<AssetsMenuBean> arrays = new ArrayList<>();
-        arrays.add(new AssetsMenuBean("总营业额(元)", "1123", "明细", true));
-        arrays.add(new AssetsMenuBean("待结算金额(元)", "45134", null, false));
-        arrays.add(new AssetsMenuBean("可提现金额(元)", "4562435", "提现", false));
+        arrays.add(new AssetsMenuBean("总营业额(元)", dataBean==null?"":String.valueOf(dataBean.getTurnover()), "明细", true));
+        arrays.add(new AssetsMenuBean("待结算金额(元)", dataBean==null?"":String.valueOf(dataBean.getSettled()), null, false));
+        arrays.add(new AssetsMenuBean("可提现金额(元)", dataBean==null?"":String.valueOf(dataBean.getWithdrawalCash()), "提现", false));
         return arrays;
     }
 
@@ -77,7 +97,20 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
 
     @Override
     public void onSuccess(String tag, Object o) {
+switch (tag) {
+    case AppHttpPathMall.BILL_BASE_INFO:
+        BillBaseInfoBean baseInfoBean = (BillBaseInfoBean) o;
+        if (baseInfoBean != null) {
+            BillBaseInfoBean.DataBean dataBean =   baseInfoBean.getData();
+            if (dataBean != null) {
+                assetsAdapter.setNewData(getAdapterData(dataBean));
 
+            }
+        }
+        break;
+    default:
+        break;
+}
     }
 
 

@@ -10,6 +10,8 @@ import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
 import com.juntai.project.sell.mall.beans.AroundShopBean;
+import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
+import com.juntai.project.sell.mall.beans.BillListBean;
 import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
@@ -148,10 +150,6 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.COMMODITY_COLLECT)
     Observable<BaseResult> collectCommodity(@Body RequestBody requestBody);
-
-
-
-
 
 
     @GET(AppHttpPathMall.ALL_CITYS)
@@ -395,6 +393,12 @@ public interface AppServerMall {
     Observable<CommodityFormatDataBean> getCommodityFormat(@Body RequestBody requestBody);
 
     @POST(AppHttpPathMall.ADD_SHOP_BANNERS)
-    Observable<CommodityFormatDataBean> addShopBannerPics(@Body RequestBody requestBody,@Query("bannerPhoto")List<String> pics);
+    Observable<CommodityFormatDataBean> addShopBannerPics(@Body RequestBody requestBody, @Query("bannerPhoto") List<String> pics);
+
+    @POST(AppHttpPathMall.BILL_LIST)
+    Observable<BillListBean> getBillList(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.BILL_BASE_INFO)
+    Observable<BillBaseInfoBean> getBillBaseInfo(@Body RequestBody requestBody);
 
 }
