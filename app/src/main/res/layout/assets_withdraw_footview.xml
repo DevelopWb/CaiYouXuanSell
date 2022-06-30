@@ -48,6 +48,7 @@
                 android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
                 android:imeOptions="actionDone"
                 android:padding="10dp"
+                android:inputType="numberDecimal"
                 android:text="123"
                 android:textSize="24dp"></EditText>
 

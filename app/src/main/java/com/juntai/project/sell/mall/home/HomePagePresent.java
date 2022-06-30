@@ -1,6 +1,7 @@
 package com.juntai.project.sell.mall.home;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.weather.CityBean;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseForcastWeather;
 import com.juntai.disabled.basecomponent.bean.weather.ResponseRealTimeWeather;
@@ -332,6 +333,7 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
                     }
                 });
     }
+
 
 
 

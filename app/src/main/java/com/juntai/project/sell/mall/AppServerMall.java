@@ -409,4 +409,7 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.MONTH_STATISTICS)
     Observable<MonthStatisticsBean> getMonthStatistics(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.WITHDRAW)
+    Observable<BaseResult> withDraw(@Body RequestBody requestBody);
+
 }

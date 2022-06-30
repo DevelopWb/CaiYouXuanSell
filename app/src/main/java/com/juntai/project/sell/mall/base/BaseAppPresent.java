@@ -31,7 +31,26 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2020/6/3 8:38
  */
 public abstract class BaseAppPresent<M extends IModel, V extends IView> extends BasePresenter<M, V> {
+    public void withDraw(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .withDraw(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
 
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
     public void userAuth(String tag, RequestBody requestBody) {
         AppNetModuleMall.createrRetrofit()
                 .userAuth(requestBody)

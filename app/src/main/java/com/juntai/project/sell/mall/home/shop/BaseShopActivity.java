@@ -438,8 +438,21 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         case HomePageContract.SHOP_INTRODUCTION:
                             builder.add("introduction", textValue);
                             break;
+                        case HomePageContract.ASSETS_WITHDRAW_PHONE:
                         case HomePageContract.SHOP_TEL:
                             builder.add("phoneNumber", textValue);
+                            break;
+                        case HomePageContract.ASSETS_WITHDRAW_BANK_CARD:
+                            builder.add("bankCode", textValue);
+                            break;
+                        case HomePageContract.ASSETS_WITHDRAW_BANK:
+                            builder.add("bankAddress", textValue);
+                            break;
+                        case HomePageContract.ASSETS_WITHDRAW_REAL_NAME:
+                            builder.add("realName", textValue);
+                            break;
+                        case HomePageContract.ASSETS_WITHDRAW_IDCARD:
+                            builder.add("idCode", textValue);
                             break;
                         case HomePageContract.COMMODITY_NAME:
                             commodityDetailBean.setName(textValue);

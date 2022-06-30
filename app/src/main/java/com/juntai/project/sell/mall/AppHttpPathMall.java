@@ -489,6 +489,10 @@ public class AppHttpPathMall {
      * 月收入统计
      */
     public static final String MONTH_STATISTICS = BASE + "/seller/getMonthIncome";
+    /**
+     * 提现
+     */
+    public static final String WITHDRAW = BASE + "/seller/toWithdrawFunds";
 
 
 }

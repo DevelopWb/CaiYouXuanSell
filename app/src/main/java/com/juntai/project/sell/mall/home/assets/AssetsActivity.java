@@ -45,6 +45,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
     private PopupWindow popupWindow;
     private AssetsAdapter assetsAdapter;
     private LBarChartView mLbarChartView;
+    private double withDraw;
 
     @Override
     protected HomePagePresent createPresenter() {
@@ -94,7 +95,9 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                         break;
                     case 2:
                             // : 2022/6/29 提现
-                        startActivity(new Intent(mContext, AssetsWithDrawActivity.class));
+                        startActivity(new Intent(mContext, AssetsWithDrawActivity.class).putExtra(BASE_ID,getAssetsType())
+                        .putExtra(BASE_STRING,String.valueOf(withDraw))
+                        );
 
                         break;
                     default:
@@ -105,6 +108,20 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
 
         mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "0").build(), AppHttpPathMall.BILL_BASE_INFO);
         mPresenter.getMonthStatistics(getBaseBuilder().build(), AppHttpPathMall.MONTH_STATISTICS);
+    }
+
+    private int getAssetsType() {
+        switch (getTextViewValue(mAssetsTypeTv)) {
+            case "全部":
+              return 0;
+            case "普通商城":
+              return 1;
+            case "对公财务管理":
+              return 2;
+            default:
+                break;
+        }
+        return 0;
     }
 
     private void initChartData(MonthStatisticsBean.DataBean dataBean) {
@@ -177,6 +194,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                 if (baseInfoBean != null) {
                     BillBaseInfoBean.DataBean dataBean = baseInfoBean.getData();
                     if (dataBean != null) {
+                        withDraw = dataBean.getWithdrawalCash();
                         assetsAdapter.setNewData(getAdapterData(dataBean));
 
                     }
