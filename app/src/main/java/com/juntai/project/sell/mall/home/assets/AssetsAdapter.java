@@ -20,6 +20,7 @@ public class AssetsAdapter extends BaseQuickAdapter<AssetsMenuBean, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, AssetsMenuBean item) {
+        helper.addOnClickListener(R.id.assets_bt_name_tv);
         helper.setText(R.id.assets_item_name_tv, item.getMenuName());
         helper.setText(R.id.assets_item_amount_tv, item.getAmount());
         if (TextUtils.isEmpty(item.getButtonName())) {

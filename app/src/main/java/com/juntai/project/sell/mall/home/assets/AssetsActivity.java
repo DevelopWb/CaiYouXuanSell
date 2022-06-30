@@ -18,9 +18,13 @@ import com.juntai.project.sell.mall.base.BaseAppActivity;
 import com.juntai.project.sell.mall.base.SingleTextAdapter;
 import com.juntai.project.sell.mall.beans.AssetsMenuBean;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
+import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
 import com.juntai.project.sell.mall.home.assets.assetsDetail.AssetsDetailActivity;
+import com.juntai.project.sell.mall.home.assets.withdraw.AssetsWithDrawActivity;
+import com.juntai.project.sell.mall.home.assets.withdraw.AssetsWithDrawRecordActivity;
+import com.lixs.charts.BarChart.LBarChartView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
     private TextView mItemBigTitleTv;
     private PopupWindow popupWindow;
     private AssetsAdapter assetsAdapter;
+    private LBarChartView mLbarChartView;
 
     @Override
     protected HomePagePresent createPresenter() {
@@ -58,6 +63,8 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
         mAssetsTypeTv.setOnClickListener(this);
         mAssetsMenuRv = (RecyclerView) findViewById(R.id.assets_menu_rv);
         mItemBigTitleTv = (TextView) findViewById(R.id.item_big_title_tv);
+        mLbarChartView = (LBarChartView) findViewById(R.id.frameNewBase);
+        initChartData(null);
         mItemBigTitleTv.setText("月收入金额统计");
         assetsAdapter = new AssetsAdapter(R.layout.assets_item);
         mAssetsMenuRv.setAdapter(assetsAdapter);
@@ -69,8 +76,8 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
-                    case 0:
-                        startActivity(new Intent(mContext, AssetsDetailActivity.class));
+                    case 2:
+                        startActivity(new Intent(mContext, AssetsWithDrawRecordActivity.class));
                         break;
                     default:
                         break;
@@ -78,14 +85,81 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
             }
         });
 
-        mPresenter.getBillBaseInfo(getBaseBuilder().add("type","0").build(), AppHttpPathMall.BILL_BASE_INFO);
+        assetsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (position) {
+                    case 0:
+                        startActivity(new Intent(mContext, AssetsDetailActivity.class));
+                        break;
+                    case 2:
+                            // : 2022/6/29 提现
+                        startActivity(new Intent(mContext, AssetsWithDrawActivity.class));
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "0").build(), AppHttpPathMall.BILL_BASE_INFO);
+        mPresenter.getMonthStatistics(getBaseBuilder().build(), AppHttpPathMall.MONTH_STATISTICS);
+    }
+
+    private void initChartData(MonthStatisticsBean.DataBean dataBean) {
+        final List<Double> datas = new ArrayList<>();
+        final List<String> description = new ArrayList<>();
+        if (dataBean == null) {
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+            datas.add(0d);
+        } else {
+            datas.add(Double.parseDouble(dataBean.getJan()));
+            datas.add(Double.parseDouble(dataBean.getFeb()));
+            datas.add(Double.parseDouble(dataBean.getMar()));
+            datas.add(Double.parseDouble(dataBean.getApr()));
+            datas.add(Double.parseDouble(dataBean.getMay()));
+            datas.add(Double.parseDouble(dataBean.getJune()));
+            datas.add(Double.parseDouble(dataBean.getJuly()));
+            datas.add(Double.parseDouble(dataBean.getAug()));
+            datas.add(Double.parseDouble(dataBean.getSept()));
+            datas.add(Double.parseDouble(dataBean.getOct()));
+            datas.add(Double.parseDouble(dataBean.getNov()));
+            datas.add(Double.parseDouble(dataBean.getDec()));
+        }
+
+
+        description.add("1月");
+        description.add("2月");
+        description.add("3月");
+        description.add("4月");
+        description.add("5月");
+        description.add("6月");
+        description.add("7月");
+        description.add("8月");
+        description.add("9月");
+        description.add("10月");
+        description.add("11月");
+        description.add("12月");
+
+        mLbarChartView.setDatas(datas, description, true);
     }
 
     private List<AssetsMenuBean> getAdapterData(BillBaseInfoBean.DataBean dataBean) {
         List<AssetsMenuBean> arrays = new ArrayList<>();
-        arrays.add(new AssetsMenuBean("总营业额(元)", dataBean==null?"":String.valueOf(dataBean.getTurnover()), "明细", true));
-        arrays.add(new AssetsMenuBean("待结算金额(元)", dataBean==null?"":String.valueOf(dataBean.getSettled()), null, false));
-        arrays.add(new AssetsMenuBean("可提现金额(元)", dataBean==null?"":String.valueOf(dataBean.getWithdrawalCash()), "提现", false));
+        arrays.add(new AssetsMenuBean("总营业额(元)", dataBean == null ? "" : String.valueOf(dataBean.getTurnover()), "明细", true));
+        arrays.add(new AssetsMenuBean("待结算金额(元)", dataBean == null ? "" : String.valueOf(dataBean.getSettled()), null, false));
+        arrays.add(new AssetsMenuBean("可提现金额(元)", dataBean == null ? "" : String.valueOf(dataBean.getWithdrawalCash()), "提现", false));
         return arrays;
     }
 
@@ -97,20 +171,31 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
 
     @Override
     public void onSuccess(String tag, Object o) {
-switch (tag) {
-    case AppHttpPathMall.BILL_BASE_INFO:
-        BillBaseInfoBean baseInfoBean = (BillBaseInfoBean) o;
-        if (baseInfoBean != null) {
-            BillBaseInfoBean.DataBean dataBean =   baseInfoBean.getData();
-            if (dataBean != null) {
-                assetsAdapter.setNewData(getAdapterData(dataBean));
+        switch (tag) {
+            case AppHttpPathMall.BILL_BASE_INFO:
+                BillBaseInfoBean baseInfoBean = (BillBaseInfoBean) o;
+                if (baseInfoBean != null) {
+                    BillBaseInfoBean.DataBean dataBean = baseInfoBean.getData();
+                    if (dataBean != null) {
+                        assetsAdapter.setNewData(getAdapterData(dataBean));
 
-            }
+                    }
+                }
+                break;
+            case AppHttpPathMall.MONTH_STATISTICS:
+                MonthStatisticsBean statisticsBean = (MonthStatisticsBean) o;
+                if (statisticsBean != null) {
+                    List<MonthStatisticsBean.DataBean> dataBeans = statisticsBean.getData();
+                    if (dataBeans != null && dataBeans.size() > 0) {
+                        MonthStatisticsBean.DataBean dataBean = dataBeans.get(0);
+                        initChartData(dataBean);
+
+                    }
+                }
+                break;
+            default:
+                break;
         }
-        break;
-    default:
-        break;
-}
     }
 
 
@@ -140,6 +225,22 @@ switch (tag) {
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             mAssetsTypeTv.setText((String) adapter.getItem(position));
                             popupWindow.dismiss();
+                            switch (position) {
+                                case 0:
+                                    mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "0").build(), AppHttpPathMall.BILL_BASE_INFO);
+                                    break;
+                                case 1:
+                                    mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "1").build(), AppHttpPathMall.BILL_BASE_INFO);
+
+                                    break;
+                                case 2:
+                                    mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "2").build(), AppHttpPathMall.BILL_BASE_INFO);
+
+                                    break;
+                                default:
+                                    break;
+                            }
+
                         }
                     });
                 }

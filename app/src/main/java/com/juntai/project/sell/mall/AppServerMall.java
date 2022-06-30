@@ -16,11 +16,13 @@ import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
+import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.beans.PlayUrlBean;
 import com.juntai.project.sell.mall.beans.ShopCommodityListBean;
 import com.juntai.project.sell.mall.beans.ShopListDataBean;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
+import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.order.ConfirmOrderBean;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.order.OrderDetailDataBean;
@@ -400,5 +402,11 @@ public interface AppServerMall {
 
     @POST(AppHttpPathMall.BILL_BASE_INFO)
     Observable<BillBaseInfoBean> getBillBaseInfo(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.BILL_WITHDRAW)
+    Observable<WithDrawListBean> getBillWithDrawList(@Body RequestBody requestBody);
+
+    @POST(AppHttpPathMall.MONTH_STATISTICS)
+    Observable<MonthStatisticsBean> getMonthStatistics(@Body RequestBody requestBody);
 
 }

@@ -479,6 +479,16 @@ public class AppHttpPathMall {
      * bill基础信息
      */
     public static final String BILL_BASE_INFO = BASE + "/seller/getFinanceInfo";
+    /**
+     * 提现列表
+     */
+    public static final String BILL_WITHDRAW = BASE + "/seller/getWithdrawList";
+
+
+    /**
+     * 月收入统计
+     */
+    public static final String MONTH_STATISTICS = BASE + "/seller/getMonthIncome";
 
 
 }

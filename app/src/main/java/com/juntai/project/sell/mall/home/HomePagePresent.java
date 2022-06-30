@@ -12,7 +12,9 @@ import com.juntai.project.sell.mall.base.BaseAppPresent;
 import com.juntai.project.sell.mall.beans.AroundShopBean;
 import com.juntai.project.sell.mall.beans.BillBaseInfoBean;
 import com.juntai.project.sell.mall.beans.BillListBean;
+import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.PicTextBean;
+import com.juntai.project.sell.mall.beans.WithDrawListBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeBean;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
@@ -276,6 +278,47 @@ public class HomePagePresent extends BaseAppPresent<IModel, HomePageContract.IHo
                 .subscribe(new BaseObserver<BillBaseInfoBean>(getView()) {
                     @Override
                     public void onSuccess(BillBaseInfoBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void getBillWithDrawList(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getBillWithDrawList(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<WithDrawListBean>(getView()) {
+                    @Override
+                    public void onSuccess(WithDrawListBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void getMonthStatistics(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .getMonthStatistics(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<MonthStatisticsBean>(getView()) {
+                    @Override
+                    public void onSuccess(MonthStatisticsBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }

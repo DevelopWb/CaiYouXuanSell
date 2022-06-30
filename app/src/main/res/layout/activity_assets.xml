@@ -29,4 +29,28 @@
         android:layout_height="wrap_content" />
 
     <include layout="@layout/item_layout_type_title_big" />
+
+    <com.lixs.charts.BarChart.LBarChartView
+        android:id="@+id/frameNewBase"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:barShowNumber="12"
+        app:borderColor="@color/gray"
+        app:bottomTextSpace="20dp"
+        app:dataTextColor="@color/colorAccent"
+        app:dataTextSize="12sp"
+        app:descriptionTextColor="@color/colorAccent"
+        app:descriptionTextSize="20sp"
+        app:isClickAnimation="true"
+        app:labelTextColor="@color/colorAccent"
+        app:labelTextSize="10sp"
+        app:leftTextSpace="30dp"
+        app:title="柱状图实例"
+        app:titleTextColor="@color/colorAccent"
+        app:titleTextSize="20sp"
+        app:topTextSpace="50dp" />
+
+
+
+
 </LinearLayout>

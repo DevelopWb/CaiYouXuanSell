@@ -179,6 +179,21 @@ public class ShopPresent extends BaseAppMallPresent {
         return arrays;
     }
     /**
+     *提现
+     * @return
+     */
+    public List<MultipleItem> assetsWithDraw( ) {
+        List<MultipleItem> arrays = new ArrayList<>();
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_REAL_NAME, ""
+                , true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_IDCARD, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_PHONE, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK_CARD, "", true, 0, false);
+
+        return arrays;
+    }
+    /**
      * 店铺管理
      *
      * @return
