@@ -85,6 +85,7 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         addItemType(MultipleItem.ITEM_HEAD_PIC, R.layout.item_layout_type_head_pic);
         addItemType(MultipleItem.ITEM_TITILE_BIG, R.layout.item_layout_type_title_big);
         addItemType(MultipleItem.ITEM_TITILE_SMALL, R.layout.item_layout_type_title_small);
+        addItemType(MultipleItem.ITEM_NOTICE, R.layout.item_layout_type_notice);
         addItemType(MultipleItem.ITEM_EDIT, R.layout.item_layout_type_edit);
         addItemType(MultipleItem.ITEM_EDIT2, R.layout.item_layout_type_edit2);
         addItemType(MultipleItem.ITEM_SELECT, R.layout.item_layout_type_select);
@@ -108,6 +109,9 @@ public class BaseShopAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         baseActivity = (BaseActivity) mContext;
         switch (item.getItemType()) {
 
+            case MultipleItem.ITEM_NOTICE:
+                helper.setText(R.id.item_notice_tv, (String) item.getObject());
+                break;
             case MultipleItem.ITEM_RICH_TEXT:
                 String richText = (String) item.getObject();
                 BaseWebviewFragment webviewFragment = (BaseWebviewFragment) mFragmentManager.findFragmentById(R.id.base_webview_fg);

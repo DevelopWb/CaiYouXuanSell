@@ -17,10 +17,10 @@ import okhttp3.FormBody;
 
 /**
  * @aouther tobato
- * @description 描述 提现
+ * @description 描述 绑定银行卡
  * @date 2022/6/20 11:16
  */
-public class AssetsWithDrawActivity extends BaseShopActivity implements HomePageContract.IHomePageView {
+public class BindBankCardActivity extends BaseShopActivity implements HomePageContract.IHomePageView {
 
 
     private String assetsWithDraw;

@@ -30,8 +30,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".home.assets.withdraw.AssetsWithDrawRecordActivity"></activity>
-        <activity android:name=".home.assets.withdraw.AssetsWithDrawActivity"></activity>
+        <activity android:name=".home.assets.withdraw.AssetsWithDrawRecordActivity" />
+        <activity android:name=".home.assets.withdraw.BindBankCardActivity" />
+        <activity android:name=".home.assets.withdraw.AssetsWithDrawActivity" />
         <activity android:name=".home.assets.assetsDetail.AssetsDetailActivity" />
         <activity android:name=".home.shopFurnish.ShopFurnishActivity" />
         <activity android:name=".home.assets.AssetsActivity" />

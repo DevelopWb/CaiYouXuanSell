@@ -142,7 +142,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         if (visible) {
             getToolbar().setVisibility(View.VISIBLE);
             getToolbar().setNavigationIcon(null);
-//            getToolbar().setBackgroundResource(R.drawable.sp_filled_gray_lighter);
+            getToolbar().setBackgroundResource(R.drawable.bg_white_only_bottom_gray_shape_1px);
             //状态栏配置
             mBaseRootCol.setFitsSystemWindows(true);
             mImmersionBar.statusBarColor(R.color.white)

@@ -182,8 +182,9 @@ public class ShopPresent extends BaseAppMallPresent {
      *提现
      * @return
      */
-    public List<MultipleItem> assetsWithDraw( ) {
+    public List<MultipleItem> bindBackCard( ) {
         List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_NOTICE, "提现之前,请先绑定本人银行卡"));
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_REAL_NAME, ""
                 , true, 0, false);
         initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_IDCARD, "", true, 0, false);
