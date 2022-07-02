@@ -55,7 +55,13 @@
         <activity android:name=".home.systemNotice.PicTextActivity" />
         <activity android:name=".home.systemNotice.SystemNoticeActivity" />
         <activity android:name=".home.live.LivePrepareActivity" />
+        <activity android:name=".home.live.StartLiveActivity" />
+        <activity android:name=".home.live.LiveEndActivity" />
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
+
+        <service
+            android:name="com.juntai.project.sell.mall.home.live.BackgroundService"
+            android:enabled="true" />
         <activity
             android:name=".share.ShareActivity"
             android:launchMode="singleTop" />
@@ -100,9 +106,6 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".mine.modifyPwd.BackPwdActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home.commodityfragment.commodity_detail.CommodityDetailActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.RegistActivity"

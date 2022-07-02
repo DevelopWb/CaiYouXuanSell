@@ -1,0 +1,10 @@
+[x86] Compile        : resrtmp <= amf.c
+[x86] Compile        : resrtmp <= hashswf.c
+[x86] Compile        : resrtmp <= log.c
+[x86] Compile        : resrtmp <= parseurl.c
+[x86] Compile        : resrtmp <= rtmp.c
+[x86] Compile        : resrtmp <= libresrtmp.c
+[x86] SharedLibrary  : libresrtmp.so
+[x86] Compile        : restreaming <= restreaming.c
+[x86] Compile        : restreaming <= colorConvert.c
+[x86] SharedLibrary  : librestreaming.so

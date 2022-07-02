@@ -210,7 +210,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
         if (icons != null) {
             mPresenter.uploadFile(icons, AppHttpPathMall.UPLOAD_MORE_PIC);
         }

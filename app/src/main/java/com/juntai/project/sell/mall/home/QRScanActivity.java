@@ -116,8 +116,8 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List icons) {
-        super.selectedPicsAndEmpressed(icons);
+    protected void onPicsAndEmpressed(List icons) {
+        super.onPicsAndEmpressed(icons);
 
         if (icons != null && icons.size() > 0) {
             String pic = (String) icons.get(0);

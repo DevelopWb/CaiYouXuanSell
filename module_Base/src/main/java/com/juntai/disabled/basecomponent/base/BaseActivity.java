@@ -3,6 +3,8 @@ package com.juntai.disabled.basecomponent.base;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -918,6 +920,20 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         }
     }
 
-
+    /**
+     * 复制内容到剪贴板
+     *
+     * @param content
+     * @param context
+     */
+    public  void copyContentToClipboard(String content, Context context) {
+        //获取剪贴板管理器：
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 创建普通字符型ClipData
+        ClipData mClipData = ClipData.newPlainText("Label", content);
+        // 将ClipData内容放到系统剪贴板里。
+        cm.setPrimaryClip(mClipData);
+        ToastUtils.info(context, "复制成功");
+    }
 
 }

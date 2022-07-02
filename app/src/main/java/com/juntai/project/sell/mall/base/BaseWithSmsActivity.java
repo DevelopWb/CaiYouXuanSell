@@ -148,8 +148,8 @@ public abstract class BaseWithSmsActivity extends SmsCheckCodeActivity implement
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
-        super.selectedPicsAndEmpressed(icons);
+    protected void onPicsAndEmpressed(List<String> icons) {
+        super.onPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             String path = icons.get(0);
             //跳转到裁剪头像的界面

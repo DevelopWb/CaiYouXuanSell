@@ -18,7 +18,6 @@ public class AssetsWithDrawAdapter extends BaseQuickAdapter<WithDrawListBean.Dat
     @Override
     protected void convert(BaseViewHolder helper, WithDrawListBean.DataBean item) {
 
-        helper.setGone(R.id.paytype_tv,true);
         helper.setText(R.id.paytype_tv,1==item.getType()?"商城":"公户");
         helper.setText(R.id.buyer_name_tv, item.getBankName());
         helper.setText(R.id.buy_amount_tv, String.valueOf(item.getPrice()));

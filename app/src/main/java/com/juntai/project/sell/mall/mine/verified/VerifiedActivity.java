@@ -327,7 +327,7 @@ public class VerifiedActivity extends SmsCheckCodeActivity implements View.OnCli
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
             String path = icons.get(0);
             List<VerifiedInfoBean> arrays = adapter.getData();

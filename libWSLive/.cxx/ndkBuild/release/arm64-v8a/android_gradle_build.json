@@ -1,0 +1,71 @@
+{
+  "buildFiles": [
+    "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Android.mk",
+    "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Application.mk"
+  ],
+  "cleanCommands": [
+    "D:\\Android\\SDK\\ndk\\20.0.5594570\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dD:/AndroidProject/android/work/lookWorldAPP/libWSLive/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\build\\intermediates\\ndkBuild\\release\\lib clean"
+  ],
+  "buildTargetsCommand": "D:\\Android\\SDK\\ndk\\20.0.5594570\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dD:/AndroidProject/android/work/lookWorldAPP/libWSLive/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\build\\intermediates\\ndkBuild\\release\\lib {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "resrtmp-release-arm64-v8a": {
+      "buildCommand": "D:\\Android\\SDK\\ndk\\20.0.5594570\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dD:/AndroidProject/android/work/lookWorldAPP/libWSLive/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\build\\intermediates\\ndkBuild\\release\\lib D:/AndroidProject/android/work/lookWorldAPP/libWSLive/build/intermediates/ndkBuild/release/obj/local/arm64-v8a/libresrtmp.so",
+      "toolchain": "toolchain-arm64-v8a",
+      "abi": "arm64-v8a",
+      "artifactName": "resrtmp",
+      "files": [
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\rtmp\\libresrtmp.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp/librtmp -Ilibresrtmp.h -Ilog.h -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp -DANDROID -DNO_CRYPTO -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        },
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\rtmp\\librtmp\\amf.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp/librtmp -Ilibresrtmp.h -Ilog.h -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp -DANDROID -DNO_CRYPTO -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        },
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\rtmp\\librtmp\\hashswf.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp/librtmp -Ilibresrtmp.h -Ilog.h -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp -DANDROID -DNO_CRYPTO -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        },
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\rtmp\\librtmp\\log.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp/librtmp -Ilibresrtmp.h -Ilog.h -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp -DANDROID -DNO_CRYPTO -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        },
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\rtmp\\librtmp\\parseurl.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp/librtmp -Ilibresrtmp.h -Ilog.h -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp -DANDROID -DNO_CRYPTO -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        },
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\rtmp\\librtmp\\rtmp.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp/librtmp -Ilibresrtmp.h -Ilog.h -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/rtmp -DANDROID -DNO_CRYPTO -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        }
+      ],
+      "output": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\build\\intermediates\\ndkBuild\\release\\obj\\local\\arm64-v8a\\libresrtmp.so"
+    },
+    "restreaming-release-arm64-v8a": {
+      "buildCommand": "D:\\Android\\SDK\\ndk\\20.0.5594570\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\Application.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003dD:/AndroidProject/android/work/lookWorldAPP/libWSLive/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003dD:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\build\\intermediates\\ndkBuild\\release\\lib D:/AndroidProject/android/work/lookWorldAPP/libWSLive/build/intermediates/ndkBuild/release/obj/local/arm64-v8a/librestreaming.so",
+      "toolchain": "toolchain-arm64-v8a",
+      "abi": "arm64-v8a",
+      "artifactName": "restreaming",
+      "files": [
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\restreaming\\colorConvert.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/restreaming/ -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/restreaming -DANDROID -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        },
+        {
+          "src": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\src\\main\\jni\\restreaming\\restreaming.c",
+          "flags": "-target aarch64-none-linux-android21 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot D:/Android/SDK/ndk/20.0.5594570/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -fno-addrsig -fpic -O2 -DNDEBUG -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/restreaming/ -ID:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/restreaming -DANDROID -Wa,--noexecstack -Wformat -Werror\u003dformat-security"
+        }
+      ],
+      "output": "D:\\AndroidProject\\android\\work\\lookWorldAPP\\libWSLive\\build\\intermediates\\ndkBuild\\release\\obj\\local\\arm64-v8a\\librestreaming.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-arm64-v8a": {
+      "cCompilerExecutable": "D:\\Android\\SDK\\ndk\\20.0.5594570\\build\\..\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}

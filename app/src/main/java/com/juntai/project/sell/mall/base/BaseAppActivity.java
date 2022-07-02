@@ -368,7 +368,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
 
     }
 

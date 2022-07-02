@@ -457,8 +457,8 @@ public class ChatActivity extends BaseAppActivity<NewsPresent> implements View.O
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
-        super.selectedPicsAndEmpressed(icons);
+    protected void onPicsAndEmpressed(List<String> icons) {
+        super.onPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             if (fileSizeIsOk(icons)) {
                 // : 2022-03-09 发送图片或者视频文件

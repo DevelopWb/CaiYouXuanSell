@@ -72,9 +72,6 @@ android {
     packagingOptions {//解决so文件重复问题，使用第一个
         pickFirst "**/libsqlite.so"
     }
-    viewBinding {
-        enabled true
-    }
 
 }
 dependencies {
@@ -98,6 +95,8 @@ dependencies {
     implementation project(':jjdxm-ijkplayer')
     implementation project(':module_Base')
     implementation project(':banner')
+    implementation project(path: ':libWSLive')
+
     implementation project(':module_Video')
     implementation project(':module_Map')
     implementation project(':richeditor')

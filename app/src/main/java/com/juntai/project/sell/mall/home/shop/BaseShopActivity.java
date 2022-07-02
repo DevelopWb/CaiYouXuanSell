@@ -199,7 +199,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
             String path = icons.get(0);
             MultipleItem multipleItem = (MultipleItem) baseQuickAdapter.getItem(currentPosition);

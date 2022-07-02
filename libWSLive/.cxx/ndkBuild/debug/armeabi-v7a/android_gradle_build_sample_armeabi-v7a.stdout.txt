@@ -1,0 +1,2 @@
+[armeabi-v7a] Compile thumb  : sample <= sample.c
+[armeabi-v7a] SharedLibrary  : libsample.so

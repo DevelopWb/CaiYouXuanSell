@@ -83,7 +83,22 @@ public class NotificationTool {
         NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         manager.cancelAll();
     }
+    /**
+     * 获取notification
+     * @param context
+     * @return
+     */
+    public static Notification getNotification(Context context){
+        String channelId = "notifi";
+        String channelName = "消息";
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            createNotificationChannel(context,channelId, channelName, importance);
+
+        }
+        return new NotificationCompat.Builder(context, channelId).build();
+    }
 
     @TargetApi(Build.VERSION_CODES.O)
     public static void createNotificationChannel(Context context, String channelId, String channelName, int importance) {

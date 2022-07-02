@@ -52,7 +52,7 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
         return false;
     }
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
 
     }
     @Override

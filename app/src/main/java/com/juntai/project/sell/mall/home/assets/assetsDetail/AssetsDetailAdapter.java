@@ -24,6 +24,7 @@ public class AssetsDetailAdapter extends BaseQuickAdapter<BillListBean.DataBean.
 
         helper.setText(R.id.buyer_name_tv, item.getNickname());
         helper.setText(R.id.buy_amount_tv, String.valueOf(item.getPayPrice()));
+        helper.setText(R.id.paytype_tv,4==item.getPayType()?"公户":"商城");
         ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(item.getHeadPortrait()), (ImageView) helper.getView(R.id.buyer_head_iv));
         helper.setText(R.id.buy_date_tv, String.valueOf(item.getPaymentTime()));
 

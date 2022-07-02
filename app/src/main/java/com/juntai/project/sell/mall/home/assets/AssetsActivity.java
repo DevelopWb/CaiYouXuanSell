@@ -124,7 +124,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        getData("1");
+        getData(String.valueOf(getAssetsType()));
     }
 
     private int getAssetsType() {

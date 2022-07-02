@@ -38,7 +38,6 @@
         app:layout_constraintTop_toTopOf="@+id/buyer_name_tv"
         app:layout_constraintBottom_toBottomOf="@+id/buyer_name_tv"
         android:id="@+id/paytype_tv"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

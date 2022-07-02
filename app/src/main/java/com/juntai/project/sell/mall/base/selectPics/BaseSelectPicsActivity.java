@@ -53,7 +53,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
     private List<String> icons = new ArrayList<>();
 
 
-    protected abstract void selectedPicsAndEmpressed(List<String> icons);
+    protected abstract void onPicsAndEmpressed(List<String> icons);
 
     /**
      * 图片选择
@@ -257,7 +257,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
                 //  压缩成功后调用，返回压缩后的图片文件
                 icons.add(file.getPath());
                 if (compressedSize == paths.size()) {
-                    selectedPicsAndEmpressed(icons);
+                    onPicsAndEmpressed(icons);
                     stopLoadingDialog();
                 }
 
@@ -289,7 +289,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
             } else if (2 == FileCacheUtils.getFileType(path)) {
                 stopLoadingDialog();
                 pics.add(path);
-                selectedPicsAndEmpressed(pics);
+                onPicsAndEmpressed(pics);
             }
         }
         imageCompress(pics);
@@ -317,7 +317,7 @@ public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends Ba
                 //  压缩成功后调用，返回压缩后的图片文件
                 List<String> pics = new ArrayList<>();
                 pics.add(file.getPath());
-                selectedPicsAndEmpressed(pics);
+                onPicsAndEmpressed(pics);
                 stopLoadingDialog();
             }
 

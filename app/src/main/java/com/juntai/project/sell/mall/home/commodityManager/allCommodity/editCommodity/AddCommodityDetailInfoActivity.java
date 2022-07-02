@@ -248,7 +248,7 @@ private boolean  isEdit = false;
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
+    protected void onPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
             mPresenter.uploadFile(icons, AppHttpPathMall.UPLOAD_MORE_PIC);
         }

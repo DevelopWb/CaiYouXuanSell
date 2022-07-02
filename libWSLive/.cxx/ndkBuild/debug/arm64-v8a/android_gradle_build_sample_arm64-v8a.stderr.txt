@@ -1,0 +1,4 @@
+D:/AndroidProject/android/work/lookWorldAPP/libWSLive/src/main/jni/sample.c:22:47: warning: passing 'unsigned char *' to parameter of type 'jbyte *' (aka 'signed char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+(*env)->ReleaseByteArrayElements(env,srcarray,src,JNI_ABORT);
+                                              ^~~
+1 warning generated.

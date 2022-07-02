@@ -97,8 +97,8 @@ public class MyInformationActivity extends BaseRecyclerviewActivity<MyCenterPres
     }
 
     @Override
-    protected void selectedPicsAndEmpressed(List<String> icons) {
-        super.selectedPicsAndEmpressed(icons);
+    protected void onPicsAndEmpressed(List<String> icons) {
+        super.onPicsAndEmpressed(icons);
         if (icons.size() > 0) {
             String picPath = icons.get(0);
             ImageLoadUtil.loadHeadCirclePic(getApplicationContext(), picPath,

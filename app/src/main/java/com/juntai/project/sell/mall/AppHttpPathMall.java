@@ -499,4 +499,24 @@ public class AppHttpPathMall {
     public static final String BIND_BANK_CARD = BASE + "/seller/bindingBankCard";
 
 
+
+
+
+        /*====================================================    live   ==============================================================*/
+
+
+    /**
+     * 直播类型
+     */
+    public static final String GET_LIVE_TYPE = BASE + "/live/getLiveType";
+    /**
+     * 开启直播
+     */
+    public static final String START_LIVE = BASE + "/live/openLive";
+
+
+
+
+
+
 }
