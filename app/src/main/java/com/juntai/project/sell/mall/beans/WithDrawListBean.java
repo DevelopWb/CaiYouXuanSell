@@ -32,6 +32,15 @@ public class WithDrawListBean extends BaseResult {
         private int type;
         private double price;
         private String createTime;
+        private String bankName;
+
+        public String getBankName() {
+            return bankName == null ? "" : bankName;
+        }
+
+        public void setBankName(String bankName) {
+            this.bankName = bankName == null ? "" : bankName;
+        }
 
         public int getType() {
             return type;

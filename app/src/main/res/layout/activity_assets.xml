@@ -17,7 +17,7 @@
         android:paddingTop="10dp"
         android:paddingRight="15dp"
         android:paddingBottom="10dp"
-        android:text="全部"
+        android:text="普通商城"
         android:textColor="@color/black"
         android:textSize="16sp" />
 

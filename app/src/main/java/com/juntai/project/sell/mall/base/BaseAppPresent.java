@@ -1,8 +1,10 @@
 package com.juntai.project.sell.mall.base;
 
 import com.example.chat.bean.UploadFileBean;
+import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -13,10 +15,13 @@ import com.juntai.project.sell.mall.beans.ShopListDataBean;
 import com.juntai.project.sell.mall.beans.UserBeanMall;
 import com.juntai.project.sell.mall.beans.order.CreatOrderBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.juntai.project.sell.mall.beans.sell.adapterbean.ImportantTagBean;
+import com.juntai.project.sell.mall.home.HomePageContract;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -31,9 +36,84 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2020/6/3 8:38
  */
 public abstract class BaseAppPresent<M extends IModel, V extends IView> extends BasePresenter<M, V> {
+    /**
+     * initTextType
+     *
+     * @param arrays
+     * @param typeName
+     * @param editHeightType 0代表高度固定 1代表不固定
+     */
+    public void initTextType(List<MultipleItem> arrays, int layoutType, String typeName, String value,
+                              boolean isImportant, int editHeightType, boolean isDetail) {
+        switch (layoutType) {
+            case MultipleItem.ITEM_SELECT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
+                        (typeName, isImportant)));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
+                        new TextKeyValueBean(typeName, value, String.format("%s%s", "请选择",
+                                typeName), 0, isImportant, isDetail)));
+                break;
+            case MultipleItem.ITEM_EDIT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
+                        isImportant)));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT,
+                        new TextKeyValueBean(typeName, value,
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
+
+                break;
+            case MultipleItem.ITEM_EDIT2:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT2,
+                        new TextKeyValueBean(typeName, value,
+                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
+                break;
+            default:
+                break;
+        }
+
+    }
+    /**
+     *绑定银行卡
+     * @return
+     */
+    public List<MultipleItem> bindBackCard( ) {
+        List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_NOTICE, "提现之前,请先绑定本人银行卡"));
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_REAL_NAME, ""
+                , true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_IDCARD, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_PHONE, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK_NAME, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK, "", true, 0, false);
+        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK_CARD, "", true, 0, false);
+
+        return arrays;
+    }
+
+
+
     public void withDraw(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()
                 .withDraw(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void bindBankCard(RequestBody requestBody, String tag) {
+        AppNetModuleMall.createrRetrofit()
+                .bindBankCard(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

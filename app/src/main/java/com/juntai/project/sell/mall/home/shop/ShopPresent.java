@@ -178,22 +178,7 @@ public class ShopPresent extends BaseAppMallPresent {
 
         return arrays;
     }
-    /**
-     *提现
-     * @return
-     */
-    public List<MultipleItem> bindBackCard( ) {
-        List<MultipleItem> arrays = new ArrayList<>();
-        arrays.add(new MultipleItem(MultipleItem.ITEM_NOTICE, "提现之前,请先绑定本人银行卡"));
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_REAL_NAME, ""
-                , true, 0, false);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_IDCARD, "", true, 0, false);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_PHONE, "", true, 0, false);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK, "", true, 0, false);
-        initTextType(arrays, MultipleItem.ITEM_EDIT, HomePageContract.ASSETS_WITHDRAW_BANK_CARD, "", true, 0, false);
 
-        return arrays;
-    }
     /**
      * 店铺管理
      *
@@ -250,41 +235,7 @@ public class ShopPresent extends BaseAppMallPresent {
                         key), 0, isImportant)));
     }
 
-    /**
-     * initTextType
-     *
-     * @param arrays
-     * @param typeName
-     * @param editHeightType 0代表高度固定 1代表不固定
-     */
-    private void initTextType(List<MultipleItem> arrays, int layoutType, String typeName, String value,
-                              boolean isImportant, int editHeightType, boolean isDetail) {
-        switch (layoutType) {
-            case MultipleItem.ITEM_SELECT:
-                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean
-                        (typeName, isImportant)));
-                arrays.add(new MultipleItem(MultipleItem.ITEM_SELECT,
-                        new TextKeyValueBean(typeName, value, String.format("%s%s", "请选择",
-                                typeName), 0, isImportant, isDetail)));
-                break;
-            case MultipleItem.ITEM_EDIT:
-                arrays.add(new MultipleItem(MultipleItem.ITEM_TITILE_SMALL, new ImportantTagBean(typeName,
-                        isImportant)));
-                arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT,
-                        new TextKeyValueBean(typeName, value,
-                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
 
-                break;
-            case MultipleItem.ITEM_EDIT2:
-                arrays.add(new MultipleItem(MultipleItem.ITEM_EDIT2,
-                        new TextKeyValueBean(typeName, value,
-                                String.format("%s%s", "请输入", typeName), editHeightType, isImportant, isDetail)));
-                break;
-            default:
-                break;
-        }
-
-    }
 
     public void addCommodityCategorys(RequestBody requestBody, String tag) {
         AppNetModuleMall.createrRetrofit()

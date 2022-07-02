@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +25,7 @@ import com.juntai.project.sell.mall.home.HomePagePresent;
 import com.juntai.project.sell.mall.home.assets.assetsDetail.AssetsDetailActivity;
 import com.juntai.project.sell.mall.home.assets.withdraw.AssetsWithDrawActivity;
 import com.juntai.project.sell.mall.home.assets.withdraw.AssetsWithDrawRecordActivity;
+import com.juntai.project.sell.mall.home.assets.withdraw.BindBankCardActivity;
 import com.lixs.charts.BarChart.LBarChartView;
 
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
     private PopupWindow popupWindow;
     private AssetsAdapter assetsAdapter;
     private LBarChartView mLbarChartView;
-    private double withDraw;
+    private BillBaseInfoBean.DataBean dataBean;
 
     @Override
     protected HomePagePresent createPresenter() {
@@ -94,10 +96,20 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                         startActivity(new Intent(mContext, AssetsDetailActivity.class));
                         break;
                     case 2:
+
+                        if (dataBean != null&& !TextUtils.isEmpty(dataBean.getBankCode())) {
                             // : 2022/6/29 提现
-                        startActivity(new Intent(mContext, AssetsWithDrawActivity.class).putExtra(BASE_ID,getAssetsType())
-                        .putExtra(BASE_STRING,String.valueOf(withDraw))
-                        );
+                            startActivity(new Intent(mContext, AssetsWithDrawActivity.class)
+                                    .putExtra(BASE_ID,getAssetsType())
+                                    .putExtra(BASE_PARCELABLE,dataBean));
+
+                        }else {
+                            // : 2022/7/1 绑定银行卡
+                            startActivity(new Intent(mContext, BindBankCardActivity.class)
+                                    .putExtra(BASE_ID,getAssetsType())
+                                    .putExtra(BASE_PARCELABLE,dataBean));
+
+                        }
 
                         break;
                     default:
@@ -106,14 +118,17 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
             }
         });
 
-        mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "0").build(), AppHttpPathMall.BILL_BASE_INFO);
-        mPresenter.getMonthStatistics(getBaseBuilder().build(), AppHttpPathMall.MONTH_STATISTICS);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData("1");
     }
 
     private int getAssetsType() {
         switch (getTextViewValue(mAssetsTypeTv)) {
-            case "全部":
-              return 0;
             case "普通商城":
               return 1;
             case "对公财务管理":
@@ -121,7 +136,7 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
             default:
                 break;
         }
-        return 0;
+        return 1;
     }
 
     private void initChartData(MonthStatisticsBean.DataBean dataBean) {
@@ -192,9 +207,8 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
             case AppHttpPathMall.BILL_BASE_INFO:
                 BillBaseInfoBean baseInfoBean = (BillBaseInfoBean) o;
                 if (baseInfoBean != null) {
-                    BillBaseInfoBean.DataBean dataBean = baseInfoBean.getData();
+                    dataBean = baseInfoBean.getData();
                     if (dataBean != null) {
-                        withDraw = dataBean.getWithdrawalCash();
                         assetsAdapter.setNewData(getAdapterData(dataBean));
 
                     }
@@ -224,7 +238,6 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                 break;
             case R.id.assets_type_tv:
                 List<String> arrays = new ArrayList<>();
-                arrays.add("全部");
                 arrays.add("普通商城");
                 arrays.add("对公财务管理");
                 View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_recycler, null);
@@ -245,15 +258,10 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                             popupWindow.dismiss();
                             switch (position) {
                                 case 0:
-                                    mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "0").build(), AppHttpPathMall.BILL_BASE_INFO);
+                                    getData("1");
                                     break;
                                 case 1:
-                                    mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "1").build(), AppHttpPathMall.BILL_BASE_INFO);
-
-                                    break;
-                                case 2:
-                                    mPresenter.getBillBaseInfo(getBaseBuilder().add("type", "2").build(), AppHttpPathMall.BILL_BASE_INFO);
-
+                                    getData("2");
                                     break;
                                 default:
                                     break;
@@ -267,6 +275,15 @@ public class AssetsActivity extends BaseAppActivity<HomePagePresent> implements 
                 popupWindow.showAsDropDown(v, DisplayUtil.dp2px(mContext, 15), 0);
                 break;
         }
+    }
+
+    /**
+     * 获取数据
+     * @param s
+     */
+    private void getData(String s) {
+        mPresenter.getBillBaseInfo(getBaseBuilder().add("type", s).build(), AppHttpPathMall.BILL_BASE_INFO);
+        mPresenter.getMonthStatistics(getBaseBuilder().add("payType", s).build(), AppHttpPathMall.MONTH_STATISTICS);
     }
 
     @Override

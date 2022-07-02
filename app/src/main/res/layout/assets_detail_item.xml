@@ -11,7 +11,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
-        android:src="@mipmap/default_user_head_icon"
+        android:src="@mipmap/bank_tag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +33,23 @@
         app:layout_constraintLeft_toRightOf="@+id/buyer_head_iv"
         app:layout_constraintRight_toLeftOf="@+id/msg_time_tv"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        app:layout_constraintLeft_toRightOf="@+id/buyer_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/buyer_name_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/buyer_name_tv"
+        android:id="@+id/paytype_tv"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:background="@drawable/stroke_red_square_bg"
+        android:text="公户订单"
+        android:textColor="@color/red"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/buy_date_tv"

@@ -64,18 +64,12 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
 
     @Override
     protected void getRvAdapterData() {
-        if (getDetailType()==1) {
-            mPresenter.getBillList(getBaseBuilder().add("date", CalendarUtil.getCurrentTime("yyyy-MM")).build(), AppHttpPathMall.BILL_LIST);
-        }else {
-            // : 2022/6/29 提现记录
-            mPresenter.getBillWithDrawList(getBaseBuilder().add("date", CalendarUtil.getCurrentTime("yyyy-MM")).build(), AppHttpPathMall.BILL_WITHDRAW);
-
-        }
+        getNetData(CalendarUtil.getCurrentTime("yyyy-MM"));
     }
 
     @Override
     protected boolean enableRefresh() {
-        return false;
+        return true;
     }
 
     @Override
@@ -123,7 +117,7 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
 
     public void initView() {
         super.initView();
-        setTitleName(getDetailType()==1?"明细":"提现");
+        setTitleName(getDetailType()==1?"明细":"提现记录");
         mBillDateTv = (TextView) findViewById(R.id.bill_date_tv);
         mBillDateTv.setText(CalendarUtil.getCurrentTime("yyyy-MM"));
         mBillDateTv.setOnClickListener(this);
@@ -133,8 +127,8 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
     }
 
     /**
-     * 1是明细 2是提现
-     * @return
+     * 1是明细 2是提现记录
+     * * @return
      */
     protected abstract int getDetailType();
 
@@ -149,19 +143,25 @@ public  abstract class AssetsBaseDetailActivity extends BaseRecyclerviewActivity
                     public void onTimeSelect(Date date, View v) {
                         String time = CalendarUtil.getCurrentTime("yyyy-MM",date);
                         mBillDateTv.setText(time);
-                        if (getDetailType()==1) {
-                            mPresenter.getBillList(getBaseBuilder().add("date", time).build(), AppHttpPathMall.BILL_LIST);
-                        }else {
-                            // : 2022/6/29 提现明细
-                            mPresenter.getBillWithDrawList(getBaseBuilder().add("date", CalendarUtil.getCurrentTime("yyyy-MM")).build(), AppHttpPathMall.BILL_WITHDRAW);
-
-                        }
-
-
+                        getNetData(time);
                     }
                 });
 
                 break;
+        }
+    }
+
+    /**
+     * 获取网络数据
+     * @param time
+     */
+    private void getNetData(String time) {
+        if (getDetailType() == 1) {
+            mPresenter.getBillList(getBaseBuilder().add("date", time).build(), AppHttpPathMall.BILL_LIST);
+        } else {
+            // : 2022/6/29 提现明细
+            mPresenter.getBillWithDrawList(getBaseBuilder().add("date", time).build(), AppHttpPathMall.BILL_WITHDRAW);
+
         }
     }
 }

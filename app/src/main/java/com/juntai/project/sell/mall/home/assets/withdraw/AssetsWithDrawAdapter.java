@@ -7,7 +7,7 @@ import com.juntai.project.sell.mall.beans.WithDrawListBean;
 
 /**
  * @Author: tobato
- * @Description: 作用描述
+ * @Description: 作用描述  提现记录
  * @UpdateUser: 更新者
  */
 public class AssetsWithDrawAdapter extends BaseQuickAdapter<WithDrawListBean.DataBean, BaseViewHolder> {
@@ -18,9 +18,10 @@ public class AssetsWithDrawAdapter extends BaseQuickAdapter<WithDrawListBean.Dat
     @Override
     protected void convert(BaseViewHolder helper, WithDrawListBean.DataBean item) {
 
-//        helper.setText(R.id.buyer_name_tv, item.getNickname());
+        helper.setGone(R.id.paytype_tv,true);
+        helper.setText(R.id.paytype_tv,1==item.getType()?"商城":"公户");
+        helper.setText(R.id.buyer_name_tv, item.getBankName());
         helper.setText(R.id.buy_amount_tv, String.valueOf(item.getPrice()));
-//        ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(item.getHeadPortrait()), (ImageView) helper.getView(R.id.buyer_head_iv));
         helper.setText(R.id.buy_date_tv, String.valueOf(item.getCreateTime()));
 
     }

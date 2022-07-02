@@ -11,7 +11,7 @@ import com.juntai.project.sell.mall.beans.BillListBean;
 
 /**
  * @Author: tobato
- * @Description: 作用描述
+ * @Description: 作用描述  收入明细
  * @UpdateUser: 更新者
  */
 public class AssetsDetailAdapter extends BaseQuickAdapter<BillListBean.DataBean.ListBean, BaseViewHolder> {

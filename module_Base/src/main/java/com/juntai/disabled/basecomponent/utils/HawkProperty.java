@@ -26,6 +26,7 @@ public class HawkProperty {
     public static String DEFAULT_ADDR = "DEFAULT_ADDR";
     public static String UNREAD = "unreadCount";
     public static String COMMODITY_DETAIL = "COMMODITY_DETAIL";
+    public static String BIND_BANK = "BIND_BANK";
 
 
     /**
@@ -46,6 +47,14 @@ public class HawkProperty {
      */
     public static String getShopKey(int shopId) {
         return SHOP_DETAIL + shopId;
+    }
+    /**
+     * 绑定的银行
+     *
+     * @return
+     */
+    public static String getBindBankKey(int userId) {
+        return SHOP_DETAIL + userId;
     }
     /**
      * 获取首页搜索历史记录的key

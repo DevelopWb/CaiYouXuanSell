@@ -412,4 +412,7 @@ public interface AppServerMall {
     @POST(AppHttpPathMall.WITHDRAW)
     Observable<BaseResult> withDraw(@Body RequestBody requestBody);
 
+    @POST(AppHttpPathMall.BIND_BANK_CARD)
+    Observable<BaseResult> bindBankCard(@Body RequestBody requestBody);
+
 }

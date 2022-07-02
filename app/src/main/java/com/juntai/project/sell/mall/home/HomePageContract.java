@@ -81,6 +81,7 @@ public interface HomePageContract {
     String ASSETS_WITHDRAW_REAL_NAME = "真实姓名";
     String ASSETS_WITHDRAW_IDCARD = "身份证号";
     String ASSETS_WITHDRAW_PHONE = "手机号";
+    String ASSETS_WITHDRAW_BANK_NAME = "开户行";
     String ASSETS_WITHDRAW_BANK = "开户行地址";
     String ASSETS_WITHDRAW_BANK_CARD = "银行卡号";
 

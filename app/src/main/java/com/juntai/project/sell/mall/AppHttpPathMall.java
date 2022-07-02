@@ -493,6 +493,10 @@ public class AppHttpPathMall {
      * 提现
      */
     public static final String WITHDRAW = BASE + "/seller/toWithdrawFunds";
+    /**
+     * 绑定银行卡
+     */
+    public static final String BIND_BANK_CARD = BASE + "/seller/bindingBankCard";
 
 
 }
