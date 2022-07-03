@@ -1,7 +1,7 @@
 package com.example.chat.base.uploadFile.listener;
 
 
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 
 /**
  * @Author: tobato

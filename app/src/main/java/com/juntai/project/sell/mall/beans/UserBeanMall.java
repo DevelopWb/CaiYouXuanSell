@@ -1,7 +1,7 @@
 package com.juntai.project.sell.mall.beans;
 
 
-import com.example.chat.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">@color/orange</color>-->
+    <!--<color name="colorPrimaryDark">@color/orange</color>-->
+    <!--<color name="colorAccent">#D81B60</color>-->
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="gray_light">#f2f2f2</color>
+    <color name="gray_f7">#fff7f7f7</color>
+    <color name="background2">#22cccccc</color>
+    <color name="gray">#cccccc</color>
+    <color name="divider_color">#eeeeee</color>
+    <color name="gray_ripple">#eeeeee</color>
+    <color name="colorAccent">#2C8FFC</color>
+    <color name="colorTheme">#58A4DB</color>
+    <color name="colorThemeDark">#2851CF</color>
+    <color name="red">#ffff4444</color>
+    <color name="red_pre">#ccff4444</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="orange">#ff8800</color>
+    <color name="gray_toast_bt">#888888</color>
+    <color name="text_gray">#707070</color>
+    <color name="text_title">#555555</color>
+    <color name="text_content">#777777</color>
+    <color name="text_label">#AAABAB</color>
+    <color name="hint_text_color">#FFCCCCCC</color>
+
+    <color name="popupwindow_bg_color">#55cccccc</color>
+
+    <!--    半透明白色背景-->
+    <color name="translucence_white">#33ffffff</color>
+    <color name="translucence_white_2">#66ffffff</color>
+    <color name="translucence_black">#50000000</color>
+</resources>

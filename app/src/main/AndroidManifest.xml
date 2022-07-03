@@ -45,7 +45,6 @@
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityDetailInfoActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.AddCommodityActivity" />
         <activity android:name=".home.commodityManager.allCommodity.editCommodity.EditCommodityActivity" />
-        <activity android:name=".home.commodityManager.allCommodity.TestActivity" />
         <activity
             android:name=".home.commodityManager.allCommodity.AllCommodityActivity"
             android:launchMode="singleTask" />
@@ -54,14 +53,12 @@
         <activity android:name=".home.shop.ShopManagerActivity" />
         <activity android:name=".home.systemNotice.PicTextActivity" />
         <activity android:name=".home.systemNotice.SystemNoticeActivity" />
-        <activity android:name=".home.live.LivePrepareActivity" />
-        <activity android:name=".home.live.StartLiveActivity" />
-        <activity android:name=".home.live.LiveEndActivity" />
+        <activity android:name="com.example.live_moudle.live.LivePrepareActivity" />
+        <activity android:name="com.example.live_moudle.live.StartLiveActivity" />
+        <activity android:name="com.example.live_moudle.live.LiveEndActivity" />
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
 
-        <service
-            android:name="com.juntai.project.sell.mall.home.live.BackgroundService"
-            android:enabled="true" />
+
         <activity
             android:name=".share.ShareActivity"
             android:launchMode="singleTop" />

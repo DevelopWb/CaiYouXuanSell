@@ -1,7 +1,7 @@
 package com.juntai.project.sell.mall;
 
 
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
@@ -16,8 +16,6 @@ import com.juntai.project.sell.mall.beans.CitysBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatDataBean;
 import com.juntai.project.sell.mall.beans.CommodityFormatListBean;
 import com.juntai.project.sell.mall.beans.IdNameBean;
-import com.juntai.project.sell.mall.beans.LiveResultBean;
-import com.juntai.project.sell.mall.beans.LiveTypeListBean;
 import com.juntai.project.sell.mall.beans.MonthStatisticsBean;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.juntai.project.sell.mall.beans.PlayUrlBean;
@@ -419,13 +417,6 @@ public interface AppServerMall {
 
 
 
-        /*====================================================    直播   ==============================================================*/
 
-
-    @POST(AppHttpPathMall.GET_LIVE_TYPE)
-    Observable<LiveTypeListBean> getLiveType();
-
-    @POST(AppHttpPathMall.START_LIVE)
-    Observable<LiveResultBean> startLive(@Body RequestBody requestBody);
 
 }

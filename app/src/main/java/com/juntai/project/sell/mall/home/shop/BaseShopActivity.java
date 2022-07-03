@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.example.chat.util.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;

@@ -7,8 +7,7 @@ import android.util.Log;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
-import com.juntai.disabled.basecomponent.base.update.UpdateActivity;
+import com.juntai.disabled.basecomponent.base.BaseSelectPicsActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.bdmap.utils.BaiDuLocationUtils;
 
@@ -17,7 +16,7 @@ import com.juntai.disabled.bdmap.utils.BaiDuLocationUtils;
  * @description 描述
  * @date 2020/4/27 8:48  app的基类
  */
-public abstract class BaseRequestLocationActivity<P extends BasePresenter> extends UpdateActivity<P> {
+public abstract class BaseRequestLocationActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
     public Double lat = 0.0;
     public Double lng = 0.0;
     private LocationClient mLocationClient;

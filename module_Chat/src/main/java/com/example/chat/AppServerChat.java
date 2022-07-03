@@ -1,7 +1,7 @@
 package com.example.chat;
 
 
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;

@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.example.chat.AppNetModuleChat;
 import com.example.chat.base.uploadFile.listener.OnThreadResultListener;
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 
 import java.io.UnsupportedEncodingException;

@@ -1,13 +1,14 @@
 package com.juntai.project.sell.mall;
 
+import com.juntai.disabled.basecomponent.net.AppHttpPath;
+
 public class AppHttpPathMall {
 
 
-    //    public static final String BASE = "http://192.168.124.148:8080/jt-mall";
-    public static final String BASE = "http://www.juntaikeji.com:21970/jt-mall";
-    //    public static final String BASE_SOCKET = "ws://192.168.124.148/webSocket/";
+    //    public static final String AppHttpPath.BASE = "http://192.168.124.148:8080/jt-mall";
+    //    public static final String AppHttpPath.BASE_SOCKET = "ws://192.168.124.148/webSocket/";
     public static final String BASE_SOCKET = "ws://www.juntaikeji.com:21970/jt-mall/sellerSocket/";
-    //    public static final String BASE_IMAGE = "http://192.168.124.148:9598";
+    //    public static final String AppHttpPath.BASE_IMAGE = "http://192.168.124.148:9598";
     public static final String BASE_IMAGE = "http://www.juntaikeji.com:19170";
 
     public static final String ALL_CITYS = "https://restapi.amap.com/v3/config/district?";
@@ -24,35 +25,35 @@ public class AppHttpPathMall {
     /**
      * 上传图片或视频
      */
-    public static final String UPLOAD_FILES = BASE + "/uploadFile/upload";
+    public static final String UPLOAD_FILES = AppHttpPath.BASE + "/uploadFile/upload";
     public static final String UPLOAD_ONE_PIC = "/uploadFile/uploadonepic";
     public static final String UPLOAD_MORE_PIC = "/uploadFile/uploadmorepic";
     /**
      * 登录
      */
-    public static final String LOGIN = BASE + "/member/sellerLogin";
+    public static final String LOGIN = AppHttpPath.BASE + "/member/sellerLogin";
     /**
      * 登录
      */
-    public static final String REGIST = BASE + "/member/register";
+    public static final String REGIST = AppHttpPath.BASE + "/member/register";
 
 
     /**
      * /**
      * 检查更新
      */
-    public static final String APP_UPDATE = BASE + "/member/detectionAppVersions";
+    public static final String APP_UPDATE = AppHttpPath.BASE + "/member/detectionAppVersions";
 
     /**
      * 获取短信验证码
      */
-    public static final String GET_SMS_CODE = BASE + "/member/getSMSCode";
+    public static final String GET_SMS_CODE = AppHttpPath.BASE + "/member/getSMSCode";
 
 
     /**
      * 查找周边商铺
      */
-    public static final String GET_SHOPES_AROUND = BASE + "/seller/selectPeripheryShopList";
+    public static final String GET_SHOPES_AROUND = AppHttpPath.BASE + "/seller/selectPeripheryShopList";
 
 
 
@@ -66,33 +67,33 @@ public class AppHttpPathMall {
     /**
      * 个人详情
      */
-    public static final String GET_USER_INFO = BASE + "/member/getUserInfo";
+    public static final String GET_USER_INFO = AppHttpPath.BASE + "/member/getUserInfo";
     /**
      * 提交意见反馈
      */
-    public static final String COMMIT_SUGGESTION = BASE + "/opinion/save";
+    public static final String COMMIT_SUGGESTION = AppHttpPath.BASE + "/opinion/save";
     /**
      * 退出登录
      */
-    public static final String LOGOUT = BASE + "/member/logout";
+    public static final String LOGOUT = AppHttpPath.BASE + "/member/logout";
 
     /**
      * 修改密码
      */
-    public static final String MODIFY_PWD = BASE + "/member/updateMemberPwd";
+    public static final String MODIFY_PWD = AppHttpPath.BASE + "/member/updateMemberPwd";
     /**
      * 修改手机号
      */
-    public static final String MODIFY_PHONE = BASE + "/member/updateMemberPhone";
+    public static final String MODIFY_PHONE = AppHttpPath.BASE + "/member/updateMemberPhone";
     /**
      * 修改个人信息
      */
-    public static final String MODIFY_USER_INFO = BASE + "/member/updateMember";
+    public static final String MODIFY_USER_INFO = AppHttpPath.BASE + "/member/updateMember";
 
     /**
      * 修改账户
      */
-    public static final String MODIFY_USER_ACCOUNT = BASE + "/member/updateUserAccountNumber";
+    public static final String MODIFY_USER_ACCOUNT = AppHttpPath.BASE + "/member/updateUserAccountNumber";
 
 
     /**
@@ -104,17 +105,17 @@ public class AppHttpPathMall {
     /*====================================================    天气   ==============================================================*/
 
     //实时天气
-    public static final String REALTIME_WEATHER = BASE + "/u/appConnector/getRealTimeWeather.shtml";
+    public static final String REALTIME_WEATHER = AppHttpPath.BASE + "/u/appConnector/getRealTimeWeather.shtml";
     //天气预报
-    public static final String FORCAST_WEATHER = BASE + "/u/appConnector/weatherForecast.shtml";
+    public static final String FORCAST_WEATHER = AppHttpPath.BASE + "/u/appConnector/weatherForecast.shtml";
     //获取省份
-    public static final String PROVINCE = BASE + "/u/appConnector/getProvince.shtml";
+    public static final String PROVINCE = AppHttpPath.BASE + "/u/appConnector/getProvince.shtml";
     //获取城市 u/apiAppAlarm/getProvince.shtml
-    public static final String CITY = BASE + "/u/appConnector/getCity.shtml";
+    public static final String CITY = AppHttpPath.BASE + "/u/appConnector/getCity.shtml";
     //获取地区 u/apiAppAlarm/getProvince.shtml
-    public static final String AREA = BASE + "/u/appConnector/getArea.shtml";
+    public static final String AREA = AppHttpPath.BASE + "/u/appConnector/getArea.shtml";
     //获取街道
-    public static final String STREET = BASE + "/u/appConnector/getStreet.shtml";
+    public static final String STREET = AppHttpPath.BASE + "/u/appConnector/getStreet.shtml";
 
 
 
@@ -125,19 +126,19 @@ public class AppHttpPathMall {
 
 
     //商品类目
-    public static final String COMMODIFY_LABELS = BASE + "/seller/selectShopCategoryList";
+    public static final String COMMODIFY_LABELS = AppHttpPath.BASE + "/seller/selectShopCategoryList";
     /**
      * 商品推荐
      */
-    public static final String COMMODIFY_RECOMMEND = BASE + "/seller/selectRecommendList";
+    public static final String COMMODIFY_RECOMMEND = AppHttpPath.BASE + "/seller/selectRecommendList";
     /**
      * 商品详情
      */
-    public static final String COMMODIFY_DETAIL = BASE + "/seller/selectCommodityInfo";
+    public static final String COMMODIFY_DETAIL = AppHttpPath.BASE + "/seller/selectCommodityInfo";
     /**
      * 商品评价
      */
-    public static final String COMMODIFY_EVALUATION = BASE + "/seller/selectCommodityEvaluateList";
+    public static final String COMMODIFY_EVALUATION = AppHttpPath.BASE + "/seller/selectCommodityEvaluateList";
 
 
 
@@ -149,23 +150,23 @@ public class AppHttpPathMall {
     /**
      * 店铺商品列表
      */
-    public static final String SHOP_COMMODITY_LIST = BASE + "/buyers/selectShopCommodityList";
+    public static final String SHOP_COMMODITY_LIST = AppHttpPath.BASE + "/buyers/selectShopCommodityList";
     /**
      * 店铺收藏或取消
      */
-    public static final String SHOP_COLLECT = BASE + "/seller/addCollectShop";
+    public static final String SHOP_COLLECT = AppHttpPath.BASE + "/seller/addCollectShop";
     /**
      * 店铺收藏列表
      */
-    public static final String SHOP_COLLECT_LIST = BASE + "/seller/getShopCollectList";
+    public static final String SHOP_COLLECT_LIST = AppHttpPath.BASE + "/seller/getShopCollectList";
     /**
      * 商品收藏或取消
      */
-    public static final String COMMODITY_COLLECT = BASE + "/seller/addCollectCommodity";
+    public static final String COMMODITY_COLLECT = AppHttpPath.BASE + "/seller/addCollectCommodity";
     /**
      * 商品收藏列表
      */
-    public static final String COMMODITY_COLLECT_LIST = BASE + "/seller/getCommodityCollectList";
+    public static final String COMMODITY_COLLECT_LIST = AppHttpPath.BASE + "/seller/getCommodityCollectList";
 
 
 
@@ -178,15 +179,15 @@ public class AppHttpPathMall {
     /**
      * 加入修改购物车
      */
-    public static final String EDIT_CART = BASE + "/seller/addShoppingTrolley";
+    public static final String EDIT_CART = AppHttpPath.BASE + "/seller/addShoppingTrolley";
     /**
      * 购物车列表
      */
-    public static final String CART_LIST = BASE + "/seller/selectShoppingTrolleyList";
+    public static final String CART_LIST = AppHttpPath.BASE + "/seller/selectShoppingTrolleyList";
     /**
      * 删除购物车商品
      */
-    public static final String DELETE_CART_COMMODITY = BASE + "/seller/deleteShoppingTrolley";
+    public static final String DELETE_CART_COMMODITY = AppHttpPath.BASE + "/seller/deleteShoppingTrolley";
 
 
 
@@ -198,19 +199,19 @@ public class AppHttpPathMall {
     /**
      * 地址列表
      */
-    public static final String ADDR_LIST = BASE + "/seller/selectShippingAddressList";
+    public static final String ADDR_LIST = AppHttpPath.BASE + "/seller/selectShippingAddressList";
     /**
      * 添加（修改）用户收货地址
      */
-    public static final String ADD_OR_EDIT_ADDR = BASE + "/seller/addShippingAddress";
+    public static final String ADD_OR_EDIT_ADDR = AppHttpPath.BASE + "/seller/addShippingAddress";
     /**
      * 删除用户收货地址
      */
-    public static final String DELETE_ADDR = BASE + "/seller/deleteShippingAddress";
+    public static final String DELETE_ADDR = AppHttpPath.BASE + "/seller/deleteShippingAddress";
     /**
      * 设置默认地址
      */
-    public static final String SET_DEFAULT_ADDR = BASE + "/seller/defaultShippingAddress";
+    public static final String SET_DEFAULT_ADDR = AppHttpPath.BASE + "/seller/defaultShippingAddress";
 
 
 
@@ -224,76 +225,76 @@ public class AppHttpPathMall {
     /**
      * 购物车生成订单
      */
-    public static final String CREAT_ORDER_CART = BASE + "/seller/createTrolleyOrderForm";
+    public static final String CREAT_ORDER_CART = AppHttpPath.BASE + "/seller/createTrolleyOrderForm";
 
     /**
      * 购物车生成订单
      */
-    public static final String CREAT_ORDER_BUY = BASE + "/seller/createOrderForm";
+    public static final String CREAT_ORDER_BUY = AppHttpPath.BASE + "/seller/createOrderForm";
     /**
      * 提交订单
      */
-    public static final String COMMIT_ORDER = BASE + "/seller/submitOrderForm";
+    public static final String COMMIT_ORDER = AppHttpPath.BASE + "/seller/submitOrderForm";
     /**
      * 取消订单
      */
-    public static final String CANCEL_ORDER = BASE + "/buyers/cancelOrderForm";
+    public static final String CANCEL_ORDER = AppHttpPath.BASE + "/buyers/cancelOrderForm";
     /**
      * 提醒发货
      */
-    public static final String NOTICE_SEND = BASE + "/seller/remindDelivery";
+    public static final String NOTICE_SEND = AppHttpPath.BASE + "/seller/remindDelivery";
     /**
      * 删除已取消订单
      */
-    public static final String DELETE_CANCEL_ORDER = BASE + "/seller/deleteOrder";
+    public static final String DELETE_CANCEL_ORDER = AppHttpPath.BASE + "/seller/deleteOrder";
     /**
      * 确认收货
      */
-    public static final String CONFIRM_RECEIVED = BASE + "/seller/confirmOrderForm";
+    public static final String CONFIRM_RECEIVED = AppHttpPath.BASE + "/seller/confirmOrderForm";
     /**
      * 订单状态
      */
-    public static final String ORDER_STATUS = BASE + "/seller/getOrderFormStateNum";
+    public static final String ORDER_STATUS = AppHttpPath.BASE + "/seller/getOrderFormStateNum";
     /**
      * 订单列表
      */
-    public static final String ORDER_LIST = BASE + "/seller/selectOrderFormList";
+    public static final String ORDER_LIST = AppHttpPath.BASE + "/seller/selectOrderFormList";
     /**
      * 订单详情
      */
-    public static final String ORDER_DETAIL = BASE + "/seller/selectOrderFormInfo";
+    public static final String ORDER_DETAIL = AppHttpPath.BASE + "/seller/selectOrderFormInfo";
 
     /**
      * 对公付款
      */
-    public static final String ORDER_PAY_PUB_ACCOUNT = BASE + "/seller/publicPay/publicPayTradeAppPayRequest";
+    public static final String ORDER_PAY_PUB_ACCOUNT = AppHttpPath.BASE + "/seller/publicPay/publicPayTradeAppPayRequest";
     /**
      * 微信支付
      */
-    public static final String ORDER_PAY_PUB_WEIXIN = BASE + "/seller/weChatPay/weChatPayTradeAppPayRequest";
+    public static final String ORDER_PAY_PUB_WEIXIN = AppHttpPath.BASE + "/seller/weChatPay/weChatPayTradeAppPayRequest";
     /**
      * 支付宝支付
      */
-    public static final String ORDER_PAY_ZHIFUBAO = BASE + "/seller/aliPay/aliPayTradeAppPayRequest";
+    public static final String ORDER_PAY_ZHIFUBAO = AppHttpPath.BASE + "/seller/aliPay/aliPayTradeAppPayRequest";
     /**
      * 订单状态数量
      */
-    public static final String ORDER_STATUS_AMOUNT = BASE + "/seller/getOrderFormStateNum";
+    public static final String ORDER_STATUS_AMOUNT = AppHttpPath.BASE + "/seller/getOrderFormStateNum";
 
     /**
      * 退货原因
      */
-    public static final String GET_REFUND_REASON = BASE + "/seller/getSalesReturnCause";
+    public static final String GET_REFUND_REASON = AppHttpPath.BASE + "/seller/getSalesReturnCause";
 
     /**
      * 申请退款
      */
-    public static final String REQUEST_REFUND = BASE + "/seller/addSalesReturn";
+    public static final String REQUEST_REFUND = AppHttpPath.BASE + "/seller/addSalesReturn";
 
     /**
      * 发布评价
      */
-    public static final String START_EVALUATE = BASE + "/seller/addCommodityEvaluate";
+    public static final String START_EVALUATE = AppHttpPath.BASE + "/seller/addCommodityEvaluate";
 
 
 
@@ -305,30 +306,30 @@ public class AppHttpPathMall {
     /**
      * 发送消息
      */
-    public static final String SEND_MSG = BASE + "/msg/sendMsg";
+    public static final String SEND_MSG = AppHttpPath.BASE + "/msg/sendMsg";
     /**
      * 消息已读
      */
-    public static final String MESSAGE_READ = BASE + "/msg/updateMsgRead";
+    public static final String MESSAGE_READ = AppHttpPath.BASE + "/msg/updateMsgRead";
     /**
      * 未读消息详情
      */
-    public static final String UNREAD_CONTACT_MSG = BASE + "/msg/selectMsgInfo";
+    public static final String UNREAD_CONTACT_MSG = AppHttpPath.BASE + "/msg/selectMsgInfo";
     /**
      * 消息列表
      */
-    public static final String NEWS_LIST = BASE + "/msg/selectMsgList";
+    public static final String NEWS_LIST = AppHttpPath.BASE + "/msg/selectMsgList";
 
 
     /**
      * 搜索
      */
-    public static final String SEARCH_COMMODITY = BASE + "/member/search";
+    public static final String SEARCH_COMMODITY = AppHttpPath.BASE + "/member/search";
 
     /**
      * 搜索
      */
-    public static final String SEARCH_SHOP = BASE + "/member/search";
+    public static final String SEARCH_SHOP = AppHttpPath.BASE + "/member/search";
 
 
 
@@ -342,16 +343,16 @@ public class AppHttpPathMall {
     /**
      * 首页
      */
-    public static final String SHOP_HOME_INFO = BASE + "/seller/selectShopHome";
+    public static final String SHOP_HOME_INFO = AppHttpPath.BASE + "/seller/selectShopHome";
     /**
      * 系统公告和通知
      */
-    public static final String GET_SYSTEM_NOTICE = BASE + "/seller/getSysNoticeList";
+    public static final String GET_SYSTEM_NOTICE = AppHttpPath.BASE + "/seller/getSysNoticeList";
 
     /**
      * 系统公告和通知
      */
-    public static final String GET_SYSTEM_NOTICE_DETAIL = BASE + "/seller/getSysNoticeInfo";
+    public static final String GET_SYSTEM_NOTICE_DETAIL = AppHttpPath.BASE + "/seller/getSysNoticeInfo";
 
 
 
@@ -362,20 +363,20 @@ public class AppHttpPathMall {
     /**
      * 店铺详情
      */
-    public static final String SHOP_DETAIL = BASE + "/seller/selectShopInfo";
+    public static final String SHOP_DETAIL = AppHttpPath.BASE + "/seller/selectShopInfo";
     /**
      * 店铺申请
      */
-    public static final String SHOP_APPLY = BASE + "/seller/applyShop";
+    public static final String SHOP_APPLY = AppHttpPath.BASE + "/seller/applyShop";
     /**
      * 编辑店铺申请
      */
-    public static final String EDIT_SHOP_APPLY = BASE + "/seller/updateApplyShop";
+    public static final String EDIT_SHOP_APPLY = AppHttpPath.BASE + "/seller/updateApplyShop";
 
     /**
      * 经营类目
      */
-    public static final String ALL_SHOP_CATEGORY = BASE + "/seller/selectShopCategoryList";
+    public static final String ALL_SHOP_CATEGORY = AppHttpPath.BASE + "/seller/selectShopCategoryList";
 
 
 
@@ -384,19 +385,19 @@ public class AppHttpPathMall {
     /**
      * 商品类目
      */
-    public static final String ALL_COMMODITY_CATEGORY = BASE + "/seller/selectShopClassifyList";
+    public static final String ALL_COMMODITY_CATEGORY = AppHttpPath.BASE + "/seller/selectShopClassifyList";
     /**
      * 添加商品类目
      */
-    public static final String ADD_COMMODITY_CATEGORY = BASE + "/seller/addShopClassify";
+    public static final String ADD_COMMODITY_CATEGORY = AppHttpPath.BASE + "/seller/addShopClassify";
     /**
      * 修改商品类目
      */
-    public static final String MODIFY_COMMODITY_CATEGORY = BASE + "/seller/updateShopClassify";
+    public static final String MODIFY_COMMODITY_CATEGORY = AppHttpPath.BASE + "/seller/updateShopClassify";
     /**
      * 删除商品类目
      */
-    public static final String DELETE_COMMODITY_CATEGORY = BASE + "/seller/deleteShopClassify";
+    public static final String DELETE_COMMODITY_CATEGORY = AppHttpPath.BASE + "/seller/deleteShopClassify";
 
 
 
@@ -406,52 +407,52 @@ public class AppHttpPathMall {
     /**
      * 商品列表
      */
-    public static final String GET_ALL_COMMODITY = BASE + "/seller/selectCommodityList";
+    public static final String GET_ALL_COMMODITY = AppHttpPath.BASE + "/seller/selectCommodityList";
     /**
      * 商品详情
      */
-    public static final String GET_COMMODITY_DETAIL = BASE + "/seller/selectCommodityInfo";
+    public static final String GET_COMMODITY_DETAIL = AppHttpPath.BASE + "/seller/selectCommodityInfo";
     /**
      * 添加商品基础信息
      */
-    public static final String ADD_COMMODITY_BASE_INFO = BASE + "/seller/addCommodity";
+    public static final String ADD_COMMODITY_BASE_INFO = AppHttpPath.BASE + "/seller/addCommodity";
     /**
      * 更新商品基础信息
      */
-    public static final String UPDATE_COMMODITY_BASE_INFO = BASE + "/seller/updateCommodity";
+    public static final String UPDATE_COMMODITY_BASE_INFO = AppHttpPath.BASE + "/seller/updateCommodity";
     /**
      * 删除商品基础信息
      */
-    public static final String DELETE_COMMODITY = BASE + "/seller/deleteCommodity";
+    public static final String DELETE_COMMODITY = AppHttpPath.BASE + "/seller/deleteCommodity";
     /**
      * 生成商品属性
      */
-    public static final String CREATE_COMMODITY_FORMAT = BASE + "/seller/isFormatAttr";
+    public static final String CREATE_COMMODITY_FORMAT = AppHttpPath.BASE + "/seller/isFormatAttr";
     /**
      * 获取商品属性
      */
-    public static final String GET_COMMODITY_FORMAT = BASE + "/seller/getCommodityAttr";
+    public static final String GET_COMMODITY_FORMAT = AppHttpPath.BASE + "/seller/getCommodityAttr";
     /**
      * 添加修改 商品属性
      */
-    public static final String EDIT_COMMODITY_FORMAT = BASE + "/seller/addCommodityAttr";
+    public static final String EDIT_COMMODITY_FORMAT = AppHttpPath.BASE + "/seller/addCommodityAttr";
     /**
      * 添加修改 商品属性
      */
-    public static final String MODIFY_COMMODITY_PRICE_STOCK= BASE + "/seller/updateCommodityAttrStockPrice";
+    public static final String MODIFY_COMMODITY_PRICE_STOCK= AppHttpPath.BASE + "/seller/updateCommodityAttrStockPrice";
     /**
      * 上架
      */
-    public static final String COMMODITY_ON_SALE = BASE + "/seller/onSale";
-    public static final String COMMODITY_ON_SALE_ = BASE + "/seller/onSale_";
+    public static final String COMMODITY_ON_SALE = AppHttpPath.BASE + "/seller/onSale";
+    public static final String COMMODITY_ON_SALE_ = AppHttpPath.BASE + "/seller/onSale_";
     /**
      * 发货
      */
-    public static final String SEND_GOODS = BASE + "/seller/addPhysicalDistribution";
+    public static final String SEND_GOODS = AppHttpPath.BASE + "/seller/addPhysicalDistribution";
     /**
      * 是否同意退货
      */
-    public static final String REFUND_REQUEST = BASE + "/seller/orderRefund";
+    public static final String REFUND_REQUEST = AppHttpPath.BASE + "/seller/orderRefund";
 
 
 
@@ -461,7 +462,7 @@ public class AppHttpPathMall {
     /**
      * 上传店铺背景图及形象图片
      */
-    public static final String ADD_SHOP_BANNERS = BASE + "/seller/addShopPhoto";
+    public static final String ADD_SHOP_BANNERS = AppHttpPath.BASE + "/seller/addShopPhoto";
 
 
 
@@ -473,30 +474,30 @@ public class AppHttpPathMall {
     /**
      * 账单明细列表
      */
-    public static final String BILL_LIST = BASE + "/seller/getBillList";
+    public static final String BILL_LIST = AppHttpPath.BASE + "/seller/getBillList";
 
     /**
      * bill基础信息
      */
-    public static final String BILL_BASE_INFO = BASE + "/seller/getFinanceInfo";
+    public static final String BILL_BASE_INFO = AppHttpPath.BASE + "/seller/getFinanceInfo";
     /**
      * 提现列表
      */
-    public static final String BILL_WITHDRAW = BASE + "/seller/getWithdrawList";
+    public static final String BILL_WITHDRAW = AppHttpPath.BASE + "/seller/getWithdrawList";
 
 
     /**
      * 月收入统计
      */
-    public static final String MONTH_STATISTICS = BASE + "/seller/getMonthIncome";
+    public static final String MONTH_STATISTICS = AppHttpPath.BASE + "/seller/getMonthIncome";
     /**
      * 提现
      */
-    public static final String WITHDRAW = BASE + "/seller/toWithdrawFunds";
+    public static final String WITHDRAW = AppHttpPath.BASE + "/seller/toWithdrawFunds";
     /**
      * 绑定银行卡
      */
-    public static final String BIND_BANK_CARD = BASE + "/seller/bindingBankCard";
+    public static final String BIND_BANK_CARD = AppHttpPath.BASE + "/seller/bindingBankCard";
 
 
 
@@ -504,15 +505,6 @@ public class AppHttpPathMall {
 
         /*====================================================    live   ==============================================================*/
 
-
-    /**
-     * 直播类型
-     */
-    public static final String GET_LIVE_TYPE = BASE + "/live/getLiveType";
-    /**
-     * 开启直播
-     */
-    public static final String START_LIVE = BASE + "/live/openLive";
 
 
 

@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- 直播相关 -->
+    <string name="certification_warn">需要完成身份认证，才可以发布直播内容</string>
+    <string name="prompt_message">说两句...</string>
+    <string name="live_welcome">欢迎您使用视觉派直播服务。视觉派直播禁止包含色情、违法、侵权等性质内容，对于发布违规内容用户，将采取禁言或封号等管理手段。</string>
+
+    <string name="connect">已连接</string>
+    <string name="disconnect">断开连接，请检查您的互联网连接</string>
+    <string name="error_connect">连接失败</string>
+
+    <!-- messages -->
+    <string name="user_action_typing">正在输入...</string>
+
+</resources>

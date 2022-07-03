@@ -2,7 +2,7 @@ package com.example.chat.base.uploadFile;
 
 
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 
 import io.reactivex.observers.DefaultObserver;
 

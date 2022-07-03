@@ -25,6 +25,8 @@ import com.juntai.disabled.bdmap.utils.MapUtil;
 import com.juntai.disabled.bdmap.utils.MyOrientationListener;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 
+import java.util.List;
+
 /**
  * @aouther tobato
  * @description 描述   位置展示
@@ -228,5 +230,10 @@ public class LocateShowActivity extends BaseRequestLocationActivity implements V
     @Override
     protected boolean canCancelLoadingDialog() {
         return true;
+    }
+
+    @Override
+    protected void onPicsAndEmpressed(List icons) {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.juntai.project.sell.mall.mine.myinfo;
 
-import com.example.chat.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;

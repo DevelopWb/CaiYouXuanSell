@@ -1,7 +1,7 @@
 package com.example.chat.base.uploadFile;
 
 
-import com.example.chat.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 
 import java.io.File;

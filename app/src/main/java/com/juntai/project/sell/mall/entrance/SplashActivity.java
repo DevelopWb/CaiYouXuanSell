@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.project.sell.mall.AppHttpPathMall;
@@ -78,7 +79,13 @@ public class SplashActivity extends BaseAppActivity<HomePagePresent> implements 
                                 finish();
                             } else {
                                 // : 2022/6/8 获取用户详情
-                                mPresenter.getUserInfo(getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
+                                if (!TextUtils.isEmpty(UserInfoManagerMall.getAccount())) {
+                                    mPresenter.getUserInfo(getBaseBuilder().build(), AppHttpPathMall.GET_USER_INFO);
+                                }else {
+                                    UserInfoManagerMall.clearUserData();
+                                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                                    finish();
+                                }
                             }
 
                         } else {

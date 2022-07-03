@@ -1,6 +1,6 @@
 package com.example.chat.util;
 
-import com.example.chat.bean.ContactBean;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;

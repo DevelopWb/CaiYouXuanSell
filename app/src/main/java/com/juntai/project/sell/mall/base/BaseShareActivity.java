@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.base.BaseMoreBottomDialog;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.bean.MoreMenuBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;

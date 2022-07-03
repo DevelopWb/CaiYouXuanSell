@@ -1,6 +1,7 @@
 package com.example.chat.bean;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 
 /**
  * @Author: tobato

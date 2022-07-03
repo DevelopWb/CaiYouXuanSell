@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.live_moudle.live.LivePrepareActivity;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -24,7 +25,6 @@ import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
 import com.juntai.project.sell.mall.beans.sell.ShopHomeInfoBean;
 import com.juntai.project.sell.mall.home.assets.AssetsActivity;
 import com.juntai.project.sell.mall.home.commodityManager.CommodityManagerActivity;
-import com.juntai.project.sell.mall.home.live.LivePrepareActivity;
 import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
 import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
@@ -116,7 +116,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         // : 2022/6/7 直播
                         if (UserInfoManagerMall.getRealNameStatus() == 2) {
                             //初始化直播
-                            startActivity(new Intent(mContext, LivePrepareActivity.class));
+                            startActivity(new Intent(mContext, LivePrepareActivity.class).putExtra(BASE_PARCELABLE,UserInfoManagerMall.getUser()));
                         } else if (UserInfoManagerMall.getRealNameStatus() == 1) {
                             ToastUtils.warning(mContext, "实名认证审核中！");
                         } else {
