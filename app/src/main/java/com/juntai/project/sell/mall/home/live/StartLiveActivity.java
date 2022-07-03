@@ -2,7 +2,6 @@ package com.juntai.project.sell.mall.home.live;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.constraint.ConstraintLayout;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,20 +29,6 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements H
     LiveResultBean.DataBean liveBean;
     private StreamLiveCameraView mStreamPreviewView;
     private StreamAVOption streamAVOption;
-    private ImageView mInfoUserImage;
-    /**
-     * 姓名
-     */
-    private TextView mInfoUserName;
-    /**
-     * 0粉丝
-     */
-    private TextView mInfoFansCount;
-    /**
-     * 关注
-     */
-    private TextView mInfoGuanzhuBtn;
-    private ConstraintLayout mUserInfoLayout;
     /**
      * 100人次观看
      */
@@ -67,14 +52,11 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements H
     @Override
     public void initView() {
         initToolbarAndStatusBar(false);
+        mImmersionBar.reset().statusBarColor(R.color.transparent)
+                .statusBarDarkFont(true)
+                .init();
         liveBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
         mStreamPreviewView = (StreamLiveCameraView) findViewById(R.id.stream_previewView);
-        mInfoUserImage = (ImageView) findViewById(R.id.info_user_image);
-        mInfoUserName = (TextView) findViewById(R.id.info_user_name);
-        mInfoFansCount = (TextView) findViewById(R.id.info_fans_count);
-        mInfoGuanzhuBtn = (TextView) findViewById(R.id.info_guanzhu_btn);
-        mUserInfoLayout = (ConstraintLayout) findViewById(R.id.user_info_layout);
-        mUserInfoLayout.setVisibility(View.GONE);
         mViewNumberTv = (TextView) findViewById(R.id.view_number_tv);
         mLiveCloseBtn = (ImageView) findViewById(R.id.live_close_btn);
         mLiveCloseBtn.setOnClickListener(this);

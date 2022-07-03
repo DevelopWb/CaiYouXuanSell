@@ -1,5 +1,7 @@
 package com.juntai.project.sell.mall.home.assets.withdraw;
 
+import android.support.v4.content.ContextCompat;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.project.sell.mall.R;
@@ -22,6 +24,14 @@ public class AssetsWithDrawAdapter extends BaseQuickAdapter<WithDrawListBean.Dat
         helper.setText(R.id.buyer_name_tv, item.getBankName());
         helper.setText(R.id.buy_amount_tv, String.valueOf(item.getPrice()));
         helper.setText(R.id.buy_date_tv, String.valueOf(item.getCreateTime()));
+        if (1!=item.getType()) {
+            //公户
+            helper.setTextColor(R.id.paytype_tv, ContextCompat.getColor(mContext,R.color.colorAccent));
+            helper.setBackgroundRes(R.id.paytype_tv,R.drawable.stroke_accent_3dp);
+        }else {
+            helper.setTextColor(R.id.paytype_tv, ContextCompat.getColor(mContext,R.color.red));
+            helper.setBackgroundRes(R.id.paytype_tv,R.drawable.stroke_red_square_bg);
+        }
 
     }
 }
