@@ -2,7 +2,7 @@ package com.juntai.project.sell.mall.search;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.CommodityBean;

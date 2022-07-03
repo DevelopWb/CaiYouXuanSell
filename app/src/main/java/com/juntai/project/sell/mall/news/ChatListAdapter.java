@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.chat.R;
-import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;

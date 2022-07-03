@@ -2,7 +2,7 @@ package com.juntai.project.sell.mall.home.shop;
 
 import android.text.TextUtils;
 
-import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;

@@ -1,4 +1,4 @@
-package com.example.chat.util;
+package com.juntai.disabled.basecomponent.utils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -74,6 +74,14 @@ public class MultipleItem implements MultiItemEntity {
 
     public static final int ITEM_COMMODITY = 103;//  商品
     public static final int ITEM_SHOP = 104;//  店铺
+
+
+
+        /*====================================================    直播   ==============================================================*/
+
+
+    public static final int LIVE_MSG = 50;//  消息
+    public static final int LIVE_LOG = 51;//  日志
 
 
     private int itemType;

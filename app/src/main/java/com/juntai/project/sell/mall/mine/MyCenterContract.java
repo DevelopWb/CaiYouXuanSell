@@ -1,7 +1,7 @@
 package com.juntai.project.sell.mall.mine;
 
 
-import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.mvp.IView;
 
 import java.util.List;

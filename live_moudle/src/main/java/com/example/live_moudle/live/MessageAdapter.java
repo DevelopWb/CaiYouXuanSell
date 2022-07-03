@@ -1,86 +1,44 @@
 package com.example.live_moudle.live;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.live_moudle.R;
-import com.example.live_moudle.bean.Message;
+import com.example.live_moudle.bean.LiveMsgBean;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 
 import java.util.List;
 
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+public class MessageAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
 
-    private List<Message> mMessages;
 
-    public MessageAdapter(Context context, List<Message> messages) {
-        mMessages = messages;
+    /**
+     * Same as QuickAdapter#QuickAdapter(Context,int) but with
+     * some initialization data.
+     *
+     * @param data A new list is created out of this one to avoid mutable list
+     */
+    public MessageAdapter(List<MultipleItem> data) {
+        super(data);
+        addItemType(MultipleItem.LIVE_MSG, R.layout.item_message);
+        addItemType(MultipleItem.LIVE_LOG, R.layout.item_log);
     }
+
+
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = -1;
-        switch (viewType) {
-        case Message.TYPE_MESSAGE:
-            layout = R.layout.item_message;
-            break;
-        case Message.TYPE_LOG:
-            layout = R.layout.item_log;
-            break;
-        case Message.TYPE_ACTION:
-            layout = R.layout.item_action;
-            break;
+    protected void convert(BaseViewHolder helper, MultipleItem item) {
+        switch (item.getItemType()) {
+            case MultipleItem.LIVE_MSG:
+                LiveMsgBean.DataBean  dataBean = (LiveMsgBean.DataBean) item.getObject();
+                helper.setText(R.id.username,dataBean.getNickname());
+                helper.setText(R.id.message,dataBean.getContent());
+                break;
+            case MultipleItem.LIVE_LOG:
+                helper.setText(R.id.message,(String)item.getObject());
+                break;
+            default:
+                break;
         }
-        View v = LayoutInflater
-                .from(parent.getContext())
-                .inflate(layout, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        Message message = mMessages.get(position);
-        viewHolder.setMessage(message.getMessage());
-        viewHolder.setUsername(message.getUsername());
-    }
-
-    @Override
-    public int getItemCount() {
-        return mMessages.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return mMessages.get(position).getType();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mUsernameView;
-        private TextView mMessageView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            mUsernameView = (TextView) itemView.findViewById(R.id.username);
-            mMessageView = (TextView) itemView.findViewById(R.id.message);
-        }
-
-        public void setUsername(String username) {
-            if (null == mUsernameView) return;
-            mUsernameView.setText(username+"：");
-//            mUsernameView.setTextColor(getUsernameColor(username));
-            mUsernameView.setTextColor(Color.parseColor("#FFE6A2"));
-        }
-
-        public void setMessage(String message) {
-            if (null == mMessageView) return;
-            mMessageView.setText(message);
-        }
-
     }
 }

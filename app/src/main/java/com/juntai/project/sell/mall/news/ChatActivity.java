@@ -40,7 +40,7 @@ import com.example.chat.chatmodule.ChatAdapter;
 import com.example.chat.chatmodule.ChatMoreActionAdapter;
 import com.example.chat.chatmodule.ChatPresent;
 import com.example.chat.chatmodule.EditChatMsgAdapter;
-import com.example.chat.util.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.example.chat.util.OperateMsgUtil;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.bean.MyMenuBean;

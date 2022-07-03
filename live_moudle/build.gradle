@@ -34,6 +34,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':libWSLive')
     implementation project(':module_Base')
+    implementation 'org.java-websocket:Java-WebSocket:1.4.0'
+
 
 
 }
