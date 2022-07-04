@@ -4,15 +4,13 @@ package com.example.live_moudle;
 import com.example.live_moudle.bean.LiveResultBean;
 import com.example.live_moudle.bean.LiveTypeListBean;
 import com.example.live_moudle.net.AppNetModuleLive;
+import com.example.live_moudle.util.UserInfoManagerLive;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
-import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -36,14 +34,14 @@ public class LivePresent extends BasePresenter<IModel, IView> {
      *
      * @return
      */
-    public FormBody.Builder getBaseBuilder(ContactBean contactBean) {
+    public FormBody.Builder getBaseBuilder() {
         FormBody.Builder builder = new FormBody.Builder()
-                .add("account", contactBean.getAccount())
-                .add("token", Hawk.get(HawkProperty.SP_KEY_TOKEN))
+                .add("account", UserInfoManagerLive.getAccount())
+                .add("token",UserInfoManagerLive.getUserToken())
                 .add("typeEnd", "app_seller")
-                .add("userId", String.valueOf(contactBean.getUserId()));
-        if (contactBean.getShopId() > 0) {
-            builder.add("shopId", String.valueOf(contactBean.getShopId()));
+                .add("userId", String.valueOf(UserInfoManagerLive.getUserId()));
+        if (UserInfoManagerLive.getShopId() > 0) {
+            builder.add("shopId", String.valueOf(UserInfoManagerLive.getShopId()));
         }
         return builder;
     }

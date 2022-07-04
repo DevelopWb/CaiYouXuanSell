@@ -52,7 +52,6 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
     private LiveTypesAdapter liveTypesAdapter;
     private List<LiveTypeListBean.DataBean> liveTypes;
     private int liveTypeId = 0;
-    private ContactBean contactBean;
 
     @Override
     protected LivePresent createPresenter() {
@@ -72,7 +71,6 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
     @Override
     public void initView() {
         setTitleName("开启直播");
-        contactBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
         mLiveCoverIv = (ImageView) findViewById(R.id.live_cover_big);
         mCoverLayout = (LinearLayout) findViewById(R.id.cover_layout);
         mCoverLayout.setOnClickListener(this);
@@ -147,7 +145,7 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
                 ToastUtils.toast(mContext, "请选择直播类型");
                 return;
             }
-            mPresenter.startLive(mPresenter.getBaseBuilder(contactBean)
+            mPresenter.startLive(mPresenter.getBaseBuilder()
                     .add("title", getTextViewValue(mLiveTitle))
                     .add("coverImg", liveCover)
                     .add("type", String.valueOf(liveTypeId)).build(), AppHttpPathLive.START_LIVE

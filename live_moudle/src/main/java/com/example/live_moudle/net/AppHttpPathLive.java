@@ -11,6 +11,10 @@ public class AppHttpPathLive {
     /*====================================================    live   ==============================================================*/
 
 
+    public static final String BASE_LIVE_URL ="ws://www.juntaikeji.com:21970/jt-mall/liveSocket";
+//    public static final String BASE_LIVE_URL ="ws://42.192.40.58:5000/ws";
+
+
     /**
      * 直播类型
      */
@@ -25,6 +29,8 @@ public class AppHttpPathLive {
      * 上传图片
      */
     public static final String UPLOAD_PICS =AppHttpPath.BASE + "/uploadFile/upload";
+
+
 
 
 

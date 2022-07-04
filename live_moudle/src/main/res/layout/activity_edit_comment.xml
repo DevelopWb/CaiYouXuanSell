@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext_dialog"
         android:padding="10dp">
-        <com.juntai.wisdom.basecomponent.widght.BaseEditText
+        <com.juntai.disabled.basecomponent.widght.BaseEditText
             android:id="@+id/edittext_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

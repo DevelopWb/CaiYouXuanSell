@@ -51,10 +51,19 @@ public class LiveMsgBean {
         private String headPortrait;
         private String account;
         private String content;
+        private int online;
 
         public DataBean(String nickname, String content) {
             this.nickname = nickname;
             this.content = content;
+        }
+
+        public int getOnline() {
+            return online;
+        }
+
+        public void setOnline(int online) {
+            this.online = online;
         }
 
         public String getLiveNumber() {

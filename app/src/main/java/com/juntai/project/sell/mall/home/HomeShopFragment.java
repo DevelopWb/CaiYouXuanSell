@@ -116,7 +116,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         // : 2022/6/7 直播
                         if (UserInfoManagerMall.getRealNameStatus() == 2) {
                             //初始化直播
-                            startActivity(new Intent(mContext, LivePrepareActivity.class).putExtra(BASE_PARCELABLE,UserInfoManagerMall.getUser()));
+                            startActivity(new Intent(mContext, LivePrepareActivity.class));
                         } else if (UserInfoManagerMall.getRealNameStatus() == 1) {
                             ToastUtils.warning(mContext, "实名认证审核中！");
                         } else {

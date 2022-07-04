@@ -2,6 +2,7 @@ package com.example.live_moudle.live;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ import me.lake.librestreaming.ws.StreamLiveCameraView;
  * @date 2022/7/2 16:55
  */
 public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements IView,
-        View.OnClickListener {
+        View.OnClickListener, CommentFragment.OnLineUsersListener {
     LiveResultBean.DataBean liveBean;
     private StreamLiveCameraView mStreamPreviewView;
     private StreamAVOption streamAVOption;
@@ -37,6 +38,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
     private TextView mViewNumberTv;
     private ImageView mLiveCloseBtn;
     private ImageView mCameraQiehuan;
+    private CommentFragment commentFragment;
 
 //    private CommentFragment cameraCommentFragment;
 //    private CameraLiveDetailBean.DataBean mLiveBean;//详情
@@ -65,11 +67,11 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
         mCameraQiehuan = (ImageView) findViewById(R.id.camera_qiehuan);
         mCameraQiehuan.setOnClickListener(this);
 
-//        cameraCommentFragment = CommentFragment.newInstance(MyApp.getAccount()).setCanLike(false)
-//                .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.camera_fl, cameraCommentFragment);
-//        fragmentTransaction.commit();
+        commentFragment = CommentFragment.newInstance(liveBean.getLiveNumber()).setCanLike(false)
+                .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.camera_fl, commentFragment);
+        fragmentTransaction.commit();
 
         initLiveConfig();
         if (Build.VERSION.SDK_INT >= 26) {
@@ -191,8 +193,9 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
         return false;
     }
 
-//    @Override
-//    public void onUsersCountChange(int userCount) {
-//        mViewNumberTv.setText(userCount + "人在观看");
-//    }
+
+    @Override
+    public void onUsersCountChange(int userCount) {
+        mViewNumberTv.setText(userCount + "人在观看");
+    }
 }
