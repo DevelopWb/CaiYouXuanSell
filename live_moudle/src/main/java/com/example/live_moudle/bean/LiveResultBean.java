@@ -37,6 +37,11 @@ public class LiveResultBean extends BaseResult {
         private String rtmpUrl;
         private String flvUrl;
 
+        public DataBean(String liveNumber, String rtmpUrl) {
+            this.liveNumber = liveNumber;
+            this.rtmpUrl = rtmpUrl;
+        }
+
         public String getLiveNumber() {
             return liveNumber;
         }

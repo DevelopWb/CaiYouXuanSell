@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.bean.LiveResultBean;
+import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.base.WarnDialog;
@@ -172,6 +173,7 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
                     @Override
                     public void onClick(View v) {
                         finish();
+                        SocketManager.getInstance().unConnect();
                         // : 2022/7/2 跳转结束画面 、
 //                        startActivity(new Intent(mContext, LiveEndActivity.class));
                     }

@@ -90,12 +90,24 @@ public class MyWebSocket extends WebSocketClient {
         if (eventName.equals("__disconnect")) {
             handleDisConnect(eventBean);
         }
+        // 接收到别人的发言
+        if (eventName.equals("__new_talk")) {
+            handleNewTalk(eventBean);
+        }
+        // 接收到直播结束
+        if (eventName.equals("__live_close")) {
+            handleLiveFinish(eventBean);
+        }
 
 
     }
 
     private void handleDisConnect(LiveMsgBean eventBean) {
         this.iEvent.onDisConnect(eventBean);
+    }
+
+    private void handleNewTalk(LiveMsgBean eventBean) {
+        this.iEvent.onNewTalk(eventBean);
     }
 
 
@@ -105,6 +117,9 @@ public class MyWebSocket extends WebSocketClient {
 
     private void handleLeave(LiveMsgBean eventBean) {
         this.iEvent.onLeave(eventBean);
+    }
+    private void handleLiveFinish(LiveMsgBean eventBean) {
+        this.iEvent.onLiveFinished(eventBean);
     }
 
 

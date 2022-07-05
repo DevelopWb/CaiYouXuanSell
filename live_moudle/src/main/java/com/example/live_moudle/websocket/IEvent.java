@@ -12,16 +12,13 @@ public interface IEvent {
     void onOpen();
 
 
-
-
     void onNewPeer(LiveMsgBean eventBean);
 
-
     void onLeave(LiveMsgBean eventBean);
-
-
+    void onLiveFinished(LiveMsgBean eventBean);
 
     void onDisConnect(LiveMsgBean eventBean);
+    void onNewTalk(LiveMsgBean eventBean);
 
     void reConnect();
 

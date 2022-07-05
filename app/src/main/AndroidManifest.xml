@@ -53,9 +53,7 @@
         <activity android:name=".home.shop.ShopManagerActivity" />
         <activity android:name=".home.systemNotice.PicTextActivity" />
         <activity android:name=".home.systemNotice.SystemNoticeActivity" />
-        <activity android:name="com.example.live_moudle.live.LivePrepareActivity" />
-        <activity android:name="com.example.live_moudle.live.StartLiveActivity" />
-        <activity android:name="com.example.live_moudle.live.LiveEndActivity" />
+
         <activity android:name=".home.commodityManager.CommodityManagerActivity" />
 
 

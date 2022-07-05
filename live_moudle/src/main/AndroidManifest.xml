@@ -6,5 +6,8 @@
         <service
             android:name=".live.BackgroundService"
             android:enabled="true" />
+        <activity android:name=".live.LivePrepareActivity" />
+        <activity android:name=".live.StartLiveActivity" />
+        <activity android:name=".live.LiveEndActivity" />
     </application>
 </manifest>
