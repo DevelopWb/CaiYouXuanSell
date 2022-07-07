@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.live_moudle.bean.LiveListBean;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
@@ -57,6 +58,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
     private String shareDes;
     private String shareUrl;
     private LinearLayout mRootLl;
+    private LiveListBean.DataBean.ListBean bean;
 
     /**
      * @param mContext
@@ -70,6 +72,17 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                 .putExtra(BASE_STRING, pic)
                 .putExtra(BASE_STRING3, shareUrl)
                 .putExtra(BASE_STRING2, des);
+        mContext.startActivity(intent);
+
+    }
+    /**
+     * @param mContext
+     * @param type     0是店铺 1是商品 2是直播
+     */
+    public static void startShareActivity(Context mContext, int type, LiveListBean.DataBean.ListBean bean) {
+        Intent intent = new Intent(mContext, ShareActivity.class);
+        intent.putExtra(BASE_ID, type)
+                .putExtra(BASE_PARCELABLE, bean);
         mContext.startActivity(intent);
 
     }
@@ -94,6 +107,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
         mShareLiveShopIv = (ImageView) findViewById(R.id.share_live_shop_iv);
         mShopNameTv = (TextView) findViewById(R.id.shop_name_tv);
         mShopDesTv = (TextView) findViewById(R.id.shop_des_tv);
+        mShopDesTv.setVisibility(View.GONE);
         mShareLiveCl = (ConstraintLayout) findViewById(R.id.share_live_cl);
         mRootLl = (LinearLayout) findViewById(R.id.share_root_ll);
         mShareCoverIv = (ImageView) findViewById(R.id.share_cover_iv);
@@ -126,11 +140,7 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
                         break;
                     case HomePageContract.SHARE_SAVE_PIC:
                         // : 2022/5/21 保存到本地
-                        if (!FileCacheUtils.isFileExists(FileCacheUtils.getAppImagePath(false)+shareDes + ".png")) {
-                            FileCacheUtils.saveBitmapByView(ShareActivity.this,mContext, mRootLl, shareDes + ".png");
-                        }else {
-                            ToastUtils.toast(mContext, "已保存到本地");
-                        }
+                        FileCacheUtils.saveBitmapByView(ShareActivity.this, mContext, mRootLl, shareDes + ".png");
                         break;
                     case HomePageContract.SHARE_COPY_LINK:
                         copy(shareUrl);
@@ -158,9 +168,19 @@ public class ShareActivity extends BaseRecyclerviewActivity<HomePagePresent> imp
     @Override
     public void initData() {
         int type = getIntent().getIntExtra(BASE_ID, 0);
-        sharePic = getIntent().getStringExtra(BASE_STRING);
-        shareDes = getIntent().getStringExtra(BASE_STRING2);
-        shareUrl = getIntent().getStringExtra(BASE_STRING3);
+        if (2==type) {
+            bean = getIntent().getParcelableExtra(BASE_PARCELABLE);
+            sharePic = bean.getCoverImg();
+            shareDes = bean.getTitle();
+            shareUrl = bean.getShareLiveUrl();
+            ImageLoadUtil.loadHeadCirclePic(mContext,bean.getHeadPortrait(),mShareLiveShopIv);
+            mShopNameTv.setText(bean.getShopName());
+        }else {
+            sharePic = getIntent().getStringExtra(BASE_STRING);
+            shareDes = getIntent().getStringExtra(BASE_STRING2);
+            shareUrl = getIntent().getStringExtra(BASE_STRING3);
+        }
+
         ImageLoadUtil.loadImage(mContext, sharePic, mShareCoverIv);
         mQrcodeIv.setImageBitmap(CodeUtils.createQRCode(shareUrl, ScreenUtils.getInstance(mContext).getScreenWidth(), decodeFile(FileCacheUtils.getAppImagePath(true) + getSavedFileName(sharePic))));
         mShareDesTv.setText(shareDes);

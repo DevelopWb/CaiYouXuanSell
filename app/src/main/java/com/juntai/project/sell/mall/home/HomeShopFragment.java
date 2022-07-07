@@ -30,6 +30,7 @@ import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
 import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
+import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;
@@ -46,7 +47,7 @@ import java.util.List;
  */
 public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener {
     private LinearLayout mSearchLl, mSystemNoticeLl;
-    private ImageView mSwitchModeIv;
+    private ImageView mShareShopIv;
     private ImageView mShopOwnerHeadIv;
     /**
      * 店铺名称
@@ -67,6 +68,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     private RecyclerView mShopFlowRv;
     private ShopFlowAdapter shopFlowAdapter;
     private MarqueeView mMarqueeView;
+    private ShopHomeInfoBean.DataBean dataBean;
 
     @Override
     protected HomePagePresent createPresenter() {
@@ -163,8 +165,10 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
         View view = LayoutInflater.from(mContext).inflate(R.layout.shop_head_view, null);
         mSearchLl = (LinearLayout) view.findViewById(R.id.search_ll);
         mSystemNoticeLl = (LinearLayout) view.findViewById(R.id.system_notice_ll);
-        mSwitchModeIv = (ImageView) view.findViewById(R.id.share_shop_iv);
-        mSwitchModeIv.setOnClickListener(this);
+        mShareShopIv = (ImageView) view.findViewById(R.id.share_shop_iv);
+        mShareShopIv.setOnClickListener(this);
+        // TODO: 2022/7/7 暂时将分享店铺隐藏
+//        mShareShopIv.setVisibility(View.GONE);
         mSearchLl.setOnClickListener(this);
         view.findViewById(R.id.scan_iv).setOnClickListener(this);
         mShopOwnerHeadIv = (ImageView) view.findViewById(R.id.shop_owner_head_iv);
@@ -242,7 +246,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
             case AppHttpPathMall.SHOP_DETAIL:
                 ShopDetailBean shopDetailBean = (ShopDetailBean) o;
                 if (shopDetailBean != null) {
-                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
+                    ShopDetailBean.DataBean   dataBean = shopDetailBean.getData();
                     if (dataBean != null) {
                         getBaseAppActivity().startToShopAuthActivity(dataBean);
                     }
@@ -251,7 +255,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
             case AppHttpPathMall.SHOP_HOME_INFO:
                 ShopHomeInfoBean infoBean = (ShopHomeInfoBean) o;
                 if (infoBean != null) {
-                    ShopHomeInfoBean.DataBean dataBean = infoBean.getData();
+                    dataBean = infoBean.getData();
                     if (dataBean != null) {
                         mShopNameTv.setText(dataBean.getName());
                         Hawk.put(HawkProperty.SHOP_NAME, dataBean.getName());
@@ -315,7 +319,9 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.share_shop_iv:
-                // TODO: 2022/6/7 分享店铺
+                // : 2022/6/7 分享店铺
+                ShareActivity.startShareActivity(mContext, 0, dataBean.getHeadPortrait(), dataBean.getIntroduction(), dataBean.getShareUrl());
+
                 break;
             case R.id.search_ll:
                 break;

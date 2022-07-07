@@ -108,8 +108,10 @@ public class LivePrepareActivity extends BaseSelectPicsActivity<LivePresent> imp
                 LiveResultBean liveResultBean = (LiveResultBean) o;
                 if (liveResultBean != null) {
                     LiveResultBean.DataBean resultBean = liveResultBean.getData();
-
+                    resultBean.setTitle(getTextViewValue(mLiveTitle));
+                    resultBean.setCoverImg(liveCover);
                     startActivity(new Intent(mContext, StartLiveActivity.class).putExtra(BaseActivity.BASE_PARCELABLE,resultBean));
+                    finish();
                 }
                 break;
             default:

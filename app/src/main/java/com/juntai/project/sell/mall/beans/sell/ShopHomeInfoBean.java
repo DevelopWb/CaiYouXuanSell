@@ -56,6 +56,7 @@ public class ShopHomeInfoBean extends BaseResult {
         private String logo;
         private String introduction;
         private String createTime;
+        private String shareUrl;
         private double shopFraction;
         private int todayOrderNum;
         private double todayMoney;
@@ -67,6 +68,14 @@ public class ShopHomeInfoBean extends BaseResult {
         private int afterOrder;
         private List<CategoryListBean> categoryList;
         private List<SysNoticeListBean> sysNoticeList;
+
+        public String getShareUrl() {
+            return shareUrl == null ? "" : shareUrl;
+        }
+
+        public void setShareUrl(String shareUrl) {
+            this.shareUrl = shareUrl == null ? "" : shareUrl;
+        }
 
         public int getShopId() {
             return shopId;

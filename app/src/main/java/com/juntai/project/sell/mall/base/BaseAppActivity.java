@@ -21,9 +21,11 @@ import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.chat.base.uploadFile.UploadUtil;
 import com.example.chat.base.uploadFile.listener.OnUploadListener;
+import com.example.live_moudle.bean.LiveListBean;
+import com.example.live_moudle.util.UserInfoManagerLive;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.UploadFileBean;
-import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.address.AddressListBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -55,6 +57,7 @@ import com.juntai.project.sell.mall.order.orderDetail.OrderDetailActivity;
 import com.juntai.project.sell.mall.order.refund.RefundActivity;
 import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
 import com.juntai.project.sell.mall.order.send.SendActivity;
+import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
@@ -483,14 +486,18 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
                     OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
                     startToEvaluateActivity(commodityBean);
                 }
-
+                break;
+            case EventBusObject.LIVE_SHARE:
+                LiveListBean.DataBean.ListBean bean = (LiveListBean.DataBean.ListBean) eventBusObject.getEventObj();
+                bean.setHeadPortrait(UserInfoManagerLive.getHeadPic());
+                bean.setShopName(UserInfoManagerLive.getShopName());
+                ShareActivity.startShareActivity(mContext, 2,bean);
 
                 break;
             default:
                 break;
         }
     }
-
     /**
      * 跳入 评价
      */

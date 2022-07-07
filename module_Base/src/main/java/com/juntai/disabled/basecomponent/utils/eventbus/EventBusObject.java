@@ -49,7 +49,10 @@ public class EventBusObject {
      * 刷新商品列表
      */
     public final static String REFRESH_COMMODITY_LIST = "REFRESH_COMMODITY_LIST";
-
+    /**
+     * 分享
+     */
+    public final static String LIVE_SHARE = "LIVE_SHARE";
 
     private String eventKey;
 

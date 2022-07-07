@@ -35,11 +35,38 @@ public class LiveResultBean extends BaseResult {
 
         private String liveNumber;
         private String rtmpUrl;
+        private String coverImg;
+        private String shareLiveUrl;
+        private String title;
         private String flvUrl;
 
         public DataBean(String liveNumber, String rtmpUrl) {
             this.liveNumber = liveNumber;
             this.rtmpUrl = rtmpUrl;
+        }
+
+        public String getCoverImg() {
+            return coverImg == null ? "" : coverImg;
+        }
+
+        public void setCoverImg(String coverImg) {
+            this.coverImg = coverImg == null ? "" : coverImg;
+        }
+
+        public String getShareLiveUrl() {
+            return shareLiveUrl == null ? "" : shareLiveUrl;
+        }
+
+        public void setShareLiveUrl(String shareLiveUrl) {
+            this.shareLiveUrl = shareLiveUrl == null ? "" : shareLiveUrl;
+        }
+
+        public String getTitle() {
+            return title == null ? "" : title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title == null ? "" : title;
         }
 
         public String getLiveNumber() {
@@ -66,6 +93,9 @@ public class LiveResultBean extends BaseResult {
             this.flvUrl = flvUrl;
         }
 
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -75,15 +105,18 @@ public class LiveResultBean extends BaseResult {
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(this.liveNumber);
             dest.writeString(this.rtmpUrl);
+            dest.writeString(this.coverImg);
+            dest.writeString(this.shareLiveUrl);
+            dest.writeString(this.title);
             dest.writeString(this.flvUrl);
-        }
-
-        public DataBean() {
         }
 
         protected DataBean(Parcel in) {
             this.liveNumber = in.readString();
             this.rtmpUrl = in.readString();
+            this.coverImg = in.readString();
+            this.shareLiveUrl = in.readString();
+            this.title = in.readString();
             this.flvUrl = in.readString();
         }
 

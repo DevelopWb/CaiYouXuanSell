@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
 import com.example.live_moudle.base.InputTextMsgDialog;
+import com.example.live_moudle.bean.LiveListBean;
 import com.example.live_moudle.bean.LiveMsgBean;
 import com.example.live_moudle.net.AppHttpPathLive;
 import com.example.live_moudle.util.UserInfoManagerLive;
@@ -26,6 +27,8 @@ import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.MultipleItem;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 
 import java.util.Objects;
 
@@ -51,10 +54,11 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
     private boolean isCanShare = true, isCanLike = true;
     private MessageAdapter mAdapter;
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private   LiveListBean.DataBean.ListBean bean ;
 
-    public static CommentFragment newInstance(String liveId) {
+    public static CommentFragment newInstance(LiveListBean.DataBean.ListBean bean) {
         Bundle args = new Bundle();
-        args.putString("liveRoomId", liveId);
+        args.putParcelable("liveBean", bean);
         CommentFragment fragment = new CommentFragment();
         fragment.setArguments(args);
         return fragment;
@@ -79,7 +83,8 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
 
     @Override
     protected void initView() {
-        liveRoomId = getArguments().getString("liveRoomId");
+        bean = getArguments().getParcelable("liveBean");
+        liveRoomId = bean.getLiveNumber();
         mMsgRv = (RecyclerView) getView(R.id.messages);
         mMsgRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mMsgRv.setAdapter(mAdapter);
@@ -240,11 +245,8 @@ public class CommentFragment extends BaseMvpFragment<LivePresent> implements IVi
         if (id == R.id.message_input) {
             initInputTextMsgDialog();
         } else if (id == R.id.live_share_iv) {//分享
-//            if (mStreamCameraBean == null) {
-//                return;
-//            }
-//            initBottomDialog(mStreamCameraBean.getId(), mStreamCameraBean.getName(), mStreamCameraBean.getPhoneShareUrl(),
-//                    mStreamCameraBean.getEzOpen(), mPresenter.getMoreMenu());
+            EventManager.getEventBus().post(new EventBusObject(EventBusObject.LIVE_SHARE,bean));
+
         }
     }
 

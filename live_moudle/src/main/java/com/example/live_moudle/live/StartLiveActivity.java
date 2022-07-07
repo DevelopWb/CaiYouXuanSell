@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.live_moudle.LivePresent;
 import com.example.live_moudle.R;
+import com.example.live_moudle.bean.LiveListBean;
 import com.example.live_moudle.bean.LiveResultBean;
 import com.example.live_moudle.websocket.SocketManager;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
@@ -67,8 +68,8 @@ public class StartLiveActivity extends BaseMvpActivity<LivePresent> implements I
         mLiveCloseBtn.setOnClickListener(this);
         mCameraQiehuan = (ImageView) findViewById(R.id.camera_qiehuan);
         mCameraQiehuan.setOnClickListener(this);
-
-        commentFragment = CommentFragment.newInstance(liveBean.getLiveNumber()).setCanLike(false)
+        LiveListBean.DataBean.ListBean  liveListBean = new LiveListBean.DataBean.ListBean(liveBean.getLiveNumber(),liveBean.getTitle(),liveBean.getCoverImg(),liveBean.getRtmpUrl(),liveBean.getShareLiveUrl());
+        commentFragment = CommentFragment.newInstance(liveListBean).setCanLike(false)
                 .setCanShare(true).setOnLineUsersListener(this).setShareCallBack(true);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.camera_fl, commentFragment);

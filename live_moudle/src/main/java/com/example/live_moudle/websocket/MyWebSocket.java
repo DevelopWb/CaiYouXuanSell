@@ -130,6 +130,7 @@ public class MyWebSocket extends WebSocketClient {
         Map<String, String> childMap = new HashMap<>();
         childMap.put("liveNumber", room);
         childMap.put("userId", userId);
+        childMap.put("device", "0");
         map.put("data", childMap);
         JSONObject object = new JSONObject(map);
         final String jsonString = object.toString();
