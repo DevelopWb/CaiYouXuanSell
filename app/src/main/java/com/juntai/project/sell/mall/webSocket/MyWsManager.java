@@ -49,7 +49,7 @@ public class MyWsManager {
 
     public MyWsManager setWsUrl(String wsUrl) {
         if (builder != null) {
-            builder.wsUrl(wsUrl);
+            builder.wsUrl("ws://www.juntaikeji.com:21970/jt-mall/sellerSocket/99");
         }
         return this;
     }
@@ -80,20 +80,19 @@ public class MyWsManager {
     }
 
     public void startConnect() {
-        // TODO: 2022/6/21 暂时关闭
-//        try {
-//            if (myWsManager == null) {
-//                myWsManager = builder.build();
-//                myWsManager.setWsStatusListener(wsStatusListener);
-//            }
-//            if (!myWsManager.isWsConnected()) {
-//                myWsManager.startConnect();
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.d(TAG, "myWsManager-----Exception");
-//        }
+        try {
+            if (myWsManager == null) {
+                myWsManager = builder.build();
+                myWsManager.setWsStatusListener(wsStatusListener);
+            }
+            if (!myWsManager.isWsConnected()) {
+                myWsManager.startConnect();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "myWsManager-----Exception");
+        }
     }
 
     private WsStatusListener wsStatusListener = new WsStatusListener() {

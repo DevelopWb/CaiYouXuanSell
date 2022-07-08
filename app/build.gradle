@@ -95,7 +95,7 @@ dependencies {
     implementation project(':jjdxm-ijkplayer')
     implementation project(':module_Base')
     implementation project(':banner')
-    implementation project(':live_moudle')
+//    implementation project(':live_moudle')
 
 
     implementation project(':module_Video')
