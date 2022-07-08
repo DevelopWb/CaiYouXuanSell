@@ -49,7 +49,7 @@ public class MyWsManager {
 
     public MyWsManager setWsUrl(String wsUrl) {
         if (builder != null) {
-            builder.wsUrl("ws://www.juntaikeji.com:21970/jt-mall/sellerSocket/99");
+            builder.wsUrl(wsUrl);
         }
         return this;
     }
