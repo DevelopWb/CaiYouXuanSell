@@ -35,8 +35,8 @@ public class SystemNoticeAdapter extends BaseQuickAdapter<SystemNoticeListBean.D
                 helper.setTextColor(R.id.content_tv, ContextCompat.getColor(mContext, R.color.black));
             } else {
                 helper.setGone(R.id.unread_tag_tv, false);
-                helper.setTextColor(R.id.title_tv, ContextCompat.getColor(mContext, R.color.gray));
-                helper.setTextColor(R.id.content_tv, ContextCompat.getColor(mContext, R.color.gray));
+                helper.setTextColor(R.id.title_tv, ContextCompat.getColor(mContext, R.color.gray_deeper));
+                helper.setTextColor(R.id.content_tv, ContextCompat.getColor(mContext, R.color.gray_deeper));
             }
         }
 

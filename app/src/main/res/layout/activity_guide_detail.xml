@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".mine.guide.GuideDetailActivity">
 
-    <com.juntai.disabled.video.img.PhotoView
-        android:id="@+id/guide_pic_pv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <com.juntai.disabled.video.img.PhotoView
+            android:id="@+id/guide_pic_pv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 </LinearLayout>

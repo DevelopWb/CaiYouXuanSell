@@ -111,7 +111,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         startActivity(new Intent(mContext, CommodityManagerActivity.class));
                         break;
                     case HomePageContract.SHOP_MANAGER_ORDER:
-                        // TODO: 2022/6/7 订单管理
+                        // : 2022/6/7 订单管理
                         startActivity(new Intent(mContext, OrderManagerActivity.class));
                         break;
                     case HomePageContract.SHOP_MANAGER_LIVE:

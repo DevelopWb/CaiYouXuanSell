@@ -200,7 +200,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                         adapter.remove(position);
                         break;
                     case R.id.add_property_tv:
-                        // TODO: 2022/6/16 添加属性
+                        // : 2022/6/16 添加属性
                         TextView addPropertyTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.add_property_tv);
                         CommodityPropertyAdapter propertyAdapter = (CommodityPropertyAdapter) addPropertyTv.getTag();
                         propertyAdapter.addData(new StringBean("", position));
@@ -280,7 +280,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 CommodityFormatListBean.DataBean dataBean = (CommodityFormatListBean.DataBean) adapter.getItem(position);
 
-                // TODO: 2022/6/16 修改库存和价格
+                // : 2022/6/16 修改库存和价格
                 ModifyPriceStockFragment modifyPriceStockFragment = new ModifyPriceStockFragment();
                 modifyPriceStockFragment.show(getSupportFragmentManager(), "modifyPriceStockFragment");
                 modifyPriceStockFragment.setDataBean(dataBean, position);

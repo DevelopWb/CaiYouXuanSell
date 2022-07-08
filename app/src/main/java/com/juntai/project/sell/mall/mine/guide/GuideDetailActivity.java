@@ -34,14 +34,18 @@ public class GuideDetailActivity extends BaseAppActivity {
         mGuidePicPv.enable();
         switch (guideName) {
             case HomePageContract.GUIDE_MENU_ADD_COMMODITY:
-                // TODO: 2022/6/22 商品添加
-                ImageLoadUtil.loadImageCache(mContext, R.mipmap.guide_add_commodity_bg, mGuidePicPv);
+                // : 2022/6/22 商品添加
+                ImageLoadUtil.loadImageCache(mContext, R.mipmap.guide_add_commodity_icon, mGuidePicPv);
                 break;
             case HomePageContract.GUIDE_MENU_SHOP_FURNISH:
-                // TODO: 2022/6/22 店铺装修
+                // : 2022/6/22 店铺装修
+                ImageLoadUtil.loadImageCache(mContext, R.mipmap.guide_shop_zhuagnxiu, mGuidePicPv);
+
                 break;
             case HomePageContract.GUIDE_MENU_FINANCE_MANAGER:
-                // TODO: 2022/6/22 财务管理
+                // : 2022/6/22 财务管理
+                ImageLoadUtil.loadImageCache(mContext, R.mipmap.guide_assets_manager, mGuidePicPv);
+
                 break;
             default:
                 break;

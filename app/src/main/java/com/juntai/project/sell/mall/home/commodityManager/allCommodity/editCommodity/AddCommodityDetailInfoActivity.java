@@ -139,7 +139,6 @@ private boolean  isEdit = false;
                 break;
             case AppHttpPathMall.ADD_COMMODITY_BASE_INFO:
                 ToastUtils.toast(mContext, "添加成功");
-                // TODO: 2022/6/15 后期放开
                 startAllCommodityActivity();
                 EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
                 if (Hawk.contains(HawkProperty.COMMODITY_DETAIL)) {

@@ -211,7 +211,7 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
                         startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
                                 path), BASE_REQUEST_RESULT);
                     } else {
-                        // TODO: 2022/6/10 上传图片
+                        // : 2022/6/10 上传图片
                         mPresenter.uploadFile(AppHttpPathMall.UPLOAD_ONE_PIC, path);
                     }
                     break;

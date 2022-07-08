@@ -201,7 +201,7 @@ public class ShopFurnishActivity extends BaseAppActivity<ShopPresent> implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_banner_pics_tv:
-                // TODO: 2022/6/24 添加banner图片
+                // : 2022/6/24 添加banner图片
                 choseImage(0, ShopFurnishActivity.this, 3);
                 break;
             default:
