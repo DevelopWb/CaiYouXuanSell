@@ -36,6 +36,7 @@ import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
@@ -58,6 +59,7 @@ import com.juntai.project.sell.mall.order.refund.RefundActivity;
 import com.juntai.project.sell.mall.order.refund.RefundRequestActivity;
 import com.juntai.project.sell.mall.order.send.SendActivity;
 import com.juntai.project.sell.mall.share.ShareActivity;
+import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import java.util.ArrayList;
@@ -485,6 +487,16 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
                 if (this instanceof OrderManagerActivity) {
                     OrderDetailBean.CommodityListBean commodityBean = (OrderDetailBean.CommodityListBean) eventBusObject.getEventObj();
                     startToEvaluateActivity(commodityBean);
+                }
+                break;
+            case EventBusObject.HANDLER_MESSAGE:
+                MessageBodyBean messageBody = (MessageBodyBean) eventBusObject.getEventObj();
+                if (mContext instanceof ChatActivity) {
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
+                } else {
+                    ObjectBoxMallUtil.addMessage(messageBody);
+                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+
                 }
                 break;
             case EventBusObject.LIVE_SHARE:

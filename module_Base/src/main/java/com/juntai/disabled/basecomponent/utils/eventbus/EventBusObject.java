@@ -46,6 +46,10 @@ public class EventBusObject {
      */
     public final static String MESSAGE_BODY = "MESSAGE_BODY";
     /**
+     * 处理接收到的消息
+     */
+    public final static String HANDLER_MESSAGE = "HANDLER_MESSAGE";
+    /**
      * 刷新商品列表
      */
     public final static String REFRESH_COMMODITY_LIST = "REFRESH_COMMODITY_LIST";

@@ -18,8 +18,6 @@ public class MyApp extends MyChatApp {
     public static int timeLimit = 1000;
 
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,14 +28,12 @@ public class MyApp extends MyChatApp {
         if (UserInfoManagerMall.isLogin()) {
             MyWsManager.getInstance()
                     .init(getApplicationContext())
-                    .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId())
-                    .startConnect();
+                    .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId());
         } else {
             MyWsManager.getInstance()
                     .init(getApplicationContext());
         }
     }
-
 
 
     /**

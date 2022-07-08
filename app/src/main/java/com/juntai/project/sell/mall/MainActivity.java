@@ -172,6 +172,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     protected void onDestroy() {
         Log.e("EEEEEEEEEE", " = ChatMainActivity  onDestroy");
         stopService(new Intent(MainActivity.this, LocateAndUpload.class));
+        MyWsManager.getInstance().disconnect();
+
         super.onDestroy();
     }
 

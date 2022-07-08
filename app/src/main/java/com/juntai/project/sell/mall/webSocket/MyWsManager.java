@@ -13,9 +13,9 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
+import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
@@ -24,7 +24,6 @@ import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.news.ChatActivity;
-import com.juntai.project.sell.mall.utils.ObjectBoxMallUtil;
 import com.rabtman.wsmanager.WsManager;
 import com.rabtman.wsmanager.listener.WsStatusListener;
 
@@ -111,13 +110,8 @@ public class MyWsManager {
                 //未读
                 messageBody.setRead(false);
                 HawkProperty.setRedPoint(mContext, 1);
-                if (mContext instanceof ChatActivity) {
-                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
-                } else {
-                    ObjectBoxMallUtil.addMessage(messageBody);
-                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.HANDLER_MESSAGE, messageBody));
 
-                }
                 if (NotificationTool.SHOW_NOTIFICATION) {
                     showNotification(messageBody);
                 }
