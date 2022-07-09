@@ -65,15 +65,13 @@ public class MyPushService extends HmsMessageService {
     private void refreshedTokenToServer(String token) {
         Log.i(TAG, "sending token to server. token:" + token);
     }
-
     /**
      * This method is used to receive downstream data messages.
      * This method callback must be completed in 10 seconds. Otherwise, you need to start a new Job for callback processing.
-     *
+     * 透传消息走这个方法   或者通知栏消息foreground_show = true时回调  但是这时候 状态栏没有通知
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
 
 
         LogUtils.e("onMessageReceived is called");
@@ -87,6 +85,7 @@ public class MyPushService extends HmsMessageService {
         message.setNotifyType(0);
         message.setMessageID(remoteMessage.getMessageId());
         message.setExtra(remoteMessage.getDataOfMap());
+        message.setJsonData(remoteMessage.getData());
         if (notification != null) {
             LogUtils.e("\n getImageUrl: " + notification.getImageUrl()
                     + "\n getTitle: " + notification.getTitle()
@@ -106,6 +105,10 @@ public class MyPushService extends HmsMessageService {
 
             message.setTitle(notification.getTitle());
             message.setMessage(notification.getBody());
+            if (HWPushRegister.getPushCallback() != null) {
+                HWPushRegister.getPushCallback().onMessage(message);
+            }
+
         }
     }
 

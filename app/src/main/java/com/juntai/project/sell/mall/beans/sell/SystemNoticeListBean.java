@@ -98,9 +98,18 @@ public class SystemNoticeListBean extends BaseResult {
             private int type;
             private String title;
             private String content;
+            private String createTime;
             private int contentId;
             private String coverPhoto;
             private int isRead;
+
+            public String getCreateTime() {
+                return createTime == null ? "" : createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime == null ? "" : createTime;
+            }
 
             public int getId() {
                 return id;

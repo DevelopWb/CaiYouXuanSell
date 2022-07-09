@@ -25,7 +25,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 public class NotificationTool {
 
-    public static int CHAT_NOTICY_ID = 1000;
     //是否展示notification
     public static boolean SHOW_NOTIFICATION = false;
 
@@ -89,15 +88,7 @@ public class NotificationTool {
      * @return
      */
     public static Notification getNotification(Context context){
-        String channelId = "notifi";
-        String channelName = "消息";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            createNotificationChannel(context,channelId, channelName, importance);
-
-        }
-        return new NotificationCompat.Builder(context, channelId).build();
+        return new NotificationCompat.Builder(context, MSG_CHANNEL_ID).build();
     }
 
     @TargetApi(Build.VERSION_CODES.O)

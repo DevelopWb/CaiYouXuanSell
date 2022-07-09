@@ -4,6 +4,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
 
@@ -42,5 +43,6 @@ public class SystemNoticeAdapter extends BaseQuickAdapter<SystemNoticeListBean.D
 
         helper.setText(R.id.title_tv, item.getTitle());
         helper.setText(R.id.content_tv, item.getContent());
+        helper.setText(R.id.msg_time_tv, CalendarUtil.formatDataOfChatList(String.valueOf(item.getCreateTime())));
     }
 }

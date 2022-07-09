@@ -29,7 +29,6 @@ import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
 import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
-import com.juntai.project.sell.mall.order.allOrder.OrderManagerActivity;
 import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
@@ -112,7 +111,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         break;
                     case HomePageContract.SHOP_MANAGER_ORDER:
                         // : 2022/6/7 订单管理
-                        startActivity(new Intent(mContext, OrderManagerActivity.class));
+                      getBaseAppActivity().startToAllOrderActivity(1,0);
                         break;
                     case HomePageContract.SHOP_MANAGER_LIVE:
                         // : 2022/6/7 直播

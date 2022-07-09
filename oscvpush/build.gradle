@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+def configs = rootProject.ext.android
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 16
-        versionName "1.1.2"
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -59,7 +59,7 @@ group='com.github.hackycy'
 //task javadoc(type: Javadoc) {
 //    failOnError false
 //    source = android.sourceSets.main.java.sourceFiles
-//    classpath += sell.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 //    classpath += configurations.compile
 //}
 

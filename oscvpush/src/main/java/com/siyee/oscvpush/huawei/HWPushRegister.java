@@ -34,9 +34,9 @@ public class HWPushRegister implements IPushManager {
 
     public static final String HCM = "HCM";
     /**
-     * 这个更换应用的时候需要更改
+     * todo 这个更换应用的时候需要更改
      */
-    public static final String METADATA_KEY_APPID = "106344997";
+    public static final String METADATA_KEY_APPID = "106647193";
 
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
@@ -50,7 +50,7 @@ public class HWPushRegister implements IPushManager {
 
     private static IPushCallback mPushCallback;
 
-    public  void setPushCallback(IPushCallback pushCallback) {
+    public void setPushCallback(IPushCallback pushCallback) {
         if (pushCallback == null) {
             mPushCallback = new PushAdapter();
             return;
@@ -64,6 +64,7 @@ public class HWPushRegister implements IPushManager {
 
     /**
      * 只需要第一次调用时传入Context
+     *
      * @param applicationContext applicationContext
      * @return
      */
@@ -204,22 +205,13 @@ public class HWPushRegister implements IPushManager {
 
     @Override
     public String getRegId() {
-        final String[] regId = {null};
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    regId[0] = HmsInstanceId.getInstance(mContext)
-                            .getToken(MetaDataUtils.getMetaDataInApp(mContext, METADATA_KEY_APPID), HCM);
-                    HWPushRegister.getPushCallback().onGetRegId(PushConstants.SUCCESS_CODE, Token.buildToken(Target.HUAWEI, regId[0]));
-                } catch (ApiException e) {
-                    LogUtils.e(e.getMessage());
-                    HWPushRegister.getPushCallback().onGetRegId(PushConstants.UNKNOWN_CODE, null);
-                }
-            }
-        }.start();
-
-        return regId[0];
+        String token = "";
+        try {
+            token = HmsInstanceId.getInstance(mContext).getToken(getAppId(), HCM);
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        return token;
     }
 
 }

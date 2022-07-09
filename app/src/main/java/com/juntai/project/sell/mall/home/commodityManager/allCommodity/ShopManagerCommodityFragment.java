@@ -79,7 +79,10 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
 
     @Override
     protected void getRvAdapterData() {
-        mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder().add("putAwayStatus", String.valueOf(status)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
+        mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder()
+                .add("page",String.valueOf(page))
+                .add("limit",String.valueOf(limit))
+                .add("putAwayStatus", String.valueOf(status)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
     }
 
     @Override

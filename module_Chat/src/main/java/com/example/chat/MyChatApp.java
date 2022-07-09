@@ -205,8 +205,8 @@ public abstract class MyChatApp extends BaseApplication {
         } else if (RomUtil.isOppo()) {
             OppoPushRegister.getInstance(this).register("a8aaa44a557b420f921aa4079ec1774b", "34eecd930b2849edbc5162305fee687e");
         } else {
-            //小米
-            MiPushRegister.getInstance(this).register("2882303761520161715", "5302016173715");
+            //todo 这个需要更换
+            MiPushRegister.getInstance(this).register("2882303761520170581", "5432017028581");
         }
         if (RomUtil.isEmui()) {
             //华为

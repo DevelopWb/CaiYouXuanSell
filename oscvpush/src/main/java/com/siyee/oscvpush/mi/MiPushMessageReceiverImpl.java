@@ -15,6 +15,7 @@ import com.xiaomi.mipush.sdk.PushMessageReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 1、PushMessageReceiver 是个抽象类，该类继承了 BroadcastReceiver。<br/>
@@ -169,6 +170,9 @@ public class MiPushMessageReceiverImpl extends PushMessageReceiver {
         message.setMessageID(miPushMessage.getMessageId());
         message.setNotifyType(miPushMessage.getNotifyType());
         message.setTitle(miPushMessage.getTitle());
+        Map<String, String> map = miPushMessage.getExtra();
+        String data = map.get("data");
+        message.setJsonData(data);
         message.setExtra(miPushMessage.getExtra());
         message.setMessage(miPushMessage.getDescription());
         return message;

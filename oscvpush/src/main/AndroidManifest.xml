@@ -128,9 +128,12 @@
             </intent-filter>
         </service>
 
+
+
+        <!--       如果value = true     自动生成AAID和获取Push Token-->
         <meta-data
             android:name="push_kit_auto_init_enabled"
-            android:value="true" />
+            android:value="false" />
         <!-- 华为推送服务注册结束 -->
 
         <!-- 魅族推送服务注册开始 -->
@@ -152,5 +155,9 @@
         <!-- 魅族推送服务注册结束 -->
 
     </application>
-
+    <queries>
+        <intent>
+            <action android:name="com.huawei.hms.core.aidlservice" />
+        </intent>
+    </queries>
 </manifest>

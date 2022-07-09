@@ -10,6 +10,7 @@ public final class Message {
     private Integer notifyType;
 
     private String messageID;
+    private String JsonData;
 
     private String title;
 
@@ -33,6 +34,14 @@ public final class Message {
             message.setTarget(target);
         }
         return message;
+    }
+
+    public String getJsonData() {
+        return JsonData == null ? "" : JsonData;
+    }
+
+    public void setJsonData(String jsonData) {
+        JsonData = jsonData == null ? "" : jsonData;
     }
 
     public Target getTarget() {

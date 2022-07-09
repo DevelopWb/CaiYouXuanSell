@@ -11,6 +11,7 @@ import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
 import com.juntai.project.sell.mall.beans.sell.SystemNoticeListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
 import com.juntai.project.sell.mall.home.HomePagePresent;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
@@ -62,6 +63,10 @@ public class SystemNoticeActivity extends BaseRecyclerviewActivity<HomePagePrese
         noticeType = getIntent().getIntExtra(BASE_ID, 1);
         super.initView();
         mRecyclerview.setBackgroundResource(R.drawable.sp_filled_gray_lighter);
+        linearLayoutManager.setReverseLayout(true);
+        SmartRefreshLayout.LayoutParams layoutParams = (SmartRefreshLayout.LayoutParams) mRecyclerview.getLayoutParams();
+        layoutParams.height = SmartRefreshLayout.LayoutParams.WRAP_CONTENT;
+        mRecyclerview.setLayoutParams(layoutParams);
     }
 
     @Override

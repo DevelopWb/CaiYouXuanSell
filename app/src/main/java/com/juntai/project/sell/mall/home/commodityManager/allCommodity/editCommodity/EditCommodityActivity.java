@@ -28,7 +28,7 @@ public class EditCommodityActivity extends BaseShopActivity {
         int  commodityId = getIntent().getIntExtra(BASE_ID,0);
 
         // : 2022/6/15 获取商品详情
-        mPresenter.getCommodityDetail(getBaseBuilder().add("commodityId",String.valueOf(commodityId)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
+        mPresenter.getCommodityDetail(getBaseBuilder().add("commodityId",String.valueOf(commodityId)).build(), AppHttpPathMall.GET_COMMODITY_DETAIL);
 
 
 
@@ -75,7 +75,7 @@ public class EditCommodityActivity extends BaseShopActivity {
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
         switch (tag) {
-            case AppHttpPathMall.GET_ALL_COMMODITY:
+            case AppHttpPathMall.GET_COMMODITY_DETAIL:
                 CommodityDetailDataBean detailDataBean = (CommodityDetailDataBean) o;
                 if (detailDataBean != null) {
                     detailBean = detailDataBean.getData();

@@ -1,18 +1,16 @@
 package com.juntai.project.sell.mall.news;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.chat.R;
-import com.juntai.disabled.basecomponent.utils.MultipleItem;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.UrlFormatUtil;
+import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.NewsListBean;
 import com.negier.emojifragment.util.EmojiUtils;
 
@@ -49,12 +47,6 @@ public class ChatListAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         addItemType(MultipleItem.ITEM_CHAT_LIST_GROUP, R.layout.item_chat_list);
     }
 
-    public List<MessageBodyBean> changeGsonToList(String gsonString) {
-        Gson gson = new Gson();
-        List<MessageBodyBean> list = gson.fromJson(gsonString, new TypeToken<List<MessageBodyBean>>() {
-        }.getType());
-        return list;
-    }
 
     @Override
     protected void convert(BaseViewHolder helper, MultipleItem item) {
@@ -65,7 +57,11 @@ public class ChatListAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
             case MultipleItem.ITEM_CHAT_LIST_CONTACT:
                 NewsListBean.DataBean dataBean = (NewsListBean.DataBean) item.getObject();
                 helper.setText(R.id.item_name_tv, dataBean.getFromNickname());
-                ImageLoadUtil.loadHeadSquareImageHasCorner(mContext, UrlFormatUtil.getImageThumUrl(dataBean.getFromHead()), (ImageView) helper.getView(R.id.contact_name_iv));
+                if (TextUtils.isEmpty(dataBean.getFromHead())) {
+                    helper.setImageResource(R.id.contact_name_iv,R.mipmap.default_msg_icon);
+                }else {
+                    ImageLoadUtil.loadHeadCirclePic(mContext, UrlFormatUtil.getImageThumUrl(dataBean.getFromHead()), (ImageView) helper.getView(R.id.contact_name_iv));
+                }
                 String content = dataBean.getContent();
                 // TODO: 2022/4/18 新增消息类型的时候 这个地方需要注意
                 switch (dataBean.getMsgType()) {
