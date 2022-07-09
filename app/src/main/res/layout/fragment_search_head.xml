@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragment_serach_top"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         class="com.juntai.project.sell.mall.search.HomeSearchHeadFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -29,6 +29,7 @@ import com.juntai.project.sell.mall.home.shop.ShopFlowAdapter;
 import com.juntai.project.sell.mall.home.shopFurnish.ShopFurnishActivity;
 import com.juntai.project.sell.mall.home.systemNotice.SystemNoticeActivity;
 import com.juntai.project.sell.mall.mine.verified.VerifiedActivity;
+import com.juntai.project.sell.mall.search.SearchActivity;
 import com.juntai.project.sell.mall.share.ShareActivity;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 import com.orhanobut.hawk.Hawk;
@@ -111,7 +112,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                         break;
                     case HomePageContract.SHOP_MANAGER_ORDER:
                         // : 2022/6/7 订单管理
-                      getBaseAppActivity().startToAllOrderActivity(1,0);
+                        getBaseAppActivity().startToAllOrderActivity(1, 0);
                         break;
                     case HomePageContract.SHOP_MANAGER_LIVE:
                         // : 2022/6/7 直播
@@ -245,7 +246,7 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
             case AppHttpPathMall.SHOP_DETAIL:
                 ShopDetailBean shopDetailBean = (ShopDetailBean) o;
                 if (shopDetailBean != null) {
-                    ShopDetailBean.DataBean   dataBean = shopDetailBean.getData();
+                    ShopDetailBean.DataBean dataBean = shopDetailBean.getData();
                     if (dataBean != null) {
                         getBaseAppActivity().startToShopAuthActivity(dataBean);
                     }
@@ -323,6 +324,8 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
 
                 break;
             case R.id.search_ll:
+                // TODO: 2022/7/9 搜索
+                startActivity(new Intent(mContext, SearchActivity.class));
                 break;
             case R.id.scan_iv:
                 // : 2022/5/31 扫码

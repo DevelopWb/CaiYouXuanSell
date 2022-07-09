@@ -105,6 +105,9 @@
             android:name=".mine.modifyPwd.BackPwdActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".search.SearchActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".entrance.RegistActivity"
             android:launchMode="singleTop" />
         <activity

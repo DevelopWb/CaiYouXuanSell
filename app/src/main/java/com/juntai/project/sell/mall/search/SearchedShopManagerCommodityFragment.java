@@ -1,9 +1,10 @@
-package com.juntai.project.sell.mall.home.commodityManager.allCommodity;
+package com.juntai.project.sell.mall.search;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,6 +15,7 @@ import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
 import com.juntai.project.sell.mall.beans.sell.ShopCommodityManagerListBean;
 import com.juntai.project.sell.mall.home.HomePageContract;
+import com.juntai.project.sell.mall.home.commodityManager.allCommodity.ShopCommodityAdapter;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.CommodityDetailActivity;
 import com.juntai.project.sell.mall.home.commodityManager.allCommodity.editCommodity.EditCommodityActivity;
 import com.juntai.project.sell.mall.home.shop.ShopPresent;
@@ -27,18 +29,19 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/13 9:58
  */
-public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView, ShopCommodityAdapter.OnChildClickCallBack {
+public class SearchedShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopPresent> implements HomePageContract.IHomePageView, ShopCommodityAdapter.OnChildClickCallBack {
 
     private int status;
+    private String key;
 
     /**
      * @param onStatus 上架状态
      * @return
      */
-    public static ShopManagerCommodityFragment getInstance(int onStatus) {
+    public static SearchedShopManagerCommodityFragment getInstance(int onStatus) {
         Bundle bundle = new Bundle();
         bundle.putInt(BASE_ID, onStatus);
-        ShopManagerCommodityFragment shopCommodityFragment = new ShopManagerCommodityFragment();
+        SearchedShopManagerCommodityFragment shopCommodityFragment = new SearchedShopManagerCommodityFragment();
         shopCommodityFragment.setArguments(bundle);
         return shopCommodityFragment;
     }
@@ -78,11 +81,26 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
 
     @Override
     protected void getRvAdapterData() {
-        mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder()
-                .add("page",String.valueOf(page))
-                .add("limit",String.valueOf(limit))
-                .add("putAwayStatus", String.valueOf(status)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
+        startSearch(key);
     }
+
+    public void startSearch(String key) {
+        this.key = key;
+        if (TextUtils.isEmpty(key)) {
+            mSmartrefreshlayout.finishRefresh();
+            return;
+        }
+        if (mPresenter != null) {
+            mPresenter.getAllCommodity(getBaseAppActivity().getBaseBuilder()
+                    .add("page", String.valueOf(page))
+                    .add("putAwayStatus", "-1")
+                    .add("keyword", key)
+                    .add("limit", String.valueOf(limit)).build(), AppHttpPathMall.GET_ALL_COMMODITY);
+        }
+
+
+    }
+
     @Override
     protected boolean enableRefresh() {
         return true;
@@ -146,6 +164,7 @@ public class ShopManagerCommodityFragment extends BaseRecyclerviewFragment<ShopP
                 startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(BASE_ID, listBean.getId()));
             }
         });
+        baseQuickAdapter.setEmptyView(getBaseActivity().getAdapterEmptyView("没有搜索到相关商品",-1));
     }
 
     /**
