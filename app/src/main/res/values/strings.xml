@@ -4,8 +4,10 @@
     <string name="agreement_secret_xieyi">《隐私协议》</string>
     <string name="secret_xieyi_url">https://www.kb167.com/yinsi/zhcl-yinsi.html</string>
     <string name="user_xieyi_url">https://www.kb167.com/yinsi/zhcl-user.html</string>
+    <string name="open_shop_protocal">https://www.kb167.com/yinsi/zhcl-user.html</string>
     <string name="protocal_notice1">我已阅读并同意《隐私协议》</string>
     <string name="protocal_notice2">和《用户协议》</string>
+    <string name="open_shop_protocal_notice">《开店协议》查看</string>
     <string name="call_to_police_notice">警方提示:请放心填写,我们不会随意泄漏您的信息！</string>
 
     <string name="warn_mofify_name">好名字可以让你的朋友更容易记住你</string>

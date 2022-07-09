@@ -1,16 +1,19 @@
 package com.juntai.project.sell.mall.home.shop;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.beans.sell.ShopDetailBean;
+import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
 
 import okhttp3.FormBody;
@@ -26,6 +29,7 @@ public class ShopManagerActivity extends BaseShopActivity {
     private RadioButton mShopProtocalRb;
     private boolean isAgree = false;
     private ShopDetailBean.DataBean dataBean;
+    private TextView shopPtTv;
 
     @Override
     protected boolean isDetail() {
@@ -43,11 +47,13 @@ public class ShopManagerActivity extends BaseShopActivity {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
         TextView commitTv = view.findViewById(R.id.commit_tv);
         mShopProtocalRb = view.findViewById(R.id.shop_protocal_rb);
-        mShopProtocalRb.setVisibility(View.VISIBLE);
+        view.findViewById(R.id.shop_protocal_ll).setVisibility(View.VISIBLE);
         commitTv.setOnClickListener(this);
+        shopPtTv = view.findViewById(R.id.open_shop_protocal_tv);
+        shopPtTv.setOnClickListener(this);
         if (dataBean != null) {
             commitTv.setText("提交店铺修改");
-        }else {
+        } else {
             commitTv.setText("提交店铺申请");
 
         }
@@ -59,13 +65,15 @@ public class ShopManagerActivity extends BaseShopActivity {
     public void initData() {
         super.initData();
         dataBean = getIntent().getParcelableExtra(BASE_PARCELABLE);
-
         baseQuickAdapter.setNewData(mPresenter.getShopManagerData(dataBean, false));
-
+        String openShopPt = getString(R.string.open_shop_protocal_notice);
+        StringTools.setTextPartColor(shopPtTv, openShopPt, openShopPt.indexOf("《"), openShopPt.length()-2,
+                "#00c750");
     }
+
     @Override
     public boolean requestLocation() {
-        return dataBean==null;
+        return dataBean == null;
     }
 
     @Override
@@ -109,6 +117,12 @@ public class ShopManagerActivity extends BaseShopActivity {
                     mShopProtocalRb.setChecked(true);
                 }
                 isAgree = !isAgree;
+                break;
+            case R.id.open_shop_protocal_tv:
+                // :  todo 2022/7/9 查看开店协议 内容需要更改
+                startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url",
+                        getString(R.string.open_shop_protocal)));
+
                 break;
             default:
                 break;
