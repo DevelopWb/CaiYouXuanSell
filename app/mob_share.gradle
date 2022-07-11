@@ -7,22 +7,22 @@ MobSDK {
         //平台配置信息
         devInfo {
             Wechat {
-                appId "wx5fd6d26f7806a119"
-                appSecret "3e2818e7584b279d591cc7f82ecb24ed"
+                appId "wx21687da219abbe10"
+                appSecret "ec200c5d51034aec82b567793f4c43d3"
                 withShareTicket true
                 miniprogramType 2
             }
             QQ {
-                appId "102011696"
-                appKey "IQL2Xt0sWvjJekgN"
+                appId "102013525"
+                appKey "DKDsJZcR2TiiU8cr"
             }
             WechatMoments {
-                appId "wx5fd6d26f7806a119"
-                appSecret "3e2818e7584b279d591cc7f82ecb24ed"
+                appId "wx21687da219abbe10"
+                appSecret "ec200c5d51034aec82b567793f4c43d3"
             }
             WechatFavorite {
-                appId "wx5fd6d26f7806a119"
-                appSecret "3e2818e7584b279d591cc7f82ecb24ed"
+                appId "wx21687da219abbe10"
+                appSecret "ec200c5d51034aec82b567793f4c43d3"
             }
         }
     }

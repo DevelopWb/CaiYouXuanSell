@@ -99,10 +99,7 @@ dependencies {
     api librarys["eventbus"]
     api 'com.android.support.constraint:constraint-layout:1.1.3'
     api librarys["update"]
-    /**
-     * 角标
-     */
-    api "me.leolin:ShortcutBadger:1.1.22@aar"
+    implementation project(':shortcutbadger')
 
     api project(':zXingLiteLib')
     api project(':zhihu_matisse')

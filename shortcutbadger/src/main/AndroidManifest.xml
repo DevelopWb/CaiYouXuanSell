@@ -1,0 +1,53 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="me.leolin.shortcutbadger">
+    <!--for android-->
+    <!--<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>-->
+    <!--<uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS"/>-->
+    <!--<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />-->
+    <!--<uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />-->
+
+    <!--for Samsung-->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+
+    <!--for htc-->
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
+
+    <!--for sony-->
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
+    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
+
+    <!--for apex-->
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+
+    <!--for solid-->
+    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
+
+    <!--for huawei-->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+
+    <!--for ZUK-->
+    <uses-permission android:name="android.permission.READ_APP_BADGE"/>
+
+    <!--for OPPO-->
+    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+
+    <!--for EvMe-->
+    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
+    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        >
+
+        <!--注册小米设备的角标服务【应用角标功能相关】【不建议在小米设备上使用，因为小米上只要打开APP，角标就会消失，目前项目中用不到】-->
+        <service
+            android:name="me.leolin.shortcutbadger.BadgeIntentService"
+            android:exported="false"></service>
+    </application>
+</manifest>
