@@ -75,6 +75,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
      */
     public View getCustomTabView(int position) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.chat_home_shop_tabitem, null);
+        msgUnReadCountTv = v.findViewById(R.id.tabitem_count);
         TextView title = v.findViewById(R.id.tabitem_text);
         title.setTextSize(14);
         title.setText(titles[position]);

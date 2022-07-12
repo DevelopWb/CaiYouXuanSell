@@ -494,8 +494,17 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseReque
                 if (mContext instanceof ChatActivity) {
                     EventManager.getEventBus().post(new EventBusObject(EventBusObject.MESSAGE_BODY, messageBody));
                 } else {
-                    ObjectBoxMallUtil.addMessage(messageBody);
-                    EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+                    switch (messageBody.getMsgType()) {
+                        case 15:
+                            EventManager.getEventBus().post(new EventBusObject(EventBusObject.TO_HANDLER_ORDER, messageBody));
+
+                            break;
+                        default:
+                            ObjectBoxMallUtil.addMessage(messageBody);
+                            EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_NEWS_LIST, messageBody));
+                            break;
+                    }
+
 
                 }
                 break;

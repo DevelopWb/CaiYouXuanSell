@@ -31,6 +31,10 @@ public class EventBusObject {
      */
     public final static String REFRESH_NEWS_LIST = "REFRESH_NEWS_LIST";
     /**
+     * 待处理订单  待发货或者售后
+     */
+    public final static String TO_HANDLER_ORDER = "TO_HANDLER_ORDER";
+    /**
      * 更新规格数据
      */
     public final static String REFRESH_COMMODITY_FORMAT_DATA = "REFRESH_COMMODITY_FORMAT_DATA";
@@ -41,6 +45,11 @@ public class EventBusObject {
      * 未读消息总数
      */
     public final static String UNREAD_MSG_AMOUNT = "UNREAD_MSG_AMOUNT";
+    /**
+     * 待处理订单
+     *
+     */
+    public final static String UNHANDLER_ORDER_AMOUNT = "UNHANDLER_ORDER_AMOUNT";
     /**
      * 聊天内容
      */

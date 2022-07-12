@@ -2,16 +2,20 @@ package com.juntai.project.sell.mall.order.orderDetail;
 
 
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.OrderDetailItemBean;
-import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
+import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
+import com.juntai.project.sell.mall.base.selectPics.ShowSelectedPicsAdapter;
+import com.juntai.project.sell.mall.utils.bannerImageLoader.BannerObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,18 +46,28 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
 
         List<String> pics = orderDetailBean.getImages();
         if (pics != null&&pics.size()>0) {
-            helper.setGone(R.id.order_pics_fl,true);
-            SelectPhotosFragment selectPhotosFragment = SelectPhotosFragment.newInstance(String.valueOf(orderDetailBean.getTitle()));
-            FragmentTransaction transaction =  fragmentManager.beginTransaction();
-            transaction.replace(R.id.order_pics_fl,selectPhotosFragment);
-            transaction.commit();
-            selectPhotosFragment.setMaxCount(pics.size());
-            selectPhotosFragment
-                    .setPhotoDelateable(false).setIcons(pics);
+            List<BannerObject> bannerObjects = new ArrayList<>();
+            for (String pic : pics) {
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
 
+            }
+            helper.setGone(R.id.order_pics_rv,true);
+            RecyclerView  refundPicRv = helper.getView(R.id.order_pics_rv);
+            ShowSelectedPicsAdapter refundPicAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item,false);
+            refundPicAdapter.setDelateable(false);
+            refundPicRv.setAdapter(refundPicAdapter);
+            GridLayoutManager reFundLm = new GridLayoutManager(mContext,4);
+            refundPicRv.setLayoutManager(reFundLm);
+            refundPicAdapter.setNewData(pics);
+            refundPicAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
+
+                }
+            });
         }else {
-            helper.setGone(R.id.order_pics_fl,false);
-
+            helper.setGone(R.id.order_pics_rv,false);
         }
 
     }

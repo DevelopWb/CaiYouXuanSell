@@ -133,7 +133,7 @@ public class LoginActivity extends SmsCheckCodeActivity implements
                     MyChatApp.isReLoadWarn = true;
                     Hawk.put(HawkProperty.SP_KEY_USER, loginBean.getData());
                     Hawk.put(HawkProperty.SP_KEY_TOKEN, loginBean.getData().getToken());
-                    MyWsManager.getInstance() .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId());
+                    MyWsManager.getInstance() .setWsUrl(String.format("%s%s/%s",AppHttpPathMall.BASE_SOCKET,UserInfoManagerMall.getUserId(),UserInfoManagerMall.DEVICE_TYPE));
                     startActivity(new Intent(mContext, MainActivity.class));
                     finish();
                 }

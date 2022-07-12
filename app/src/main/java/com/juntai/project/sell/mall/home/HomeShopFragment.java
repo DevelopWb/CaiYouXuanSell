@@ -17,6 +17,7 @@ import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewFragment;
@@ -257,6 +258,15 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
                 if (infoBean != null) {
                     dataBean = infoBean.getData();
                     if (dataBean != null) {
+                        int shipmentsOrder = dataBean.getShipmentsOrder();
+                        int afterOrder = dataBean.getAfterOrder();
+                        int orderAmount = shipmentsOrder + afterOrder;
+                        if (orderAmount>0) {
+                            PicTextBean picTextBean = (PicTextBean) baseQuickAdapter.getItem(1);
+                            picTextBean.setUnReadAmount(orderAmount);
+                            baseQuickAdapter.notifyDataSetChanged();
+                        }
+
                         mShopNameTv.setText(dataBean.getName());
                         Hawk.put(HawkProperty.SHOP_NAME, dataBean.getName());
                         mShopCreatTimeTv.setText(String.format("开店时间：%s", dataBean.getCreateTime()));
@@ -313,6 +323,17 @@ public class HomeShopFragment extends BaseRecyclerviewFragment<HomePagePresent> 
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+       switch (eventBusObject.getEventKey()) {
+           case EventBusObject.TO_HANDLER_ORDER:
+               lazyLoad();
+               break;
+           default:
+               break;
+       }
     }
 
     @Override

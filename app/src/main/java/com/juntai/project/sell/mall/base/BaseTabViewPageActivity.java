@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.customview.CustomViewPager;
 import com.juntai.project.sell.mall.base.customview.MainPagerAdapter;
@@ -39,6 +40,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     private FrameLayout mTabFootFl;
     protected LinearLayout mSearchLl;
     private TextView mFinishTv;
+    private MainPagerAdapter baseTabAdapter;
 
 
     @Override
@@ -128,10 +130,10 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
 
     private void initTab() {
-        MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(),
+        baseTabAdapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(),
                 getTabTitles(),
                 getFragments());
-        mViewpageVp.setAdapter(adapter);
+        mViewpageVp.setAdapter(baseTabAdapter);
         mViewpageVp.setOffscreenPageLimit(getTabTitles().length);
         /*viewpager切换监听，包含滑动点击两种*/
         mViewpageVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -157,7 +159,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         for (int i = 0; i < mTabTb.getTabCount(); i++) {
             TabLayout.Tab tab = mTabTb.getTabAt(i);
             if (tab != null) {
-                tab.setCustomView(adapter.getCustomTabView(i));
+                tab.setCustomView(baseTabAdapter.getCustomTabView(i));
             }
         }
         /*viewpager切换默认第一个*/
@@ -171,4 +173,15 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
     protected abstract String[] getTabTitles();
 
+    @Override
+    public void onEvent(EventBusObject eventBusObject) {
+       switch (eventBusObject.getEventKey()) {
+           case EventBusObject.UNHANDLER_ORDER_AMOUNT:
+               int amount = (int) eventBusObject.getEventObj();
+               baseTabAdapter.setUnReadMsg(amount);
+               break;
+           default:
+               break;
+       }
+    }
 }

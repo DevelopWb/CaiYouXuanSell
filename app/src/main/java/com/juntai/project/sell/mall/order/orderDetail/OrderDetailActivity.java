@@ -338,18 +338,22 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                     refunds.add(new TextKeyValueBean("退款金额:", String.valueOf(fefundBean.getReturnPrice())));
                                     refunds.add(new TextKeyValueBean("申请时间:", fefundBean.getRefundTime()));
                                     refunds.add(new TextKeyValueBean("退款编号:", fefundBean.getSalesFormNumber()));
+                                    if (!TextUtils.isEmpty(fefundBean.getRemark())) {
+                                        refunds.add(new TextKeyValueBean("退款说明:", fefundBean.getRemark()));
+                                    }
                                     OrderDetailItemBean orderDetailItemBean = new OrderDetailItemBean("退款信息", refunds);
                                     List<String> refundPics = new ArrayList<>();
-                                    if (TextUtils.isEmpty(fefundBean.getPictureOne())) {
+                                    if (!TextUtils.isEmpty(fefundBean.getPictureOne())) {
                                         refundPics.add(fefundBean.getPictureOne());
                                     }
-                                    if (TextUtils.isEmpty(fefundBean.getPictureTwo())) {
+                                    if (!TextUtils.isEmpty(fefundBean.getPictureTwo())) {
                                         refundPics.add(fefundBean.getPictureTwo());
                                     }
-                                    if (TextUtils.isEmpty(fefundBean.getPictureThree())) {
+                                    if (!TextUtils.isEmpty(fefundBean.getPictureThree())) {
                                         refundPics.add(fefundBean.getPictureThree());
                                     }
                                     if (refundPics.size() > 0) {
+                                        refunds.add(new TextKeyValueBean("上传凭证", ""));
                                         orderDetailItemBean.setImages(refundPics);
                                     }
                                     itemBeans.add(orderDetailItemBean);

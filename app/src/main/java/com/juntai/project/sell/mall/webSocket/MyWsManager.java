@@ -11,7 +11,6 @@ package com.juntai.project.sell.mall.webSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.chat.util.UserInfoManagerChat;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
@@ -19,6 +18,7 @@ import com.juntai.disabled.basecomponent.bean.ContactBean;
 import com.juntai.disabled.basecomponent.bean.objectboxbean.MessageBodyBean;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HawkProperty;
+import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
@@ -48,6 +48,7 @@ public class MyWsManager {
 
     public MyWsManager setWsUrl(String wsUrl) {
         if (builder != null) {
+            LogUtil.e( wsUrl);
             builder.wsUrl(wsUrl);
         }
         return this;
@@ -90,20 +91,19 @@ public class MyWsManager {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "myWsManager-----Exception");
+            LogUtil.e( "myWsManager-----Exception");
         }
     }
 
     private WsStatusListener wsStatusListener = new WsStatusListener() {
         @Override
         public void onOpen(Response response) {
-            Log.d(TAG, "myWsManager-----onOpen");
-            Log.e("onOpen", "服务器连接成功");
+            LogUtil.e( "myWsManager-----onOpen");
         }
 
         @Override
         public void onMessage(String text) {
-            Log.e("onMessage", text + "\n\n");
+            LogUtil.e( text + "\n\n");
             //在这里接收和处理收到的ws数据吧
             if (!TextUtils.isEmpty(text)) {
                 MessageBodyBean messageBody = GsonTools.changeGsonToBean(text, MessageBodyBean.class);
@@ -121,19 +121,17 @@ public class MyWsManager {
 
         @Override
         public void onMessage(ByteString bytes) {
-            Log.d(TAG, "MyWsManager-----onMessage");
+            LogUtil.e( "MyWsManager-----onMessage");
         }
 
         @Override
         public void onReconnect() {
-            Log.d(TAG, "MyWsManager-----onReconnect");
-            Log.e("onReconnect", "服务器重连接中...");
+            LogUtil.e( "MyWsManager-----onReconnect");
         }
 
         @Override
         public void onClosing(int code, String reason) {
-            Log.d(TAG, "MyWsManager-----onClosing");
-            Log.e("onClosing", "服务器连接关闭中...");
+            LogUtil.e( "MyWsManager-----onClosing");
 
             //这一步我个人认为是比较骚的操作,上面提及了设备会出现断开后无法连接的情况,那这种无法连接的情
             //况我发现有可能会卡在这个关闭过程中,因为如果是确实断开后会确实的启动重连机制,至于还有别的坑
@@ -147,19 +145,17 @@ public class MyWsManager {
 
         @Override
         public void onClosed(int code, String reason) {
-            Log.d(TAG, "MyWsManager-----onClosed");
-            Log.e("onClosed", "服务器连接已关闭...");
+            LogUtil.e( "MyWsManager-----onClosed");
         }
 
         @Override
         public void onFailure(Throwable t, Response response) {
-            Log.d(TAG, "MyWsManager-----onFailure");
-            Log.e("onFailure", "服务器连接失败...");
+            LogUtil.e( "MyWsManager-----onFailure");
         }
     };
 
     public void showNotification(MessageBodyBean messageBody) {
-        Log.d(TAG, "MyWsManager-----onMessage---发送通知");
+        LogUtil.e( "MyWsManager-----onMessage---发送通知");
 //有时候会收到后台转发的自己发送的消息。。
         if (UserInfoManagerChat.getUserId() == messageBody.getFromUserId()) {
             return;
@@ -189,9 +185,9 @@ public class MyWsManager {
         if (myWsManager != null && myWsManager.isWsConnected()) {
             boolean isSend = myWsManager.sendMessage(content);
             if (isSend) {
-                Log.e("onOpen sendMessage", "发送成功");
+                LogUtil.e( "发送成功");
             } else {
-                Log.e("onOpen sendMessage", "发送失败");
+                LogUtil.e( "发送失败");
             }
         } else {
             if (myWsManager != null) {

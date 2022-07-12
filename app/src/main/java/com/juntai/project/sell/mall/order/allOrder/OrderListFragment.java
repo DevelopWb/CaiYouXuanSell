@@ -184,11 +184,14 @@ public class OrderListFragment extends BaseRecyclerviewFragment<OrderPresent> im
                 page = 1;
                 getList(key);
                 break;
+            case EventBusObject.TO_HANDLER_ORDER:
+                page = 1;
+                getRvAdapterData();
+                break;
             default:
                 break;
         }
     }
-
     @Override
     protected LinearLayoutManager getBaseAdapterManager() {
         return null;

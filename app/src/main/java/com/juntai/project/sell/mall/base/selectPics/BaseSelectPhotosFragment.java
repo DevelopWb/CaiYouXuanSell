@@ -223,7 +223,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
      *
      * @param arrays
      */
-    public void setIcons(List<String> arrays) {
+    public BaseSelectPhotosFragment setIcons(List<String> arrays) {
         icons.clear();
         if (selectedPicsAdapter != null) {
             selectedPicsAdapter.setNewData(icons);
@@ -244,6 +244,7 @@ public abstract class BaseSelectPhotosFragment<T> extends BaseAppFragment implem
         }else {
             icons.addAll(arrays);
         }
+        return this;
     }
 
     /**

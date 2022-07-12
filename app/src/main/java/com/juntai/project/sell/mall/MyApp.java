@@ -28,7 +28,7 @@ public class MyApp extends MyChatApp {
         if (UserInfoManagerMall.isLogin()) {
             MyWsManager.getInstance()
                     .init(getApplicationContext())
-                    .setWsUrl(AppHttpPathMall.BASE_SOCKET + UserInfoManagerMall.getUserId());
+                    .setWsUrl(String.format("%s%s/%s",AppHttpPathMall.BASE_SOCKET,UserInfoManagerMall.getUserId(),UserInfoManagerMall.DEVICE_TYPE));
         } else {
             MyWsManager.getInstance()
                     .init(getApplicationContext());

@@ -15,5 +15,23 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
-
+    <TextView
+        android:id="@+id/tabitem_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tabitem_text"
+        app:layout_constraintBottom_toTopOf="@+id/tabitem_text"
+        app:layout_constraintLeft_toRightOf="@+id/tabitem_text"
+        app:layout_constraintRight_toRightOf="@+id/tabitem_text"
+        android:minWidth="15dp"
+        android:minHeight="15dp"
+        android:visibility="gone"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_red_border"
+        android:text="1"
+        android:textSize="8sp"
+        android:gravity="center"
+        />
 </android.support.constraint.ConstraintLayout>
