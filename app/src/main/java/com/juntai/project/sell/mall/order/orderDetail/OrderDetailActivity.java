@@ -83,7 +83,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
         mOrderDetailTopFl.setVisibility(View.GONE);
         mOrderCommodityAdapter = new OrderCommodityAdapter(R.layout.comfirm_order_commodity_item);
         initRecyclerviewNoScroll(mOrderDetailCommodityRv, mOrderCommodityAdapter, LinearLayoutManager.VERTICAL);
-        mOrderInfoAdapter = new OrderBaseInfoAdapter(R.layout.mall_order_baseinfo_item, getSupportFragmentManager());
+        mOrderInfoAdapter = new OrderBaseInfoAdapter(R.layout.mall_order_baseinfo_item);
         initRecyclerviewNoScroll(mOrderInfoRv, mOrderInfoAdapter, LinearLayoutManager.VERTICAL);
         mOrderDetailTopFl.setVisibility(View.VISIBLE);
         mOrderDetailTopFl.addView(getOrderStatusView());
@@ -143,7 +143,7 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
             case 1:
                 return "买家已付款";
             case 2:
-                return "已发货";
+                return "待收货";
             case 3:
                 return "已完成,等待买家评价";
             case 4:
@@ -310,9 +310,9 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                                 arrays.add(new TextKeyValueBean("支付方式:", getPayTypeName(orderDetailBean.getPayType())));
                                 arrays.add(new TextKeyValueBean("付款时间:", orderDetailBean.getPaymentTime()));
                                 arrays.add(new TextKeyValueBean("发货时间:", orderDetailBean.getShipmentsTime()));
-                                arrays.add(new TextKeyValueBean("物流公司:", orderDetailBean.getLogisticsName()));
+                                logistics.add(new TextKeyValueBean("快递公司:", orderDetailBean.getLogisticsName()));
                                 logistics.add(new TextKeyValueBean("快递单号:", orderDetailBean.getLogisticsNumber()));
-                                logistics.add(new TextKeyValueBean("快递链接:", orderDetailBean.getLogisticsLink()));
+                                logistics.add(new TextKeyValueBean("物流信息:", orderDetailBean.getLogisticsLink()));
                                 arrays.add(new TextKeyValueBean("成交时间:", orderDetailBean.getConfirmTime()));
                                 break;
                             case 4:
@@ -415,17 +415,17 @@ public class OrderDetailActivity extends BaseAppActivity<OrderPresent> implement
                 }
             }
             String video = commodityEvaluateBean.getVideoUrl();
+
+            OrderDetailItemBean orderDetailItemBean = new OrderDetailItemBean("买家评价", buyerEvalute);
             if (!TextUtils.isEmpty(video)) {
                 pics.add(video);
+                orderDetailItemBean.setReFundVideoCover(commodityEvaluateBean.getVideoCover());
             }
-            if (buyerEvalute.size() > 0) {
-                OrderDetailItemBean orderDetailItemBean = new OrderDetailItemBean("买家评价", buyerEvalute);
-                if (pics.size() > 0) {
-                    orderDetailItemBean.setImages(pics);
-                }
-                itemBeans.add(orderDetailItemBean);
+            if (pics.size() > 0) {
+                orderDetailItemBean.setImages(pics);
+            }
+            itemBeans.add(orderDetailItemBean);
 
-            }
 
         }
 

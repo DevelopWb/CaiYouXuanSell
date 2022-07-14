@@ -138,14 +138,16 @@ public class ToolShare {
             setSharePlatform(sharePlatform, shareTitle, shareText, shareImageUrl, logo, shareUrl);
             sharePlatform.setTitleUrl(shareUrl);
             platform = ShareSDK.getPlatform(Wechat.NAME);
+            if (platform != null) {
             if (!platform.isClientValid()) {
                 ToastUtils.toast(mContext, "未安装微信");
                 return;
             }
             platform.setPlatformActionListener(listener);
-            platform.share(sharePlatform);
+            platform.share(sharePlatform);}
         } else if (shareType == SHARE_WECHAT_CIRCLE) {
             platform = ShareSDK.getPlatform(WechatMoments.NAME);
+            if (platform != null) {
             if (!platform.isClientValid()) {
                 ToastUtils.toast(mContext, "未安装微信");
 
@@ -157,7 +159,7 @@ public class ToolShare {
                 sharePlatform.setTitleUrl(shareUrl);
             }
             platform.setPlatformActionListener(listener);
-            platform.share(sharePlatform);
+            platform.share(sharePlatform);}
         }
         /**
          * 如果是QQ分享
@@ -169,12 +171,13 @@ public class ToolShare {
             }
             sharePlatform.setShareType(Platform.SHARE_WEBPAGE);
             platform = ShareSDK.getPlatform(QQ.NAME);
+            if (platform != null) {
             if (!platform.isClientValid()) {
                 ToastUtils.toast(mContext,"未安装QQ");
                 return;
             }
             platform.setPlatformActionListener(listener);
-            platform.share(sharePlatform);
+            platform.share(sharePlatform);}
         }
 
 //        else if (shareType == SHARE_QQ_ZONE) {

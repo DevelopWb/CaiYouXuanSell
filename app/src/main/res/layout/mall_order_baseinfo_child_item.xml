@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        android:textColorHighlight="#CCCCCC"
+        android:textIsSelectable="true"
         android:text="dfasdfasd"
         android:textSize="14dp" />
 

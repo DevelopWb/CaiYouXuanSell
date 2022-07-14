@@ -165,7 +165,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements
     protected void onResume() {
         super.onResume();
         MyWsManager.getInstance().startConnect();
-        MobSDK.submitPolicyGrantResult(true,null);
+        // : 2022/7/13 mob的隐私授权 不能删
+        MobSDK.submitPolicyGrantResult(true);
     }
 
     @Override

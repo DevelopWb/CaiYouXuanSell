@@ -97,7 +97,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".order.orderDetail.OrderDetailActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
         <activity
             android:name=".order.allOrder.OrderManagerActivity"
             android:launchMode="singleTask" />

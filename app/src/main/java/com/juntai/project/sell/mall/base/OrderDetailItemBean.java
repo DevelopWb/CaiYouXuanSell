@@ -14,12 +14,21 @@ public class OrderDetailItemBean {
     private String title;
     private List<TextKeyValueBean>  arrays;
     private List<String>  images;
+    private String reFundVideoCover;
 
     public List<String> getImages() {
         if (images == null) {
             return new ArrayList<>();
         }
         return images;
+    }
+
+    public String getReFundVideoCover() {
+        return reFundVideoCover == null ? "" : reFundVideoCover;
+    }
+
+    public void setReFundVideoCover(String reFundVideoCover) {
+        this.reFundVideoCover = reFundVideoCover == null ? "" : reFundVideoCover;
     }
 
     public void setImages(List<String> images) {

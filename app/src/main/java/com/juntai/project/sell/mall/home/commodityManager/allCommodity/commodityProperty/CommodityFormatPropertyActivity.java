@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.utils.eventbus.EventBusObject;
+import com.juntai.disabled.basecomponent.utils.eventbus.EventManager;
 import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
@@ -232,6 +233,7 @@ public class CommodityFormatPropertyActivity extends BaseRecyclerviewActivity<Sh
                 break;
             case AppHttpPathMall.EDIT_COMMODITY_FORMAT:
                 ToastUtils.toast(mContext, "提交成功");
+                EventManager.getEventBus().post(new EventBusObject(EventBusObject.REFRESH_COMMODITY_LIST,""));
                 finish();
                 break;
             case AppHttpPathMall.MODIFY_COMMODITY_PRICE_STOCK:

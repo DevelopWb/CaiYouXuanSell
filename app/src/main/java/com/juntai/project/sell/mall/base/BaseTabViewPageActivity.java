@@ -27,7 +27,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public static final String ORDER_ALL= "全部";
     public static final String ORDER_PAY = "待付款";
     public static final String ORDER_SEND = "待发货";
-    public static final String ORDER_IS_SEND = "已发货";
+    public static final String ORDER_IS_SEND = "待收货";
     public static final String ORDER_EVALUATE = "待评价";
     public static final String ORDER_FINISHED = "已完成";
     public static final String ORDER_REFUND = "退款订单";

@@ -1,7 +1,6 @@
 package com.juntai.project.sell.mall.order.orderDetail;
 
 
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,11 +24,9 @@ import java.util.List;
  * @date 2021/6/1 16:48
  */
 public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, BaseViewHolder> {
-    private FragmentManager fragmentManager;
 
-    public OrderBaseInfoAdapter(int layoutResId, FragmentManager fragmentManager) {
+    public OrderBaseInfoAdapter(int layoutResId) {
         super(layoutResId);
-        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -48,8 +45,11 @@ public class OrderBaseInfoAdapter extends BaseQuickAdapter<OrderDetailItemBean, 
         if (pics != null&&pics.size()>0) {
             List<BannerObject> bannerObjects = new ArrayList<>();
             for (String pic : pics) {
-                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
-
+                if (pic.endsWith(".mp4")) {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic, orderDetailBean.getReFundVideoCover())));
+                }else {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+                }
             }
             helper.setGone(R.id.order_pics_rv,true);
             RecyclerView  refundPicRv = helper.getView(R.id.order_pics_rv);

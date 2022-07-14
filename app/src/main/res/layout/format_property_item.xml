@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
-        android:maxLines="2"
         android:layout_weight="1" />
 
     <TextView

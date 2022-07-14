@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.bean.UploadFileBean;
-import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.bean.TextKeyValueBean;
+import com.juntai.disabled.basecomponent.bean.UploadFileBean;
+import com.juntai.disabled.basecomponent.utils.MultipleItem;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
@@ -19,6 +19,7 @@ import com.juntai.project.sell.mall.AppHttpPathMall;
 import com.juntai.project.sell.mall.AppNetModuleMall;
 import com.juntai.project.sell.mall.R;
 import com.juntai.project.sell.mall.base.BaseRecyclerviewActivity;
+import com.juntai.project.sell.mall.base.displayPicVideo.PicVideoDisplayActivity;
 import com.juntai.project.sell.mall.base.selectPics.SelectPhotosFragment;
 import com.juntai.project.sell.mall.beans.BaseAdapterDataBean;
 import com.juntai.project.sell.mall.beans.ItemFragmentBean;
@@ -32,6 +33,7 @@ import com.juntai.project.sell.mall.home.shop.shopCategory.ChoseCategoryActivity
 import com.juntai.project.sell.mall.mine.myinfo.HeadCropActivity;
 import com.juntai.project.sell.mall.utils.StringTools;
 import com.juntai.project.sell.mall.utils.UserInfoManagerMall;
+import com.juntai.project.sell.mall.utils.bannerImageLoader.BannerObject;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -513,12 +515,25 @@ public abstract class BaseShopActivity extends BaseRecyclerviewActivity<ShopPres
 
     @Override
     public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
-
+        showPicVideo(adapter, position);
     }
 
     @Override
     public void onPicClick(BaseQuickAdapter adapter, int position) {
+        showPicVideo(adapter, position);
+    }
 
+    private void showPicVideo(BaseQuickAdapter adapter, int position) {
+        List<BannerObject> bannerObjects = new ArrayList<>();
+        List<String> arrays = adapter.getData();
+        for (String pic : arrays) {
+            if (pic.endsWith(".mp4")) {
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_VIDEO, new BannerObject.VideoBean(pic, "")));
+            }else {
+                bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, pic));
+            }
+        }
+        PicVideoDisplayActivity.startPicVideoPlayActivity(mContext,bannerObjects,position);
     }
 
     @Override
